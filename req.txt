@@ -1,0 +1,6 @@
+beautifulsoup4
+invoke
+livereload
+Markdown
+pelican
+typogrify

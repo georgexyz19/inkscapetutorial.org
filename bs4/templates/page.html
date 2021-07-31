@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/page.css">
+{% endblock %}
+
+{% block title %}{{ page.title|striptags }} - {{ SITENAME }}{% endblock %}
+
+{% block meta %}
+{% if page.author %}
+<meta name="author" content="{{ page.author }}" />
+{% else %}
+<meta name="author" content="{{ AUTHOR }}" />
+{% endif %}
+{% if page.tags %}
+<meta name="keywords" content="{{ page.tags|join(',')|striptags }}" />
+{% endif %}
+{% if page.summary %}
+<meta name="description" content="{{ page.summary|striptags|escape }}" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+           
+  {{ page.content }}
+  
+{% endblock %}
+
+
