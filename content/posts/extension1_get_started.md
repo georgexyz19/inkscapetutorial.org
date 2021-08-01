@@ -125,9 +125,12 @@ The Inscape 1.1 extensions require Python 3.6 and above. If you somehow get an
 old Inkscape extension which does not run in version 1.1, try to load it 
 with Inkscape 0.92.5 and it may work well. 
 
+## Objectives
 
-
-
+This tutorial series will not cover everything in Inkscape extension development. 
+The articles are developed from my notes.  It is not as formal 
+as a typical book or software manual, but it is in a much better shape than 
+my notes. I am trying to point the right direction for beginners. 
 
 
 

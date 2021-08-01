@@ -341,6 +341,11 @@ If you install inkscape via `snap`, you will have a difficult time to modidfy an
 files under `/snap` directory.  How do I know it? I waste 3 hours trying 
 various methods and it turns out to be a security feature of snap apps. 
 
+The `InkscapeExtension` class defines a `debug` method. We can invoke this method 
+to output messages. The method redirects a message to the stardard error stream,  
+and Inkscape will display the message on a dialog box. However, the logging 
+module is more flexible to use than this method. 
+
 ## What's Next
 
 You may feel overwhelmed or even frustrated by now if you are not very familar 
