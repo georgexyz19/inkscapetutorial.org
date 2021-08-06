@@ -47,7 +47,14 @@ In fact we make a copy of the `Triangle.inx` file and modify it. Now we can clic
 ## Python Hello.py Code
 
 The `hello.py` file also does not have much new code than in the `triangle.py`. 
-The `add_text` method is from another system extension module `path_number_node.py` module.  
+The `add_text` method is modified from another system extension module `path_number_node.py`. 
+It creates a TextElement and sets the `text` and `style` attributes. The 
+element is then added onto the current layer via the `layer.add` method. 
+
+The `Triangle` extension discussed in the previous chapters essentially does 
+the same thing. It creates an `PathElement`, and then the element is added to 
+the current layer. 
+
 
 ```python
 import inkex

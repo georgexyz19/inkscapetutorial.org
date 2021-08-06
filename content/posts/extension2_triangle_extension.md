@@ -342,9 +342,10 @@ files under `/snap` directory.  How do I know it? I waste 3 hours trying
 various methods and it turns out to be a security feature of snap apps. 
 
 The `InkscapeExtension` class defines a `debug` method. We can invoke this method 
-to output messages. The method redirects a message to the stardard error stream,  
+to output messages. The method redirects a message to the stardard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
-module is more flexible to use than this method. 
+module is more flexible to use than this method. The `debug` method is more 
+for showing an error message to the extension user. 
 
 ## What's Next
 

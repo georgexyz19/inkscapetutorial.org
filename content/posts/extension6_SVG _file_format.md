@@ -12,7 +12,7 @@ an open standard developed by the World Wide Web (W3C) consortium. SVG files are
 documents and all major modern web browers support SVG rendering.  
 
 Let's create a new blank svg file and see what the code looks like. Launch the Inkscape and 
-click the menu `File -> New` to create a new blank file, and save the file as 'new-drawing.svg'. 
+click the menu `File -> New` to create a new blank file, and save the file as `new-drawing.svg`. 
 Open the file with a text editor (such as gedit in Ubuntu). Below is the code in the SVG file. 
 
 ```xml
@@ -80,12 +80,14 @@ tags can reference the `defs` tag.
 The `g` tag is a shorthand for group.  SVG itself does not have layer element. Inkscape uses 
 group tag with additional attribute `groupmode` to represent layer ➎. 
 
+## Shapes
 
 
 
+## Path
 
 
-
+## References
 
 
 
