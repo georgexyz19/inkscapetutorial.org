@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="169.96753mm"
+   height="84.306122mm"
+   viewBox="0 0 169.96753 84.306122"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="newelement.svg"
+   inkscape:version="1.1 (1:1.1+202106032008+af4d65493e)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.2810466"
+     inkscape:cx="641.27255"
+     inkscape:cy="395.77015"
+     inkscape:window-width="2560"
+     inkscape:window-height="1563"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-object-midpoints="true"
+     showguides="false"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     fit-margin-right="5" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.43334961,-0.82617187)">
+    <line
+       x1="10"
+       y1="10"
+       x2="40"
+       y2="40"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="line10323" />
+    <line
+       x1="40"
+       y1="10"
+       x2="10"
+       y2="40"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="line10325" />
+    <line
+       x1="50"
+       y1="10"
+       x2="80"
+       y2="40"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="line10327" />
+    <line
+       x1="50"
+       y1="40"
+       x2="80"
+       y2="10"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="line10329" />
+    <rect
+       x="10"
+       y="60"
+       width="30"
+       height="20"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="rect10331" />
+    <rect
+       x="50"
+       y="60"
+       width="30"
+       height="20"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="rect10333" />
+    <circle
+       cx="105"
+       cy="25"
+       r="15"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="circle10335" />
+    <ellipse
+       cx="105"
+       cy="70"
+       rx="15"
+       ry="10"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="ellipse10337" />
+    <polygon
+       points="145,40 130,40 130,10 160,10 160,25 145,25 "
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="polygon10339" />
+    <path
+       d="m 130,60 h 30 v 10 h -15 v 10 h -15 z"
+       style="fill:none;stroke:#000000;stroke-width:0.264583"
+       id="path10341" />
+    <text
+       x="10"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10343">(10,10)</text>
+    <text
+       x="40"
+       y="44"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10345">(40,40)</text>
+    <text
+       x="40"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10347">(40,10)</text>
+    <text
+       x="10"
+       y="44"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10349">(10,40)</text>
+    <text
+       x="50"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10351">(50,10)</text>
+    <text
+       x="80"
+       y="44"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10353">(80,40)</text>
+    <text
+       x="50"
+       y="44"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10355">(50,40)</text>
+    <text
+       x="80"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10357">(80,10)</text>
+    <text
+       x="105"
+       y="23"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10359">(105,25)</text>
+    <text
+       x="105"
+       y="68"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10361">(105,70)</text>
+    <text
+       x="10"
+       y="58"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10363">(10,60)</text>
+    <text
+       x="50"
+       y="58"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10365">(50,60)</text>
+    <text
+       x="130"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10367">(130,10)</text>
+    <text
+       x="130"
+       y="58"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10369">(130,60)</text>
+    <text
+       x="160"
+       y="8"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10371">(160,10)</text>
+    <text
+       x="160"
+       y="58"
+       style="font-size:3px;text-align:center;text-anchor:middle"
+       xml:space="preserve"
+       id="text10373">(160,60)</text>
+    <circle
+       cx="10"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10375" />
+    <circle
+       cx="40"
+       cy="40"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10377" />
+    <circle
+       cx="40"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10379" />
+    <circle
+       cx="10"
+       cy="40"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10381" />
+    <circle
+       cx="50"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10383" />
+    <circle
+       cx="80"
+       cy="40"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10385" />
+    <circle
+       cx="50"
+       cy="40"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10387" />
+    <circle
+       cx="80"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10389" />
+    <circle
+       cx="105"
+       cy="25"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10391" />
+    <circle
+       cx="105"
+       cy="70"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10393" />
+    <circle
+       cx="10"
+       cy="60"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10395" />
+    <circle
+       cx="50"
+       cy="60"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10397" />
+    <circle
+       cx="130"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10399" />
+    <circle
+       cx="130"
+       cy="60"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10401" />
+    <circle
+       cx="160"
+       cy="10"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10403" />
+    <circle
+       cx="160"
+       cy="60"
+       r="0.66145003"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="circle10405" />
+  </g>
+</svg>

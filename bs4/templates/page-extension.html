@@ -28,7 +28,7 @@
 
     <h2 class="my-4">Table Of Contents</h2>
   
-    {% for article in articles | selectattr('category', 'equalto', 'extension') | sort(attribute='chapter') %}
+    {% for article in articles | selectattr('category', 'equalto', 'extension') | my_sort %}
   
       <p class="pl-4">
         <a href="{{ SITEURL }}/{{ article.url }}">Chapter {{ article.chapter }}. {{ article.title }}</a>

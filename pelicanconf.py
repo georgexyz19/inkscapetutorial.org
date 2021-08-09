@@ -53,6 +53,13 @@ MARKDOWN = {
 # CATEGORY_SAVE_AS = ''
 # CATEGORIES_SAVE_AS = ''
 
+# used in page-extension.html to sort chapter numbers 1, 2, ... 10 etc
+def my_sort(value):
+    sort_by = lambda x: int(x.chapter)
+    return sorted(value, key = sort_by)
+
+JINJA_FILTERS = {'my_sort': my_sort}
+
 # not using author
 AUTHORS_URL = ''
 AUTHORS_SAVE_AS = ''
