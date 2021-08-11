@@ -82,13 +82,128 @@ group tag with additional attribute `groupmode` to represent layer ➎.
 
 ## Shapes
 
+There are [six baisc element shapes](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) 
+in SVG specs: line, rect, circle, ellipse, polyline, and polygon. When we are working 
+on a drawing in Inkscape, we can create three types rect, circle, and ellipse. Inkscape 
+uses paths for other types. The example drawing below is created in Inkscape, 
+and the SVG code is shown below. 
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext6/shapes.svg" alt="shapes"> 
+</div>
+
+```xml
+<g
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   id="layer1">
+   <rect
+      id="rect31"
+      width="40"
+      height="30"
+      x="10"
+      y="10" />
+   <ellipse
+      id="path135"
+      cx="80"
+      cy="25"
+      rx="20"
+      ry="15" />
+   <path
+      d="m 11.386056,53.443756 35.2468,23.203125"
+      id="path568" />
+   <circle
+      id="path1280"
+      cx="123.56148"
+      cy="25.414518"
+      r="14.997319" />
+   <path
+      sodipodi:type="star"
+      id="path1777"
+      inkscape:flatsided="false"
+      sodipodi:sides="8"
+      sodipodi:cx="265.96295"
+      sodipodi:cy="215.55252"
+      sodipodi:r1="52.037506"
+      sodipodi:r2="26.018753"
+      sodipodi:arg1="0.78539816"
+      sodipodi:arg2="1.1780972"
+      inkscape:rounded="0"
+      inkscape:randomized="0"
+      d="m 302.75903,252.34859 -26.83913,-12.75788 
+      -9.95695,27.99932 -9.95694,-27.99932 
+      -26.83913,12.75788 12.75788, ... z"
+      transform="matrix(0.26458333,0,0,0.26458333,
+      -3.5417846,8.6272505)" />
+   <path
+      d="M 88.033107,69.531115 C 108.42781,53.650369 
+      124.06814,55.364785 141.88598,71.15598"
+      id="path2216"
+      sodipodi:nodetypes="cc" />
+</g>
+```
+
+The star shape is an Inkscape specific element. When we open the 
+drawing in another program, it may treat it as a path element. 
+
+## Paths
+
+Path element is more powerful than basic shapes. It has a `d` attribute 
+which consists of commands and values. The command is a single letter followed by 
+a value or a coordinate. The uppercase command indicates parameters are absolute 
+values, and lowercase command indicates relative values. 
+The Mozilla *SVG Tutorial* has [more information on paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths). 
+Here are the commands.  
+
+M/m
+: Move to 
+
+L/l
+: Line to
+
+H/h
+: Horizontal line to
+
+V/v
+: Vertical line to
+
+Q/q
+: Quadratic curve to
+
+T/t
+: Smooth quadratic curve to
+
+C/c
+: Cubic curve to
+
+S/s
+: Smooth cubic curve to
+
+A/a
+: elliptical arc to
+
+Z/z
+: Close the path
 
 
-## Path
-
+Inkscape itself has lots of functions built around paths. Most 
+of those functions are listed under the top level menu `Path`. For example, we can choose a 
+ rectangle element and click the first sub-menu `Object to Path`, the SVG tag of the element change 
+ from `rect` to `path` with correct `d` attribute. 
 
 ## References
 
+The SVG is an open standard by W3C. The Inkscape produced SVG follows version 1.1. 
+The 1.1 version spec is at this link. 
+
+[https://www.w3.org/TR/SVG11/](https://www.w3.org/TR/SVG11/)
+
+The 2.0 version is at this link. 
+
+[https://www.w3.org/TR/SVG2/](https://www.w3.org/TR/SVG2/)
+
+
+O'Reilly has published a book *SVG Essentials (2nd ed)*. It is a decent reference book. 
 
 
 

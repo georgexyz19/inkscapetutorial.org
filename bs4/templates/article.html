@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-md-12 col-lg-9">
 
-      <h1>{{ article.title }}</h1>
+      <h1>Chapter {{ article.chapter }}.&nbsp;&nbsp;{{ article.title }}</h1>
 
       <div class="text-muted mb-2">
         <span>Posted on </span>
@@ -47,23 +47,13 @@
 
       {{ article.content }}
 
-      {% if article.related_posts %}
-      <div class="mt-5 border-top">
-        <h3>Related Posts:</h3>
-        <ul>
-          {% for related_post in article.related_posts %}
-          <li><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
-
     </div>
 
 
     <div class="d-md-none d-lg-block col-lg-3 bg-light">
       <h2>Side Bar</h2>
+
+      {% include "_sidebar_inkex.html"%}
 
     </div>
 

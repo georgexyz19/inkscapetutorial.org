@@ -120,6 +120,13 @@ most of what we need to know about Inkscape units and coordinate system mapping.
 sw = self.svg.unittouu('1px') # sw is .2645...
 ```
 
+If we want `10pt` font size text, we set the font-size to the below value. This is a more natural 
+way to describe element sizes. 
+
+```python
+fz = self.svg.unittouu('10pt') # fz value is 3.5278
+```
+
 You may find coordinate mapping confusing if you do 
 not have prior experiences on computer graphics system. The Inkscape 1.0 changes the 
 y-axle of the viewport coordinate system to increase fom top to bottom, and origin to the 
