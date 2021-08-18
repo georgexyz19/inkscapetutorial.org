@@ -233,3 +233,28 @@ The SVG results are also shown below.
        id="rect1017" />
 
 ```
+
+## Other Classes
+
+The `transforms` module also includes several other classes and functions.  The 
+notable classes are `Vector2d`, `BoundingBox`, and `DirectedLineSegment`. It also 
+defines two functions `cubic_extrema` and `quadratic_extrema`.  Those classes
+and functions are not necessarily related to `transforms`. 
+
+The `Vector2d` and `DirectedLineSegment` classes are very useful when we are working 
+on mathematical drawings. We can use vector algebra to get the coordinates 
+of points, then draw them as lines or polygons on the canvas. 
+
+
+
+## References
+
+Anthony J. Pettofrezzo published two books *Vectors and Their Applicaitons* and 
+*Matrices And Transformations*. Both books are revelent to the `transforms` module. 
+
+The book *Mathematical Illustrations, A Manual Of Geometry and Postscript* by 
+Bill Casselman is an excellent reference for math drawings. 
+
+The book *Introduction To Computer Graphics* by James Foley and others has a chapter 
+Geometrical Transformations. The trasform equations in this book are in the 
+same format as shown on this page. 

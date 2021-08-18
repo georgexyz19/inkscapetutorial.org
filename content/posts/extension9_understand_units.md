@@ -133,3 +133,103 @@ y-axle of the viewport coordinate system to increase fom top to bottom, and orig
 top left corner. Before Inkscape 1.0, the origin is at the bottom left corner. You can 
 imagine that the coordinate systems are even more confusing then. 
 
+## Units Module 
+
+The `inkex/units.py` Python module is independent of other modules, so it's easy to 
+understand code in this module. Let's experiment the module in Python interpreter. 
+Start the python interpreter with `/usr/bin/python3` command if the system has multiple python 
+versions installed.  This is the system Python with `lxml` module installed. 
+
+```
+george@Inspiron-5515:~$ /usr/bin/python3
+Python 3.9.5 (default, May 11 2021, 08:20:37) 
+[GCC 10.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+```
+
+If we simply import `inkex`, the interpreter can't find where the module is located. 
+We can add the path to the `sys.path`.  
+
+```python
+>>> import inkex
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'inkex'
+
+>>> import sys
+>>> sys.path.append('/usr/share/inkscape/extensions')
+
+>>> import inkex
+>>> dir(inkex.units)
+[...]
+>>> help(inkex.units)
+```
+
+
+The `help(inkex.units)` command will show the functions defined in the module and 
+a short description for each function. 
+
+* `are_near_relative(point_a, point_b, eps=0.01)`  
+    Return true if the points are near to eps
+
+* `convert_unit(value, to_unit, default='px')`  
+    Returns userunits given a string representation of units in another system
+
+* `discover_unit(value, viewbox, default='px')`  
+    Attempt to detect the unit being used based on the viewbox
+
+* `parse_unit(value, default_unit='px', default_value=None)`  
+    Takes a value such as 55.32px and returns (55.32, 'px')  
+    Returns default (None) if no match can be found
+
+* `render_unit(value, unit)`  
+    Checks and then renders a number with its unit
+
+It is nice to have source code available. But it is easier for us to understand 
+how to use those functions through examples.  We can `grep` the Inkscape system 
+extensions to find out how they are used.  
+
+```python
+>>> from inkex import units
+>>> p = units.parse_unit('55.32px')
+>>> p
+(55.32, 'px')
+
+>>> p = units.parse_unit('55.32pt')
+>>> p
+(55.32, 'pt')
+
+>>> p = units.parse_unit('55.32bt')
+>>> p # returns None
+
+>>> p = units.parse_unit('55.32')
+>>> p
+(55.32, 'px') # default unit is pixel
+
+>>> units.are_near_relative(0.123, 0.121)
+False
+>>> units.are_near_relative(0.123, 0.122)
+True
+>>> units.are_near_relative(0.1234, 0.1232)
+True
+
+>>> units.discover_unit('210mm', 210, default='px')
+'mm'
+>>> units.discover_unit('8.5in', 210, default='px')
+'px'  # default
+>>> units.discover_unit('8.5in', 215.9, default='px')
+'mm'  # letter size
+
+>>> units.convert_unit('8.5in', 'mm')
+215.9
+
+>>> units.render_unit(10, 'in')
+'10in'
+
+>>> units.convert_unit('8.5', 'mm')
+2.2489583333333334
+>>> units.convert_unit('1px', 'mm')
+0.26458333333333334
+>>> units.convert_unit('10pt', 'mm')
+3.5277777777777777
+```
