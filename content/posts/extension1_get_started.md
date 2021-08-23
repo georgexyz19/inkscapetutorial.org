@@ -3,14 +3,14 @@ slug: extension-get-started
 date: 2021-07-26 12:51
 category: extension
 chapter: 1
-note: first tutorial on Inkscape Extension
+note: Get Started
 
 ## What Is Inkscape Extension?
 
 Before we start developing Inkscape extensions (or plugins), let's look at one simple 
-built-in extension and understand what is an Inkscape extension. 
+built-in extension and understand what's an Inkscape extension. 
 
-After we lauch Inkscape, clik menu `Extensions -> Render -> Triangle...`. A new window 
+After we lauch Inkscape, clik menu `Extensions -> Render -> Triangle...`. A new dialog 
 will pop up on screen and it looks like this.  
 
 <div style="max-width:300px">
@@ -19,7 +19,7 @@ will pop up on screen and it looks like this.
 
 If we click the `apply` button, the extension will draw a triangle on the Inkscape canvas. 
 The three sides of the triangle are all of 100 px length.  We can also toggle the `live preview` 
-box on and off to show a preview of the triangle. Obviously when the `Mode` is set to 
+box on to show a preview of the triangle. Obviously when the `Mode` is set to 
 `From Three Sides` on the dialog, the extension program ignores the three `Angle` values. 
 
 <div style="max-width:300px">
@@ -27,7 +27,7 @@ box on and off to show a preview of the triangle. Obviously when the `Mode` is s
 </div>
 
 Let's change the `Side length a (px)` value to 50 and re-apply the extension.  The program 
-will create a triangle like this. 
+will draw a triangle like this.  We know the side on the right hand is `a`. 
 
 <div style="max-width:300px">
   <img class="img-fluid pb-2" src="/images/ext1/ext1-triangle-drawing-2.svg" alt="Triangle drawing 2"> 
@@ -43,7 +43,29 @@ The program will generate this error message.
 
 ## What Extensions Can Do?
 
-** AAAAAAAAAAAAAABBBBBBBBBBBBBB **
+The Inkscape itself comes with many extensions which are listed under the `Extensions` menu. 
+Some of the extensions are intuitive to use such as `Gear`, `Grid`, and `Calendar`. 
+
+The real power of the Inkscape extension system is that we can treat it as an API. 
+It provides many classes and functions 
+on which programmers can build user extensions. This section will describe some impressive 
+results of Inkscape extensions. 
+
+[WriteTeX](https://github.com/wanglongqi/WriteTeX) is an extension serving as a 
+LaTeX/TeX editor for Inkscape.  We can insert equations onto Inkscape drawing. 
+Here is an example drawing with equations on the right hand side. 
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-hcurve.svg" alt="H Curve"> 
+</div>
+
+The drawing below shows a small portion of a large sign poster file which is created 
+with an Inkscape extension. The [full size poster file](/files/ext1/signposter.pdf) contains
+ over 700 sign drawings. 
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-poster.svg" alt="poster"> 
+</div>
 
 ## Extension Programs
 
@@ -59,7 +81,7 @@ settings. The value in `User extensions` field is shown below.
 /home/george/.config/inkscape/extensions
 ```
 
-And here is the value of `Inkscape extensions` field.  We also call this `system 
+And below is the value of `Inkscape extensions` field.  We also call this `system 
 extensions` directory. 
 
 ```
@@ -74,10 +96,10 @@ Inkscape under other OS, the directories will be different.
 The `user extensions` refers to extensions created by you as an Inkscape user. The 
 `inkscape extensons` or `system extensions` refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the `inkscape extensions` 
-directory, and they will run just fine. But it is better to seperate them and not 
-modify system extensions. 
+directory, and they will run just fine. But it is better to seperate them in two 
+directories. 
 
-We can add two alias to the `~/.bashrc` file and have easier access to those two 
+We can add two alias to the `~/.bashrc` file to have easier access to those two 
 directories. 
 
 ```
@@ -87,10 +109,10 @@ alias cduserdir='cd ~/.config/inkscape/extensions'
 
 ## System Extensions
 
-Let's take a look at the `system extensions` directory and see what is there. 
+Let's take a look at the `system extensions` directory and see what is in there. 
 The Linux commands below show that the directory has a total of 554 files and 
 226 Python files. The fourth command below indicates that the Python files have 
-a total of 43,979 lines of code.  
+a total of 43,979 lines of code for Inkscape 1.1. 
 
 ```bash
 cd /usr/share/inkscape/extensions
@@ -99,30 +121,28 @@ find . -name '*.py' | wc -l   # 226
 find . -name '*.py' -exec wc -l '{}' +    #43,979
 ```
 
-The system extensions have lots of code, and it is probably not possible for 
+The system extensions have lots of code, and it's almost impossible for 
 one person to read and understand all of them.  This extension tutorial series
 will try to explain a small subset of those files.  
 
 If you want to take part in developing or improving those system extensions, 
-this gitlab source code repository is the place to check out.  
+this gitlab source code repository is the place to get started.  
 
 [https://gitlab.com/inkscape/extensions/](https://gitlab.com/inkscape/extensions/)
 
 ## Inkscape Version and Extension
 
-Inkscape versions 0.91 and 0.92 already come with many extensions. But they are 
-mostly written in Python 2. I started using Inkscape regularly with version 0.92 and 
-wrote a few extensions in Python 2. 
-
-Even though Python 3.4 was released back in 2014 and many people were writting 
+Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
+mostly written in Python 2. Even though Python 3.4 was released back in 2014 and 
+many people were writting 
 in Python 3, Inkscape extensions were still in Python 2 for many years. The 
-reason is that most system extensions were created by various people over time
-and it requires some work to convert them to Python 3. Note Python 
+reason is that most system extensions were created by various developers over time
+and it requires some serious work to convert them to Python 3. Note Python 
 3 is not compatible with Python 2. 
 
 Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
 The Inscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
-old Inkscape extension which does not run in version 1.1, try to load it 
+old Inkscape extension which does not work in version 1.1, try to load it 
 with Inkscape 0.92.5 and it may work well. 
 
 ## Objectives
@@ -130,7 +150,7 @@ with Inkscape 0.92.5 and it may work well.
 This tutorial series will not cover everything in Inkscape extension development. 
 The articles are developed from my notes.  It is not as formal 
 as a typical book or software manual, but it is in a much better shape than 
-my notes. I am trying to point the right direction for beginners. 
+my notes. I am only trying to point the right direction for beginners. 
 
 
 

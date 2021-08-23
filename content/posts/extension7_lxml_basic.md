@@ -14,17 +14,17 @@ designed and tested code for xml parsing and handling. Normally
 reusing other people's code saves programming time, however the 
 drawback is that we have to spend the time to learn how to use exising libraries. 
 
+The [lxml](https://lxml.de/) 
+XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt. It is 
+similar to Python standard library module `xml.etree.ElementTree`, but it is faster and 
+easier to program. 
 The Inkscape extension developers long recognized the value of `lxml` python 
 package. The package `inkex` wraps many functions of `lxml` so extension 
 developers do not have to deal with `lxml` directly.  
-"The [lxml](https://lxml.de/) 
-XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt." It is 
-similar to Python standard library module `xml.etree.ElementTree`, but it is faster and 
-easier to program. 
 
 It is usually enough for Inkscape developers to only work with `inkex` package. 
 But sometimes we want to use functionality in `lxml` directly, or try to understand 
-the code in `inkex` package. It is good to know the basics of `lxml` package.  
+the code in `inkex` package. It is good to know the basics of `lxml` package. 
 
 # Module etree
 
