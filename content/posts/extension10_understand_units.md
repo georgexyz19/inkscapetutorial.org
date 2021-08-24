@@ -2,7 +2,7 @@ title: Units and Coordinate Systems
 slug: units-and-coordinate-systems
 date: 2021-08-07 23:18
 category: extension
-chapter: 9
+chapter: 10
 note: Units and Coordinate Systems
 
 ## Extension Units
@@ -78,7 +78,7 @@ we export the drawing to an PDF file, it will have the same size. If we print th
 on a piece of A4 paper, it is supposed to be 100% of the PDF. 
 
 <div style="max-width:800px">
-  <img class="img-fluid pb-2" src="/images/ext9/viewport.svg" alt="viewport"> 
+  <img class="img-fluid pb-2" src="/images/ext10/viewport.svg" alt="viewport"> 
 </div>
 
 When we create a line from (10, 10) to (40, 40), the coordinates are in the *user coordinate system* or 

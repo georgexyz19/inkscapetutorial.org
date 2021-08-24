@@ -11,8 +11,8 @@ The default Inkscape file is Scalable Vector Graphics (SVG) format. The SVG spec
 an open standard developed by the World Wide Web (W3C) consortium. SVG files are XML text 
 documents and all major modern web browers support SVG rendering.  
 
-Let's create a new blank svg file and see what the code looks like. Launch the Inkscape and 
-click the menu `File -> New` to create a new blank file, and save the file as `new-drawing.svg`. 
+Let's create a new blank svg file and see what the code looks like. Launch Inkscape and 
+click menu `File -> New` to create a new blank file, and save the file as `new-drawing.svg`. 
 Open the file with a text editor (such as gedit in Ubuntu). Below is the code in the SVG file. 
 
 ```xml
@@ -66,19 +66,19 @@ inidcates this is an XML file.  The second line is an XML comment.
 The contents of the file is wrapped inside the `svg` tag ➋. The openning `svg` tag 
 has many attributes. The attribute `xmlns:inkscape="www.inkscape..."` means that `inkscape` 
 is an xml namespace.  So the attribute `inkscape:version="1.1..."` is an abbreviation for 
-`www.inkscape...:version=....`. Inkscape is derived from another software `sodipodi`, and 
+`www.inkscape...:version=....`. Inkscape is forked from another software `sodipodi`, and 
 `sodipodi` is still a namespace. 
 
-The `sodipodi:namedview` ➌ is an inkscape specific tag.  Inkscape will read and understand 
+The `sodipodi:namedview` ➌ is an inkscape specific tag, and it will read and understand 
 the tag and its attributes.  Other software does not have to recognize this tag. Notice 
 it has an attribute named `current-layer` with value `layer1`. The current layer infomation 
 is saved in the SVG file.  The `self.svg.namedview.center` value in `triangle.py` is 
-also derived from this tag.  The `defs` should be an abbreviation for `definitions` ➍. 
-We can store some information in the `defs` tag, and other 
+also derived from this tag.  The `defs` is an abbreviation for `definitions` ➍. 
+We can store some information in a `defs` tag, and other 
 tags can reference the `defs` tag.   
 
 The `g` tag is a shorthand for group.  SVG itself does not have layer element. Inkscape uses 
-group tag with additional attribute `groupmode` to represent layer ➎. 
+group tag with additional attribute `groupmode` to represent layers ➎. 
 
 ## Shapes
 
@@ -144,7 +144,7 @@ and the SVG code is shown below.
 ```
 
 The star shape is an Inkscape specific element. When we open the 
-drawing in another program, it may treat it as a path element. 
+drawing in another program, the star shape may be treated as a path element. 
 
 ## Paths
 
@@ -153,7 +153,7 @@ which consists of commands and values. The command is a single letter followed b
 a value or a coordinate. The uppercase command indicates parameters are absolute 
 values, and lowercase command indicates relative values. 
 The Mozilla *SVG Tutorial* has [more information on paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths). 
-Here are the commands.  
+Here is a list of the commands.  
 
 M/m
 : Move to 
@@ -188,22 +188,24 @@ Z/z
 
 Inkscape itself has lots of functions built around paths. Most 
 of those functions are listed under the top level menu `Path`. For example, we can choose a 
- rectangle element and click the first sub-menu `Object to Path`, the SVG tag of the element change 
- from `rect` to `path` with correct `d` attribute. 
+rectangle element and click the first sub-menu `Object to Path`, and the SVG tag of the 
+element change from `rect` to `path` with correct `d` attribute. 
 
 ## References
 
+This chapter covers the minimum SVG knowledge we need to know as Inkscape extension developers. 
+There are many online resources to learn more about SVG format.  The Inkscape 
+itself is a good tool to learn SVG.  We can select an element and open the XML Editor 
+to see the code or save the SVG file and open it in a text editor.   
+
 The SVG is an open standard by W3C. The Inkscape produced SVG follows version 1.1. 
-The 1.1 version spec is at this link. 
-
-[https://www.w3.org/TR/SVG11/](https://www.w3.org/TR/SVG11/)
-
-The 2.0 version is at this link. 
-
-[https://www.w3.org/TR/SVG2/](https://www.w3.org/TR/SVG2/)
+The 1.1 version spec is at this link 
+[https://www.w3.org/TR/SVG11/](https://www.w3.org/TR/SVG11/). 
+The 2.0 version is at this link 
+[https://www.w3.org/TR/SVG2/](https://www.w3.org/TR/SVG2/).
 
 
-O'Reilly has published a book *SVG Essentials (2nd ed)*. It is a decent reference book. 
+*O'Reilly* has published a book *SVG Essentials (2nd ed)*. It is a decent reference book. 
 
 
 

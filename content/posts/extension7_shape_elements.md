@@ -1,9 +1,9 @@
-title: Custom Element Classes
-slug: element-classes
+title: Custom Shape Elements
+slug: shape-classes
 date: 2021-08-04 13:27
 category: extension
-chapter: 8
-note: Element Classes
+chapter: 7
+note: Shape Elements
 
 ## Custom Element Classes
 
@@ -203,7 +203,7 @@ current layer of a drawing. Here is the result.
 
 
 <div style="max-width:800px">
-  <img class="img-fluid pb-2" src="/images/ext8/newelement.png" alt="new elements"> 
+  <img class="img-fluid pb-2" src="/images/ext7/newelement.png" alt="new elements"> 
 </div>
 
 The code logic is simple. The `add_line` method of the `NewElement` class shows four 

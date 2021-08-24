@@ -220,7 +220,7 @@ def save(self, stream):
 
 ## Python Module lxml
 
-When we develop an Inkscape extension, we do not need to care too much about 
+When we develop an Inkscape extension, we don't need to care too much about 
 load and save processes. The `inkex` module already has code to handle
 them. It actually warps around a third party python module `lxml`, which 
 does the actualy XML loading, parsing, and saving.  The 

@@ -2,7 +2,7 @@ title: Transforms
 slug: transforms
 date: 2021-08-09 11:47
 category: extension
-chapter: 10
+chapter: 11
 note: Transforms
 
 ## Equations
@@ -24,27 +24,27 @@ equation.
 
 
 <div style="max-width:800px" class="text-center">
-  <img class="img-fluid pb-2" src="/images/ext10/equations.svg" alt="equation 1"> 
+  <img class="img-fluid pb-2" src="/images/ext11/equations.svg" alt="equation 1"> 
 </div>
 
 The two equations below are for rotation and scale. The rotation angle (alpha) is 
 clockwise as the y axle increases from top to bottom.  
 
 <div style="max-width:800px;" class="text-center">
-  <img class="img-fluid pb-2" src="/images/ext10/equations2.svg" alt="equation 2"> 
+  <img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"> 
 </div>
 
 The above rotation equation is for rotating around origin (0, 0).  If we rotate an element 
 around a coordinate (a, b), the equation becomes like this.
 
 <div style="max-width:800px;" class="text-center">
-  <img class="img-fluid pb-2" src="/images/ext10/equations2a.svg" alt="equation 2a"> 
+  <img class="img-fluid pb-2" src="/images/ext11/equations2a.svg" alt="equation 2a"> 
 </div>
 
 The matrix is in this form when we combine those three transforms. 
 
 <div style="max-width:800px" class="text-center">
-  <img class="img-fluid pb-2" src="/images/ext10/equations3.svg" alt="equation 3"> 
+  <img class="img-fluid pb-2" src="/images/ext11/equations3.svg" alt="equation 3"> 
 </div>
 
 ## Inkscape Transforms

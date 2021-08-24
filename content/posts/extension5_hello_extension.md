@@ -8,9 +8,9 @@ note: extension workflow
 ## Hello User Extension
 
 We have enough discussion on the `Triangle` extension.  Let's create a `Hello` 
-user extension modelled after the `Triangle`. The extension has one input 
+user extension modeled after the `Triangle`. The extension has one input 
 text field that we can enter a name.  After clicking the `Apply` button, 
-the Python extension will output `Hello <name>` to the current drawing. 
+the extension will output `Hello <name>` to the current drawing. 
 The `hello.inx` and `hello.py` files are saved under the user extension directory. 
 
 <div style="max-width:600px">
@@ -46,7 +46,7 @@ In fact we make a copy of the `Triangle.inx` file and modify it. Now we can clic
 
 ## Python Hello.py Code
 
-The `hello.py` file also does not have much new code than in the `triangle.py`. 
+The `hello.py` file also doesn't have much new code than in `triangle.py`. 
 The `add_text` method is modified from another system extension module `path_number_node.py`. 
 It creates a TextElement and sets the `text` and `style` attributes. The 
 element is then added onto the current layer via the `layer.add` method. 
@@ -68,14 +68,16 @@ class Hello(inkex.EffectExtension):
     def effect(self):
         name = 'Hello ' + self.options.name 
         layer = self.svg.get_current_layer()
-        layer.add(self.add_text(10, 10, name))
+        x = self.svg.unittouu('40px')
+        y = x
+        layer.add(self.add_text(x, y, name))
 
     def add_text(self, x, y, text):
         """Add a text label at the given location"""
         elem = TextElement(x=str(x), y=str(y))
         elem.text = str(text)
         elem.style = {
-            'font-size': self.svg.unittouu('30px'),
+            'font-size': self.svg.unittouu('18pt'),
             'fill-opacity': '1.0',
             'stroke': 'none',
             'font-weight': 'normal',
@@ -88,7 +90,7 @@ if __name__ == '__main__':
 
 When we are working on a user extension, we can modify the Python code and 
 click the `Apply` button to run the modified code.  However, if we change the 
-content in `.inx` file, we have to close and relaunch Inkscape for it to 
+content in `.inx` file, we have to exit and restart Inkscape for the change to 
 take effect. 
 
 
@@ -96,9 +98,9 @@ take effect.
 
 Below is the result of running the extension. The origin (0, 0) of SVG coordinate 
 system is the point on the top left corner. The x value increases from left to right, 
-and y value increases from top to bottom.  The text coordinate (10, 10) represents 
-10 mm from left of the page, and 10 mm down from top the page.  The font size is 
-set at 30 px heigh.   
+and y value increases from top to bottom.  The text coordinate represents 
+40 pixel from left of the page, and 40 pixel down from top the page.  The font size is 
+set at 18 point.   
 
 
 <div style="max-width:800px">

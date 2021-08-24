@@ -2,7 +2,7 @@ title: Colors and Styles
 slug: colors-and-styles
 date: 2021-08-23 15:32
 category: extension
-chapter: 11
+chapter: 12
 note: Colors and Styles
 
 ## SVG Styles
