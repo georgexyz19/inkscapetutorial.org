@@ -5,8 +5,8 @@ category: extension
 chapter: 4
 note: extension workflow
 
-This Chapter we will examine those two line of code in `run` method of `InksacpeExtension` 
-class. 
+We will discuss those two line of code in `run` method of `InksacpeExtension` 
+class in this chapter. 
 
 ```
 self.load_raw()
@@ -33,7 +33,7 @@ We know the value of `self.options.input_file` is a string from last chapter,
 so the if part of the `if...else...` statement will execute. It calls the 
 `open` method to create a file object, and pass it to the `self.load` method. 
 The `self.load` method defined in the `SvgInputMixin` class is invoked here.
-Below is the code in the `self.load` method of `SvgInputMixin` class. 
+Below is the code of the `load` method of `SvgInputMixin` class. 
 
 ```python
 def load(self, stream):
@@ -57,7 +57,7 @@ It also adds two new instance variable `original_document` and `svg`.
 from .elements._base import load_svg, BaseElement
 ```
 
-Here is the function code defined in the `inkex/elements/_base.py` module. 
+Here is the function `load_svg` definition in the `inkex/elements/_base.py` module. 
 
 ```python
 from lxml import etree
@@ -86,11 +86,12 @@ when we install Inkscape. We will discuss `lxml` module later.
 
 ## Modify
 
-The `Triangle` object has two instance variables `document` and `svg` loaded 
-into memory, and they are ready for modification.  It also saves a copy 
+The `Triangle` object has two instance variables `document` and `svg`, and both
+reference the same XML tree in memory. We can modify the XML tree via either of 
+those two variables. It also saves a copy 
 of `document` in `original_document` instance variable. 
 
-The actual modification happens in the `effect` method of `Triangle` class. 
+The actual modification happens in the `effect` method of `Triangle` class thru the `svg` instance variable. 
 
 ```python
 def effect(self):
@@ -114,9 +115,9 @@ def effect(self):
 ```
 
 The first line of the method calls `get_current_layer` method of `svg` object
-to get an object represent current layer. The current layer information is saved in 
+to get an object representing current layer. The current layer information is saved in 
 the SVG file itself.  The second line get the Inkscape view center coordinates. 
-The next four lines of code convert number unit from pixel to SVG internal unit 
+The next four lines of code convert number unit from pixel to SVG internal default unit 
 millimeter.  For example, the `s_a` value is 100 px before the coversion, and 
 the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
 So the conversion is 100/96 in * 25.4 = 26.45 mm.
@@ -124,7 +125,7 @@ So the conversion is 100/96 in * 25.4 = 26.45 mm.
 The `effect` method calls `draw_tri_from_3_sides` function defined earlier in the 
 module. The function in turn calls the `draw_SVG_tri` function to create an 
 `inkex.PathElement` element and add it to the layer. We will discuss the 
-`PathElement` and other SVG element later in the tutorial. 
+`PathElement` and other SVG elements later. 
 
 ```python
 def draw_SVG_tri(point1, point2, point3, offset, width, name, parent):

@@ -1,9 +1,9 @@
-title: Transform
-slug: transform
+title: Transforms
+slug: transforms
 date: 2021-08-09 11:47
 category: extension
 chapter: 10
-note: Transform
+note: Transforms
 
 ## Equations
 
@@ -47,7 +47,7 @@ The matrix is in this form when we combine those three transforms.
   <img class="img-fluid pb-2" src="/images/ext10/equations3.svg" alt="equation 3"> 
 </div>
 
-## Inkscape Transform
+## Inkscape Transforms
 
 Let's look at an example to see how the transform works in Inkscape. First we draw 
 a rectange with top left coordinates (10, 10).  It has a width of 60 and height of 40. 
@@ -250,11 +250,12 @@ of points, then draw them as lines or polygons on the canvas.
 ## References
 
 Anthony J. Pettofrezzo published two books *Vectors and Their Applicaitons* and 
-*Matrices And Transformations*. Both books are revelent to the `transforms` module. 
+*Matrices And Transformations*. Both books are revelent to the transforms module discussed in this chapter. 
 
 The book *Mathematical Illustrations, A Manual Of Geometry and Postscript* by 
-Bill Casselman is an excellent reference for math drawings. 
+Bill Casselman is an excellent reference for math drawings. Here is the 
+[link](https://personal.math.ubc.ca/~cass/graphics/manual/) to the book webpage. The pdfs of the book chapters are available on the webpage. 
 
 The book *Introduction To Computer Graphics* by James Foley and others has a chapter 
-Geometrical Transformations. The trasform equations in this book are in the 
+Geometrical Transformations. The transform equations in this book are in the 
 same format as shown on this page. 

@@ -3,12 +3,12 @@ slug: how-extensions-work
 date: 2021-07-28 08:42
 category: extension
 chapter: 3
-note: Explain how extensions work generally
+note: How Extensions Work
 
 ## Class Initialization
 
 The last two lines of `triangle.py` files are shown below. The first line is 
-boilerplate code. If we run this module, python intepreter will set the 
+boilerplate code. If we run this module on terminal, the Python intepreter will set the 
 `__name__` to `__main__` and the code `Triangle().run()` will start. 
 
 ```python
@@ -24,10 +24,10 @@ t = Triangle()
 t.run()
 ```
 
-This section we will discuss class initialization part `t = Triangle()`, and 
-the next section we will examine the run part `t.run()`. 
+In this section we will discuss class initialization part `t = Triangle()`, and 
+in the next section we will examine the run part `t.run()`. 
 
-The class `Triangle` itself does not have an `__init__` method, and 
+The class `Triangle` itself does not define an `__init__` method, and 
 the `__init__` methods in superclasses will be invoked automatically. The 
 diagram below shows the superclasses of `Triangle`.  
 
@@ -35,12 +35,12 @@ diagram below shows the superclasses of `Triangle`.
   <img class="img-fluid pb-2" src="/images/ext3/extension-classes.svg" alt="classes"> 
 </div>
 
-Both `SvgInputMixin` and `InkscapeExtension` classes define `__init__` methods, and
+Both `SvgInputMixin` and `InkscapeExtension` classes have `__init__` methods, and
 those will be invoked. 
 
 Here is the code in the `__init__` method of `SvgInputMixin` class.  It simply calls
-`add_argument` method twice.  The `super().__init__()` does nothing here because 
-the `super` refers to `object`. 
+`add_argument` method twice.  The `super().__init__()` statement invokes `__init__` 
+method in `object` because `super` refers to `object`. 
 
 ```python
 # __init__ in SvgInputMixin class, base.py
@@ -86,18 +86,20 @@ def __init__(self):
 ```
 
 The `NSS.update(...)` line is for XML namespaces.  The `NSS` itself is an abbreviation
-for *Namespace Specific String*. We will discuss it later. 
+for *Namespace Specific String*. 
 
 The `__init__` method initializes four instance variables `file_io`, `options`, 
 `document`, and `arg_parser`. It calls the `add_argument` methods of `ArgumentParser` 
-class twice, and it calls the `add_argument` class method.  The `add_argument` method 
+class twice, and then it calls the `add_arguments` class method.  The `add_argument` method 
 is overriden in `Triangle` class, so the `add_argument` method in the `Triangle` class 
-will be called. The method calls `add_argument` seven times. 
+will be called. The method calls `add_argument` of `ArgumentParser` class seven times. 
+Note the method name is `add_argument` in `ArgumentParser` class and it is `add_arguments`
+in `Triangle` class. 
 
 ```python
 # add_argument method in Triangle class
 def add_arguments(self, pars):
-    logging.debug(f'Triangle add_argument method starts')  ##
+    logging.debug(f'Triangle add_arguments method starts')  ##
     pars.add_argument("--s_a", type=float, 
         default=100.0, help="Side Length a")
     pars.add_argument("--s_b", type=float, 
@@ -112,7 +114,7 @@ def add_arguments(self, pars):
         default=90.0, help="Angle c")
     pars.add_argument("--mode", default='3_sides', 
         help="Side Length c")
-    logging.debug(f'Triangle add_argument method ends')  ##
+    logging.debug(f'Triangle add_arguments method ends')  ##
 ```
 
 We can add a pair of logging statements at the begining and end of the method call to 
@@ -122,8 +124,8 @@ methods, and the result is shown below.
 ```
 DEBUG: SvgInputMixin __init__ starts 
 DEBUG: InkscapeExtension __init__ starts
-DEBUG: Triangle add_argument method starts
-DEBUG: Triangle add_argument method ends
+DEBUG: Triangle add_arguments method starts
+DEBUG: Triangle add_arguments method ends
 DEBUG: InkscapeExtension __init__ ends
 DEBUG: SvgInputMixin __init__ ends
 ```
@@ -131,15 +133,15 @@ DEBUG: SvgInputMixin __init__ ends
 The interesting part here is that the `__init__` method in `SvgInputMixin` is called 
 first.  When the Python intepreter encounters the `self.arg_parser` instance variable, 
 it can't find the definition.  It suspends this `__init__` method call and starts 
-invoking `__init__` method in InkscapeExtension class. The `add_argument` method 
+invoking `__init__` method in `InkscapeExtension` class. The `add_arguments` method 
 starts and ends as expected because it is called within the `__init__` method of 
-InkscapeExtension.  The `__init__` method in InkscapeExtension class returns first, 
-and then the `__init__` method in SvgInputMixin class returns. 
+`InkscapeExtension`.  The `__init__` method in `InkscapeExtension` class returns first, 
+and then the `__init__` method in `SvgInputMixin` class returns. 
 
 ## Run Method
 
 After the initialization, the `run` method is where everything happens. Here is 
-the code of `run` method. 
+the code of `run` method in `InkscapeExtension` class. 
 
 ```python
 def run(self, args=None, output=stdout):
@@ -168,7 +170,7 @@ def run(self, args=None, output=stdout):
 ```
 
 Let's take a close look at the code between `try` and `except...` lines. 
-From last chapter, we know that the `sys.argv` value is something like this. 
+From last chapter, we know that the `sys.argv` value is a list of arguments. 
 The `args` value is a list start from the second item. 
 
 ```
@@ -190,9 +192,9 @@ def parse_arguments(self, args):
 ```
 
 After the `parse_arguments` method call, the `self.options` value is 
-like this. We can access the variables in the object like 
-`self.options.input_file`. We will discuss the `ids` and `selected_nodes` 
-later. 
+like the `Namespace` object shown below. We can access variables in the object like 
+a property (e.g., `self.options.input_file`). Notice the `ids` and `selected_nodes` 
+instance varaibles in `Namespace`. 
 
 ```
 Namespace(input_file='/tmp/ink_ext_XXXXXX.svgVJUG70', 
@@ -201,8 +203,9 @@ Namespace(input_file='/tmp/ink_ext_XXXXXX.svgVJUG70',
           ids=[], selected_nodes=[]) 
 ```
 
-The next four statements changes the `self.options.output` value. The 
-`self.options.input_file` does not change. 
+The next four statements changes the `self.options.output` and `self.options.input_file` 
+values if they are `None`. The 
+`self.options.input_file` does not change in the `Triangle` example. 
 
 We can think of the last two lines as the three lines shown below. 
 Upon this point, the program is working on initialization and setting up 
@@ -219,7 +222,7 @@ self.save_raw(e)
 ## Python ArgParse Module
 
 From the above discussion, we should have a basic idea how Inkscape extensions 
-work. When we launch Inkcape, it will check files under the user extension 
+work. When we launch Inkcape, it will check files under user extension 
 and system extension directories, and create menu items under the `Extensions` 
 top level menu.  
 
@@ -249,5 +252,5 @@ variables we can access (`self.options.s_a`) in the program.
 Python documentation site has an 
 [official argparse module tutorial](https://docs.python.org/3/howto/argparse.html). 
 The `argparse` module was introducted in Python 3.4, which supersedes the `optparse` 
-in Python2. The old Inkscape extensions use `optparse` module. 
+in Python2. The old Inkscape extensions before Inkscape 1.0 use `optparse` module. 
 

@@ -3,22 +3,23 @@ slug: triangle-extension-code
 date: 2021-07-27 08:42
 category: extension
 chapter: 2
-note: Triangle extension code explained
+note: Triangle Extension
 
 ## Extension Structure
 
-In this tutorial, we will take a detailed look at the `Triangle` extension code.
+In this tutorial, we will take a ook at the `Triangle` extension code.
 Usually an Inkscape extension consists of two files, one `.inx` file and 
-one `.py` file. The `.inx` file contains xml code and the `.py` file is the 
+one `.py` file. The `.inx` file contains xml code describing the interface 
+and the `.py` file is the 
 Python file. The `.py` file ususally imports other modules so an extension 
-involves multiple Python files. 
+could involve multiple Python modules. 
 
 The `Triangle` extension code is in the `triangle.inx` and `triangle.py` 
-files. Let's open those two files in a text editor. 
+files. Both are in the system extension directory. 
 
 ## Inx File
 
-The `triangle.inx` file only has 27 lines. The content of the file is shown below.
+The `triangle.inx` file has 27 lines. The content of the file is shown below.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?> ➊
@@ -58,7 +59,7 @@ The `triangle.inx` file only has 27 lines. The content of the file is shown belo
     </script>
 </inkscape-extension>
 ```
-Here is a list of short descriptions for lines with circled numbers. 
+Here is a list of descriptions for the numbered lines. 
 
 1. this line indicates it is an xml file
 2. name tag, specifies the name on submenu (Render -> Triangle)
@@ -66,25 +67,25 @@ Here is a list of short descriptions for lines with circled numbers.
 4. param tag, specifies an input control on the diagbox
 5. param tag, specifies a select control 
 6. submenu tag, shows up as a submenu (Extensions -> Render)
-7. command tag, the name of the Python file to run
+7. command tag, the name of the Python file to invoke
 
 
 The first line and `inkscape-extension` tag are boilerplate code. Every 
 extension has those lines.  Inside the `inkscape-extension` tag, there 
 are `name`, `id`, `param`, `effect`, and `script` tages. 
 
-The `name` tag value `Triangle` shows up as the menu name. The second 
-level menu `Render` under `Extensions` menu is specified in the `submenu` tag 
-under `effect`.  
+The `name` tag value `Triangle` shows up on the menu. The second 
+level menu `Render` under `Extensions` is specified in the `submenu` tag 
+under `effect > effects-menu`.  
 
 The `id` value must be unique for each extension. We can add 
 a namespace such as `math.` before the `triangle` to make it distinctive. 
 
 The `param` tags represent input controls on the dialog. This `Triangle` extension 
-includes two types of param element float and optiongroup. There are many other 
+includes two types of param element `float` and `optiongroup`. There are many other 
 types we can use.  This 
 [Inkscape wiki page](https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters) 
-has a complete list and relevent information. 
+has a complete list. 
 
 The `command` tag under the `script` element indicates that the extension 
 code is a Python program in `triangle.py` file. When we click the `apply` 
@@ -92,9 +93,9 @@ button on the dialog, the `triangle.py` Python program will start running.
 
 The `.inx` file is in XML format. 
 XML stands for *extensible markup language*, which is a popular file format 
-in the early 2000s. I still remember attending a seminar in colleage and the 
+in early 2000s. I remember attending a seminar in colleage and the 
 speaker says something like every one should learn XML and write in XML. The 
-format becomes less popular over time, but the default Inkscape file format 
+format becomes less popular over time. The default Inkscape file format 
 SVG is also in XML format. 
 
 ## Python File
@@ -175,11 +176,12 @@ itself only defines two methods `add_argument` and `effect`, so the `run` method
 must be inherited from other classes. 
 
 The `Triangle` class is inherited from `EffectExtension` class of `inkex` module.
-The `inkex` Python module files are in the `inkex` directory. The `inkex` is 
-the most basic module of Inkscape extension system. It is like a framework upon 
-which we build our own extensions. 
+The Python modules are in the `inkex` directory. The `inkex` is 
+the most basic module of Inkscape extension system. It acts like a framework upon 
+which we build user extensions. 
 
-Here is a list of directory names and file names under the `inkex` directory. 
+Here are directory names and file names under the `inkex` directory. The first 
+column shows that it is a directory or the python file line number. 
 
 <pre>
  (dir) deprecated-simple 
@@ -210,7 +212,7 @@ Here is a list of directory names and file names under the `inkex` directory.
 
 The `EffectExtension` class is defined in the `extensions.py` file, but it's just 
 a subclass of `SvgThroughMixin` and `InkscapeExtension`. Pay attention to the docstring 
-of the class, it summarizes what this class does. 
+of the class, which summarizes what this class does. 
 
 ```python
 class EffectExtension(SvgThroughMixin, InkscapeExtension):
@@ -252,8 +254,8 @@ def run(self, args=None, output=stdout):
 
 ## Logging Experiment
 
-Let's add some logging code to this file and see logging output. If you are not 
-family with Python logging module, take a quick look at the 
+Let's add some logging code to this file and check logging output. If you are not 
+familar with Python logging module, take a look at the 
 [Python Logging Howto Page](https://docs.python.org/3/howto/logging.html). This 
 15 minutes [youtube video](https://youtu.be/-ARI4Cz-awo) 
 explains the basics of logging very well. 
@@ -269,7 +271,9 @@ $ sudo chmod -R 777 ../extensions/
 ```
 
 If you install inkscape via `snap`, you will have a difficult time modidfying any 
-files under `/snap` directory.  This is a security feature of snap apps. 
+files under `/snap` directory.  This is a security feature of snap apps. How do 
+I know it? I waste a few hours trying 
+various methods but fail to modify permissions. 
 
 Add those lines at the top of `base.py` to setup logging module.
 
@@ -334,35 +338,25 @@ DEBUG: run ends
 
 Between the `load_raw` and `save_raw` method calls, there is an `effect` method call. 
 The `effect` method is defined in the `InkscapeExtension` class, but it raises an 
-`NotImplementedError` exception.  The method is a placeholder for subclasses to override.  
+`NotImplementedError` exception.  The method is a placeholder for subclasses to override. 
 The `effect` method in `Triangle` class overrides it. 
-
-If you install inkscape via `snap`, you will have a difficult time to modidfy any 
-files under `/snap` directory.  How do I know it? I waste 3 hours trying 
-various methods and it turns out to be a security feature of snap apps. 
 
 The `InkscapeExtension` class defines a `debug` method. We can invoke this method 
 to output messages. The method redirects a message to the stardard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
-module is more flexible to use than this method. The `debug` method is more 
-for showing an error message to the extension user. 
+module is more flexible to use. The `debug` method is designed to 
+show a message to the extension user. 
 
 ## What's Next
 
-You may feel overwhelmed or even frustrated by now if you are not very familar 
+You may feel overwhelmed or even frustrated by now if you are not familar 
 with Python. Most Python introductory books do not even discuss classes. But keep 
 reading and experimenting, and the code will gradually start making sense to you. 
 
-Like most things in the programming world, it's better to learn something and 
-start working. There may be things that you don't understand, but you shouldn't 
+Like most things in the programming world, it's better to learn a little and 
+start working on something. There may be things that you don't understand, 
+but you shouldn't 
 wait to start because you probably will never understand everything. 
 The extension Python code is all open source and available to you. You are free 
 to experiment and modify as you like. 
-
-
-
-**Next section we will take another look at `triangle.py` and start a skeleton 
-extension. **  
-
-
 
