@@ -287,7 +287,7 @@ p = etree.XMLParser(huge_tree=True)
 doc = etree.parse('test.xml', parser=p)
 ```
 
-The `lxml` documentation has a page regarding  
+The `lxml` documentation has a page regarding 
 [using custom Element classes in lxml](https://lxml.de/element_classes.html). The 
 "Tree based element class lookup in Python" section has an example like this. 
 

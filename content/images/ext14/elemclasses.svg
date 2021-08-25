@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="149.02252mm"
+   height="106.03735mm"
+   viewBox="0 0 149.02252 106.03735"
+   version="1.1"
+   id="svg218"
+   inkscape:version="1.1 (1:1.1+202106032008+af4d65493e)"
+   sodipodi:docname="elemclasses.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview220"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.8116734"
+     inkscape:cx="164.76479"
+     inkscape:cy="203.12712"
+     inkscape:window-width="2560"
+     inkscape:window-height="1563"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     fit-margin-right="5" />
+  <defs
+     id="defs215" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-8.2026733,-30.388014)">
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect244"
+       width="41.559093"
+       height="9.3732233"
+       x="41.719635"
+       y="35.520306" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="44.110306"
+       y="41.746262"
+       id="text2044"><tspan
+         sodipodi:role="line"
+         id="tspan2042"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="44.110306"
+         y="41.746262">etree.ElementBase</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4303"
+       width="41.559093"
+       height="9.3732233"
+       x="41.719635"
+       y="53.511974" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="49.770252"
+       y="59.73793"
+       id="text4307"><tspan
+         sodipodi:role="line"
+         id="tspan4327"
+         x="49.770252"
+         y="59.73793">BaseElement</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4347"
+       width="44.258595"
+       height="9.3732233"
+       x="13.334965"
+       y="72.63842" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="14.50642"
+       y="78.864372"
+       id="text4351"><tspan
+         sodipodi:role="line"
+         id="tspan4371"
+         x="14.50642"
+         y="78.864372">SvgDocumentElement</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4373"
+       width="35.451733"
+       height="9.3732233"
+       x="63.605812"
+       y="72.63842" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="67.952271"
+       y="78.864372"
+       id="text4377"><tspan
+         sodipodi:role="line"
+         id="tspan4397"
+         x="67.952271"
+         y="78.864372">ShapeElement</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 62.499182,44.893529 0,8.618445"
+       id="path4421"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect244"
+       inkscape:connection-end="#rect4303" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 55.874732,62.885198 42.088711,72.63842"
+       id="path4425"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4303"
+       inkscape:connection-end="#rect4347" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 67.113766,62.885198 9.603328,9.753222"
+       id="path4427"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4303"
+       inkscape:connection-end="#rect4373" />
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4509"
+       width="35.451733"
+       height="9.3732233"
+       x="24.185204"
+       y="90.169853" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="30.119164"
+       y="96.395805"
+       id="text4513"><tspan
+         sodipodi:role="line"
+         id="tspan4533"
+         x="30.119164"
+         y="96.395805">GroupBase</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4535"
+       width="35.451733"
+       height="9.3732233"
+       x="24.185204"
+       y="106.04485" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="36.46917"
+       y="112.2708"
+       id="text4539"><tspan
+         sodipodi:role="line"
+         id="tspan4559"
+         x="36.46917"
+         y="112.2708">Group</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4561"
+       width="35.451733"
+       height="9.3732233"
+       x="24.185204"
+       y="121.91985" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="36.46917"
+       y="128.1458"
+       id="text4565"><tspan
+         sodipodi:role="line"
+         id="tspan4585"
+         x="36.46917"
+         y="128.1458">Layer</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect4593"
+       width="35.451733"
+       height="9.3732233"
+       x="62.285202"
+       y="106.04485" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="68.748329"
+       y="112.2708"
+       id="text4597"><tspan
+         sodipodi:role="line"
+         id="tspan4637"
+         x="68.748329"
+         y="112.2708">PathElement</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 70.793516,82.011643 -18.344284,8.15821"
+       id="path4661"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4373"
+       inkscape:connection-end="#rect4509" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 41.91107,99.543077 v 6.501773"
+       id="path4663"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4509"
+       inkscape:connection-end="#rect4535" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 41.91107,115.41808 v 6.50177"
+       id="path4665"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4535"
+       inkscape:connection-end="#rect4561" />
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect5157"
+       width="35.451733"
+       height="9.3732233"
+       x="62.285202"
+       y="90.169861" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.04785px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="64.529305"
+       y="96.263039"
+       id="text5161"><tspan
+         sodipodi:role="line"
+         id="tspan5181"
+         x="64.529305"
+         y="96.263039"
+         style="stroke-width:0.264583">PathElementBase</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 81.331678,82.011643 v 8.158218"
+       id="path5227"
+       inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4373"
+       inkscape:connection-end="#rect5157" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 80.011068,99.543084 v 6.501766"
+       id="path5229"
+       inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5157"
+       inkscape:connection-end="#rect4593" />
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect5311"
+       width="21.335135"
+       height="9.3732233"
+       x="100.38519"
+       y="90.169861" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.04785px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="104.2168"
+       y="96.263039"
+       id="text5315"><tspan
+         sodipodi:role="line"
+         id="tspan5335"
+         x="104.2168"
+         y="96.263039">Polyline</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect5363"
+       width="24.719809"
+       height="9.3732233"
+       x="127.37311"
+       y="90.169861" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.04785px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="128.55891"
+       y="96.263039"
+       id="text5367"><tspan
+         sodipodi:role="line"
+         id="tspan5387"
+         x="128.55891"
+         y="96.263039">TextElement</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.276899,82.011643 13.830641,8.158218"
+       id="path6041"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4373"
+       inkscape:connection-end="#rect5311" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 96.943879,82.011643 30.429231,9.134522"
+       id="path6589"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4373"
+       inkscape:connection-end="#rect5363" />
+  </g>
+</svg>
