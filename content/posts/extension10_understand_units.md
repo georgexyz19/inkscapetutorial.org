@@ -3,7 +3,7 @@ slug: units-and-coordinate-systems
 date: 2021-08-07 23:18
 category: extension
 chapter: 10
-note: Units and Coordinate Systems
+note: Units
 
 ## Extension Units
 

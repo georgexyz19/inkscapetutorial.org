@@ -5,7 +5,7 @@ category: extension
 chapter: 13
 note: Drawings For Practice
 
-The previous chapters cover most of contents of Inkscape extension development.  This 
+The previous chapters cover most contents of Inkscape extension development.  This 
 chapter will describe some drawing ideas for practice.  
 
 ## Pythagoras's Theorem
@@ -29,7 +29,7 @@ The code is available on the github repository for this website.
 Bill Casselman's book [Chapter 5](https://personal.math.ubc.ca/~cass/graphics/manual/pdf/ch5.pdf) 
 Exercise 5.4 (on Page 5) is to draw an American flag. 
 [This webpage](https://www.allstarflags.com/facts/us-flag-specifications/) 
-lists the US Flag Specifications. 
+lists the US Flag Specifications. Write an extension to generate the flag drawing. 
 
 <div style="max-width:600px">
   <img class="img-fluid pb-2" src="/images/ext13/flag.svg" alt="american flag"> 

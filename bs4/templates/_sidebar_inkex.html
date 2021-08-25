@@ -8,9 +8,9 @@
 {% for article in articles | selectattr('category', 'equalto', 'extension') | my_sort %}
 
     {%if output_file.startswith(article.slug) %}
-    <p class="font-italic pl-2">{{ article.chapter }}. {{ article.title }}</p>
+    <p class="font-italic pl-2">{{ article.chapter }}. {{ article.note }}</p>
     {% else %}
-    <p class="pl-2"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.chapter }}. {{ article.title }}</a></p>
+    <p class="pl-2"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.chapter }}. {{ article.note }}</a></p>
     {% endif %}
 
 {% endfor %}

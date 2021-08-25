@@ -11,11 +11,11 @@ The `inkex` module defines many custom element classes. The Python files are und
 `inkex/elements` directory and module names all start with an underscore `_`. It indicates 
 that those are internal modules and we should not directly import those modules. 
 When `inkex` module loads an SVG file, it uses those custom 
-element classes and returns objects of custom element class instead of generic `lxml` 
-`Element` class. 
+element classes and returns objects of custom element class instead of generic 
+`Element` class of `lxml`. 
 
 
-The `inkex` module authors did the hard work of writing custom element classes.  It currently 
+The `inkex` module creators did the hard work of writing custom element classes.  It currently 
 has 64 classes included in Inkscape 1.1 release. Here are a few examples. 
 
 ```
@@ -32,7 +32,7 @@ inkex.elements._polygons.Circle
 ......
 ```
 
-If we have an `rect` shape element in an SVG file, it will be an `Rectangle` object in 
+If an SVG file contains an `rect` shape element, it will become an `Rectangle` object in 
 memory when `inkex` loads and parses the file.  When we write user extensions, we can 
 create objects of those custom element classes, and add them to a containing 
 element such as layer or group. 
@@ -49,7 +49,7 @@ etree.ElementBase
 
 ## Create New Elements
 
-The code in the `Hello` extension is the typical way to add new elements to a drawing. We 
+The code in the `Hello` extension shows the typical way to add new elements to a drawing. We 
 create an element object first, set some attributes, and add the element to a
 containing group or layer. The new element will become part of the drawing. 
 
@@ -199,7 +199,7 @@ if __name__ == '__main__':
 ```
 
 Click the menu `Extensions -> Custom -> NewElement` to create elements on the 
-current layer of a drawing. Here is the result. 
+current layer of a drawing. The drawing below shows the results. 
 
 
 <div style="max-width:800px">
@@ -207,8 +207,8 @@ current layer of a drawing. Here is the result.
 </div>
 
 The code logic is simple. The `add_line` method of the `NewElement` class shows four 
-way to create a new `Line` element and set its attributes. The `set` method call for 
-`el1` seems to be the most reliable way to set attributes. 
+way to create a new `Line` element and set its attributes. The `set` method of an 
+element such as `el1` seems to be the most reliable way to set attributes. 
 
 The custom element classes do not have a custom `__init__` method. This is due to 
 a requirement from `lxml` because they are inherited from `ElementBase`. 
@@ -271,7 +271,7 @@ if __name__ == '__main__':
 
 ## Inkex SVG Parsing 
 
-Usually when we load an XML file into memory, we use the default XML parser that comes with 
+When we load an XML file into memory, we usually use the default XML parser that comes with 
 `lxml` module. 
 
 ```
@@ -287,7 +287,7 @@ p = etree.XMLParser(huge_tree=True)
 doc = etree.parse('test.xml', parser=p)
 ```
 
-The `lxml` documentation has a page on 
+The `lxml` documentation has a page regarding  
 [using custom Element classes in lxml](https://lxml.de/element_classes.html). The 
 "Tree based element class lookup in Python" section has an example like this. 
 
@@ -307,12 +307,12 @@ acts like an `Element` object. The return value `MyElementClass` is a custom cla
 defined elsewhere which must inherit from `etree.ElementBase` class. 
 
 The code in the `elements/_base.py` module follows this model to define the lookup 
-class `NodeBasedLookup`. It creates a custom parser `SVG_PARSER` and define the `load_svg` 
+class `NodeBasedLookup`. It creates a custom parser `SVG_PARSER` and defines the `load_svg` 
 method which uses the parser. 
 
 
 With the parser in place, the return value from `etree.parse` method will contain `Rectangle` 
-class object instead of general `Element` class object if it is an `rect` shape element. 
+class object instead of general `Element` object if it is an `rect` shape element. 
 This is a simplification. It actually is a Python proxy object because `lxml.etree` is 
 based on libxml2, which loads the XML tree into memory in a C structure. 
 

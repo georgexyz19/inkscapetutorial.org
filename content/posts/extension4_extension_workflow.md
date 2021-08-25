@@ -3,7 +3,7 @@ slug: extension-workflow
 date: 2021-07-28 08:42
 category: extension
 chapter: 4
-note: extension workflow
+note: Extension Workflow
 
 We will discuss those two line of code in `run` method of `InksacpeExtension` 
 class in this chapter. 

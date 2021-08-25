@@ -3,7 +3,7 @@ slug: hello-extension
 date: 2021-07-30 11:58
 category: extension
 chapter: 5
-note: extension workflow
+note: Hello Extension
 
 ## Hello User Extension
 
