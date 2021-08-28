@@ -6,7 +6,9 @@ chapter: 13
 note: Drawings For Practice
 
 The previous chapters cover most contents of Inkscape extension development.  This 
-chapter will describe some drawing ideas for practice.  
+chapter will describe some drawing ideas for practice. We could manually draw 
+those figures in Inkscape, but the point here is to practice extension programming 
+skills. 
 
 ## Pythagoras's Theorem
 

@@ -208,7 +208,7 @@ current layer of a drawing. The drawing below shows the results.
 
 The code logic is simple. The `add_line` method of the `NewElement` class shows four 
 way to create a new `Line` element and set its attributes. The `set` method of an 
-element such as `el1` seems to be the most reliable way to set attributes. 
+element such as `el1` seems to be the most straightforward way to set attributes. 
 
 The custom element classes do not have a custom `__init__` method. This is due to 
 a requirement from `lxml` because they are inherited from `ElementBase`. 

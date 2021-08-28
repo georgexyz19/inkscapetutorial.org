@@ -1,11 +1,11 @@
-title: Paths
-slug: paths
-date: 2021-08-25 14:42
+title: Selection
+slug: selection
+date: 2021-08-28 00:18
 category: extension
-chapter: 14
-note: Paths
+chapter: 15
+note: Selection
 
-## PathElement Class
+## Selection
 
 The `PathElement` class represent a path element on a drawing.  The class is defined in 
 the `inkex/elements/_polygons.py` module. It is derived from `PathElementBase` class. 
