@@ -9,7 +9,7 @@ note: SVG File Format
 
 The default Inkscape file is Scalable Vector Graphics (SVG) format. The SVG specification is 
 an open standard developed by the World Wide Web (W3C) consortium. SVG files are XML text 
-documents and all major modern web browers support SVG rendering.  
+documents and all major modern web browsers support SVG rendering.  
 
 Let's create a new blank svg file and see what the code looks like. Launch Inkscape and 
 click menu `File -> New` to create a new blank file, and save the file as `new-drawing.svg`. 
@@ -63,7 +63,7 @@ Open the file with a text editor (such as gedit in Ubuntu). Below is the code in
 The first line and second line are Inkscape SVG boilerplate code. The first line 
 inidcates this is an XML file.  The second line is an XML comment. 
 
-The contents of the file is wrapped inside the `svg` tag ➋. The openning `svg` tag 
+The contents of the file is wrapped inside the `svg` tag ➋. The opening `svg` tag 
 has many attributes. The attribute `xmlns:inkscape="www.inkscape..."` means that `inkscape` 
 is an xml namespace.  So the attribute `inkscape:version="1.1..."` is an abbreviation for 
 `www.inkscape...:version=....`. Inkscape is forked from another software `sodipodi`, and 
@@ -82,7 +82,7 @@ group tag with additional attribute `groupmode` to represent layers ➎.
 
 ## Shapes
 
-There are [six baisc element shapes](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) 
+There are [six basic element shapes](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) 
 in SVG specs: line, rect, circle, ellipse, polyline, and polygon. When we are working 
 on a drawing in Inkscape, we can create three types rect, circle, and ellipse. Inkscape 
 uses paths for other types. The example drawing below is created in Inkscape, 

@@ -21,7 +21,7 @@ The `hello.inx` and `hello.py` files are saved under the user extension director
 
 The `Hello.inx` file is very similar to the `Triangle.inx` as we discussed before. 
 In fact we make a copy of the `Triangle.inx` file and modify it. Now we can click 
-`Extensions -> Custom -> Hello` menu to lauch the extension. 
+`Extensions -> Custom -> Hello` menu to launch the extension. 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

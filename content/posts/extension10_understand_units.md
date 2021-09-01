@@ -48,7 +48,7 @@ often considered too tiny to read.
 
 ## Coordinate Systems
 
-When we create a `Line` element and add it to the drawing, we usualy do not need to specify 
+When we create a `Line` element and add it to the drawing, we usually do not need to specify 
 a unit for line length.  For example, here is the code for `el11` in previous chapter. 
 
 ```python
@@ -109,7 +109,7 @@ those numbers to pixels.
 
 What if we know the size of an element on canvas, what value should we set in user space?
 For example, we want a line with a stroke width of `1px`, what value should we set for 
-the `stroke-width` attribue? The stroke width of `1px` is the same as `1/3.7795 = 0.2646mm`. 
+the `stroke-width` attribute? The stroke width of `1px` is the same as `1/3.7795 = 0.2646mm`. 
 When we set the `stroke-width` value as `0.2646`, it will show up as `1px` width on canvas.
 
 We can also call `unittouu` method (property) of `BaseElement` class to do the conversion 
@@ -173,7 +173,7 @@ a short description for each function.
     Return true if the points are near to eps
 
 * `convert_unit(value, to_unit, default='px')`  
-    Returns userunits given a string representation of units in another system
+    Returns user units given a string representation of units in another system
 
 * `discover_unit(value, viewbox, default='px')`  
     Attempt to detect the unit being used based on the viewbox

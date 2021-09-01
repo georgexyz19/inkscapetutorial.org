@@ -33,21 +33,13 @@
   <div class="row">
     <div class="col-md-12 col-lg-9">
 
-      <h1>Chapter {{ article.chapter }}.&nbsp;&nbsp;{{ article.title }}</h1>
+      <h1>{{ article.title }}</h1>
 
       <div class="text-muted mb-2">
         <span>Posted on </span>
         <time datetime="{{ article.date }}">
           {{ article.date.strftime('%A, %m/%d/%Y %H:%M') }}
         </time>
-
-        {% if article.tags %}
-        <span>with tags: </span>
-        {% for tag in article.tags %}
-        <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-        {% if not loop.last %}/{% endif %}
-        {% endfor %}
-        {% endif %}
       </div>
 
       {{ article.content }}
@@ -57,7 +49,7 @@
 
     <div class="d-md-none d-lg-block col-lg-3 bg-light">
 
-      {% include "_sidebar_inkex.html"%}
+      {% include "_sidebar_links.html"%}
 
     </div>
 

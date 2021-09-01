@@ -21,23 +21,37 @@
 {% endblock %}
 
 {% block content %}
-           
-  {{ page.content }}
 
   <div class="container">
+    <div class="jumbotron mt-3">
+      <h1>Inkscape Extension Development Tutorial</h1>
+      <p class="lead">How To Develop Python Inkscape Extensions</p>
+      <hr class="my-4">
+      <p>
+        This webpage links to a series of articles about Inkscape extension development in Python.  I wish you will 
+        find them useful. Not many Inkscape extension development materials are available online, and I hope those 
+        articles will help someone learn and master extension development.    
+      </p>
+
+      <p>
+        We assume readers of this tutorial series have a basic understanding of programming concepts. If you don't know 
+        Python language, you need to spend some time to get familiar with its syntaxes and idioms.  Good Luck!   
+      </p>
+    </div>          
 
     <h2 class="my-4">Table Of Contents</h2>
   
     {% for article in articles | selectattr('category', 'equalto', 'extension') | my_sort %}
-  
       <p class="pl-4">
         <a href="{{ SITEURL }}/{{ article.url }}">Chapter {{ article.chapter }}. {{ article.title }}</a>
       </p>
-
-  
     {% endfor %}
-   
+
+    {{ page.content }}
   </div>
+
+
+
   
 {% endblock %}
 

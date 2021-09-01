@@ -11,7 +11,7 @@ In this tutorial, we will take a ook at the `Triangle` extension code.
 Usually an Inkscape extension consists of two files, one `.inx` file and 
 one `.py` file. The `.inx` file contains xml code describing the interface 
 and the `.py` file is the 
-Python file. The `.py` file ususally imports other modules so an extension 
+Python file. The `.py` file usually imports other modules so an extension 
 could involve multiple Python modules. 
 
 The `Triangle` extension code is in the `triangle.inx` and `triangle.py` 
@@ -64,7 +64,7 @@ Here is a list of descriptions for the numbered lines.
 1. this line indicates it is an xml file
 2. name tag, specifies the name on submenu (Render -> Triangle)
 3. id tag, unique id of the extension
-4. param tag, specifies an input control on the diagbox
+4. param tag, specifies an input control on the dialog box
 5. param tag, specifies a select control 
 6. submenu tag, shows up as a submenu (Extensions -> Render)
 7. command tag, the name of the Python file to invoke
@@ -72,7 +72,7 @@ Here is a list of descriptions for the numbered lines.
 
 The first line and `inkscape-extension` tag are boilerplate code. Every 
 extension has those lines.  Inside the `inkscape-extension` tag, there 
-are `name`, `id`, `param`, `effect`, and `script` tages. 
+are `name`, `id`, `param`, `effect`, and `script` tags. 
 
 The `name` tag value `Triangle` shows up on the menu. The second 
 level menu `Render` under `Extensions` is specified in the `submenu` tag 
@@ -93,7 +93,7 @@ button on the dialog, the `triangle.py` Python program will start running.
 
 The `.inx` file is in XML format. 
 XML stands for *extensible markup language*, which is a popular file format 
-in early 2000s. I remember attending a seminar in colleage and the 
+in early 2000s. I remember attending a seminar in college and the 
 speaker says something like every one should learn XML and write in XML. The 
 format becomes less popular over time. The default Inkscape file format 
 SVG is also in XML format. 
@@ -230,7 +230,7 @@ below.
 ```python
 def run(self, args=None, output=stdout):
     # type: (Optional[List[str]], Union[str, IO]) -> None
-    """Main entrypoint for any Inkscape Extension"""
+    """Main entry point for any Inkscape Extension"""
     try:
         if args is None:
             args = sys.argv[1:]
@@ -255,13 +255,13 @@ def run(self, args=None, output=stdout):
 ## Logging Experiment
 
 Let's add some logging code to this file and check logging output. If you are not 
-familar with Python logging module, take a look at the 
+familiar with Python logging module, take a look at the 
 [Python Logging Howto Page](https://docs.python.org/3/howto/logging.html). This 
 15 minutes [youtube video](https://youtu.be/-ARI4Cz-awo) 
 explains the basics of logging very well. 
 
 In order to 
-modify files in the system extenson directory, we need to change the directory and 
+modify files in the system extension directory, we need to change the directory and 
 file permissions.  Run those bash commands when you are in the `system extension` 
 directory. Be sure to make a copy of the directory before modifying files. 
 
@@ -270,7 +270,7 @@ $ cd /usr/share/inkscape/extensions
 $ sudo chmod -R 777 ../extensions/
 ```
 
-If you install inkscape via `snap`, you will have a difficult time modidfying any 
+If you install inkscape via `snap`, you will have a difficult time modifying any 
 files under `/snap` directory.  This is a security feature of snap apps. How do 
 I know it? I waste a few hours trying 
 various methods but fail to modify permissions. 
@@ -278,13 +278,12 @@ various methods but fail to modify permissions.
 Add those lines at the top of `base.py` to setup logging module.
 
 ```python
- from .localization import localize
+from .localization import localize
  
  # setup logging
- import logging
- logging.basicConfig(filename = 
-     '/home/george/Desktop/new-logging.txt', filemode='w', 
-     format='%(levelname)s: %(message)s', level=logging.DEBUG)
+import logging
+logging.basicConfig(filename='/home/george/Desktop/new-logging.txt', 
+    filemode='w', format='%(levelname)s: %(message)s', level=logging.DEBUG)
 ```
 
 Then add six logging debug output lines in the `run` method. 
@@ -292,7 +291,7 @@ Then add six logging debug output lines in the `run` method.
 ```python
 def run(self, args=None, output=stdout):
     # type: (Optional[List[str]], Union[str, IO]) -> None
-    """Main entrypoint for any Inkscape Extension"""
+    """Main entry point for any Inkscape Extension"""
     logging.debug('run starts')    ##1
     logging.debug(f'python exec: {sys.executable}') ##2
 
@@ -342,14 +341,14 @@ The `effect` method is defined in the `InkscapeExtension` class, but it raises a
 The `effect` method in `Triangle` class overrides it. 
 
 The `InkscapeExtension` class defines a `debug` method. We can invoke this method 
-to output messages. The method redirects a message to the stardard error stream, 
+to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
 module is more flexible to use. The `debug` method is designed to 
 show a message to the extension user. 
 
 ## What's Next
 
-You may feel overwhelmed or even frustrated by now if you are not familar 
+You may feel overwhelmed or even frustrated by now if you are not familiar 
 with Python. Most Python introductory books do not even discuss classes. But keep 
 reading and experimenting, and the code will gradually start making sense to you. 
 

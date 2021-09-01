@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24.008703mm"
+   height="24.008703mm"
+   viewBox="0 0 24.008703 24.008703"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (1:1.1+202106032008+af4d65493e)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:zoom="2.5620932"
+     inkscape:cx="156.51265"
+     inkscape:cy="88.40428"
+     inkscape:window-width="1551"
+     inkscape:window-height="970"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-5.3955693,-0.32573822)">
+    <rect
+       style="fill:#87cefa;stroke:none;stroke-width:0.529167;stop-color:#000000"
+       id="rect2720"
+       width="16.111488"
+       height="16.111488"
+       x="11.322387"
+       y="-16.959473"
+       transform="rotate(60)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="13.937201"
+       y="15.674127"
+       id="text7202"><tspan
+         sodipodi:role="line"
+         id="tspan7200"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="13.937201"
+         y="15.674127">it</tspan></text>
+  </g>
+</svg>

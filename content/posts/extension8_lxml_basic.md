@@ -15,7 +15,7 @@ reusing other people's existing code saves programming time. The
 drawback is that we have to spend time to learn how to use existing code. 
 
 The [lxml](https://lxml.de/) 
-XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt. It is 
+XML toolkit is a Python binding for the C libraries libxml2 and libxslt. It is 
 similar to Python standard library module `xml.etree.ElementTree`, but it is faster and 
 easier to program. 
 The Inkscape extension developers long recognized the value of `lxml` python 
@@ -31,7 +31,7 @@ the code in `inkex` package, so it's better to know the basics of `lxml` package
 Main features of `lxml` package are in the `etree` module. We will discuss several 
 functions and classes in the etree module in this chapter. 
 
-Note terms like function, method, or class constructor may not be acurate. 
+Note terms like function, method, or class constructor may not be accurate. 
 They are all callable objects in Python. In this chapter, we simply call them functions or methods. 
 
 * etree.parse
@@ -51,7 +51,7 @@ and returns an `ElementTree` instance.
 etree.parse(source, parser=None, base_url=None)
 ```
 
-Here is a Python intepreter session showing how to load an SVG file. 
+Here is a Python interpreter session showing how to load an SVG file. 
 
 ```
 george@Inspiron-5515:~$ /usr/bin/python3
@@ -259,7 +259,7 @@ its child elements and attributes.
 ```
 
 The `getchildren` method returns a list of element children.  The `getiterator` 
-method walks a subtree and looks for all descendents, and it also accepts a 
+method walks a subtree and looks for all descendants, and it also accepts a 
 `tag` argument to look for a specific type of elements. The `getroottree` method 
 return an `ElementTree` object which contains `Element` instance. It also has a 
 `getparent` method which returns the parent element. 
@@ -286,10 +286,10 @@ return an `ElementTree` object which contains `Element` instance. It also has a
 
 ```
 
-The `find` method searches for element children and returns a signle element 
+The `find` method searches for element children and returns a single element 
 that matches the pattern of its `path` argument. The `path` argument is 
 a string describing the element for which we are searching. The values are 
-in a format like `rect` or `g/rect`.  The `findall` method is simlar to `find`, and 
+in a format like `rect` or `g/rect`.  The `findall` method is similar to `find`, and 
 it returns a list of child elements that match the pattern. But it does not 
 search nested elements inside children. 
 

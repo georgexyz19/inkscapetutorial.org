@@ -42,7 +42,7 @@ file, and load it. The drawing has 4 simple elements as shown below.
 </div>
 
 The `load_svg` function is defined in the `inkex/elements/_base.py` module. The 
-funciton invokes `etree.parse` method to load the SVG file. The return value is 
+function invokes `etree.parse` method to load the SVG file. The return value is 
 an `ElementTree` object. As discussed in the last chapter, we can call the 
 `getroot` method to get a top level `Element` object, which is the `svg` tag 
 element. The `svg` tag element is actually of type `SvgDocumentElement`, which 
@@ -113,7 +113,7 @@ namespace such as `sodipodi:namedview`.
 
 The `SvgDocumentElement` class is defined in the `inkex/elements/_svg.py` module. The 
 class defines an `_init` method, which is called once during `Element` class instantiation 
-time.  Other methods and properties are not hard to understand. Here are some exmaples.
+time.  Other methods and properties are not hard to understand. Here are some examples.
 
 ```
 >>> svg.get_ids()

@@ -10,7 +10,7 @@ note: Get Started
 Before we start developing Inkscape extensions (or plugins), let's look at one simple 
 built-in extension and understand what's an Inkscape extension. 
 
-After we lauch Inkscape, clik menu `Extensions -> Render -> Triangle...`. A new dialog 
+After we launch Inkscape, click menu `Extensions -> Render -> Triangle...`. A new dialog 
 will pop up on screen and it looks like this.  
 
 <div style="max-width:300px">
@@ -34,7 +34,7 @@ will draw a triangle like this.  We know the side on the right hand is `a`.
 </div>
 
 Next let's try to enter an invalid number and see the result.  Change the `Side length a (px)` 
-value to 250. Note the length of a trangle side can't be longer than the sum of other two sides. 
+value to 250. Note the length of a triangle side can't be longer than the sum of other two sides. 
 The program will generate this error message. 
 
 <div style="max-width:400px">
@@ -69,7 +69,7 @@ with an Inkscape extension. The [full size poster file](/files/ext1/signposter.p
 
 ## Extension Programs
 
-Most Inkscape extensions are written in Python programming language. If you are not familar 
+Most Inkscape extensions are written in Python programming language. If you are not familiar 
 with Python, 
 [the official python tutorial](https://docs.python.org/3/tutorial/) is a good start point. 
 
@@ -94,9 +94,9 @@ My computer runs Ubuntu 21.04 OS, and Inkscape 1.1 is installed through
 Inkscape under other OS, the directories will be different. 
 
 The `user extensions` refers to extensions created by you as an Inkscape user. The 
-`inkscape extensons` or `system extensions` refers to the programs that come with 
+`inkscape extensions` or `system extensions` refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the `inkscape extensions` 
-directory, and they will run just fine. But it is better to seperate them in two 
+directory, and they will run just fine. But it is better to separate them in two 
 directories. 
 
 We can add two alias to the `~/.bashrc` file to have easier access to those two 
@@ -134,14 +134,14 @@ this gitlab source code repository is the place to get started.
 
 Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
 mostly written in Python 2. Even though Python 3.4 was released back in 2014 and 
-many people were writting 
+many people were writing 
 in Python 3, Inkscape extensions were still in Python 2 for many years. The 
 reason is that most system extensions were created by various developers over time
 and it requires some serious work to convert them to Python 3. Note Python 
 3 is not compatible with Python 2. 
 
 Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
-The Inscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
+The Inkscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
 old Inkscape extension which does not work in version 1.1, try to load it 
 with Inkscape 0.92.5 and it may work well. 
 

@@ -8,7 +8,7 @@ note: How Extensions Work
 ## Class Initialization
 
 The last two lines of `triangle.py` files are shown below. The first line is 
-boilerplate code. If we run this module on terminal, the Python intepreter will set the 
+boilerplate code. If we run this module on terminal, the Python interpreter will set the 
 `__name__` to `__main__` and the code `Triangle().run()` will start. 
 
 ```python
@@ -91,7 +91,7 @@ for *Namespace Specific String*.
 The `__init__` method initializes four instance variables `file_io`, `options`, 
 `document`, and `arg_parser`. It calls the `add_argument` methods of `ArgumentParser` 
 class twice, and then it calls the `add_arguments` class method.  The `add_argument` method 
-is overriden in `Triangle` class, so the `add_argument` method in the `Triangle` class 
+is overridden in `Triangle` class, so the `add_argument` method in the `Triangle` class 
 will be called. The method calls `add_argument` of `ArgumentParser` class seven times. 
 Note the method name is `add_argument` in `ArgumentParser` class and it is `add_arguments`
 in `Triangle` class. 
@@ -117,7 +117,7 @@ def add_arguments(self, pars):
     logging.debug(f'Triangle add_arguments method ends')  ##
 ```
 
-We can add a pair of logging statements at the begining and end of the method call to 
+We can add a pair of logging statements at the beginning and end of the method call to 
 find out the call sequence.  The similar statements are added to the two `__init__` 
 methods, and the result is shown below. 
 
@@ -131,7 +131,7 @@ DEBUG: SvgInputMixin __init__ ends
 ```
 
 The interesting part here is that the `__init__` method in `SvgInputMixin` is called 
-first.  When the Python intepreter encounters the `self.arg_parser` instance variable, 
+first.  When the Python interpreter encounters the `self.arg_parser` instance variable, 
 it can't find the definition.  It suspends this `__init__` method call and starts 
 invoking `__init__` method in `InkscapeExtension` class. The `add_arguments` method 
 starts and ends as expected because it is called within the `__init__` method of 
@@ -192,7 +192,7 @@ def parse_arguments(self, args):
 ```
 
 After the `parse_arguments` method call, the `self.options` value is 
-like the `Namespace` object shown below. We can access variables in the object like 
+the `Namespace` object shown below. We can access variables in the object like 
 a property (e.g., `self.options.input_file`). Notice the `ids` and `selected_nodes` 
 instance varaibles in `Namespace`. 
 
@@ -227,9 +227,9 @@ and system extension directories, and create menu items under the `Extensions`
 top level menu.  
 
 When we click an extension menu such as `Triangle`, Inkscape will setup the 
-input and output stream of Python environment and call the Python intepreter 
+input and output stream of Python environment and call the Python interpreter 
 installed at this path `/usr/bin/python3`.  It also passes the following 
-arguments to the Python intepreter. 
+arguments to the Python interpreter. 
 
 ```
 ['triangle.py', '--s_a=100', '--s_b=100', 
@@ -251,6 +251,6 @@ variables we can access (`self.options.s_a`) in the program.
 
 Python documentation site has an 
 [official argparse module tutorial](https://docs.python.org/3/howto/argparse.html). 
-The `argparse` module was introducted in Python 3.4, which supersedes the `optparse` 
+The `argparse` module was introduced in Python 3.4, which supersedes the `optparse` 
 in Python2. The old Inkscape extensions before Inkscape 1.0 use `optparse` module. 
 

@@ -70,7 +70,7 @@ from which we can create a `Style` object. The `to_str` method converts a `Style
 to a string.  
 
 The `update` method is similar to Python dictionary `update` method. The `Style` class 
-also defines the `__add__` and `__sub__` methods so we can add or substract 
+also defines the `__add__` and `__sub__` methods so we can add or subtract 
 `Style` class objects. It is probably better to use `+` or `-` operators because 
 they create new copies of `Style` object.   
 

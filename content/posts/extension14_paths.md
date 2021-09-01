@@ -9,7 +9,7 @@ note: Paths
 
 The `PathElement` class represent a path element on a drawing.  The class is defined in 
 the `inkex/elements/_polygons.py` module. It is derived from `PathElementBase` class. 
-Both classes only include a few methods and properties. The Python intepreter session 
+Both classes only include a few methods and properties. The Python interpreter session 
 below shows how to get hold of a path element and invoke its methods and properties. 
 
 The same drawing `drawing-21.svg` discussed in Chapter 9 is used here as an example. 
@@ -187,7 +187,7 @@ Let's look at one of them and discuss its code.
 
 When we work on engineering drawings, the dimension tool is indispensable. The `Dimensions` 
 menu under `Visualize Path` is such a tool. We can select several path elements or a single 
-element and apply the extension. The extension will draw the auxilary lines and two 
+element and apply the extension. The extension will draw the auxiliary lines and two 
 dimension lines with arrow heads. However, the tool does not automatically add dimension 
 texts along the lines.  The figure below shows an example. 
 

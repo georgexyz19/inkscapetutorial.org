@@ -78,7 +78,7 @@ def load_svg(stream):
 
 ```
 
-Here the last statemetn `return etree.parse(...)` is executed because `steam` 
+Here the last statement `return etree.parse(...)` is executed because `steam` 
 is a file object, not a string or bytes type. The `etree.parse` method in `lxml` 
 module does the actual loading work. The `lxml` module is not in the standard 
 library, and it is a third part library. It will be automatically installed 
@@ -118,7 +118,7 @@ The first line of the method calls `get_current_layer` method of `svg` object
 to get an object representing current layer. The current layer information is saved in 
 the SVG file itself.  The second line get the Inkscape view center coordinates. 
 The next four lines of code convert number unit from pixel to SVG internal default unit 
-millimeter.  For example, the `s_a` value is 100 px before the coversion, and 
+millimeter.  For example, the `s_a` value is 100 px before the conversion, and 
 the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
 So the conversion is 100/96 in * 25.4 = 26.45 mm.
 
@@ -223,7 +223,7 @@ def save(self, stream):
 When we develop an Inkscape extension, we don't need to care too much about 
 load and save processes. The `inkex` module already has code to handle
 them. It actually warps around a third party python module `lxml`, which 
-does the actualy XML loading, parsing, and saving.  The 
+does the XML loading, parsing, and saving.  The 
 [lxml official website](https://lxml.de/) 
 has lots of useful information. We will also discuss this module in later chapters. 
 
