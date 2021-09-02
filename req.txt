@@ -4,3 +4,4 @@ livereload
 Markdown
 pelican
 typogrify
+ghp-import
