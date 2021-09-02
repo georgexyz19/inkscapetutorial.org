@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Extension Structure In this tutorial, we will take a ook at the Triangle extension code. Usually an Inkscape extension consists of two files, one .inx file and one .py file …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Triangle Extension Code - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 2.&nbsp;&nbsp;Triangle Extension Code</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-07-27 08:42:00-04:00">
+          Tuesday, 07/27/2021 08:42
+        </time>
+
+      </div>
+
+      <h2>Extension Structure</h2>
+<p>In this tutorial, we will take a ook at the <code>Triangle</code> extension code.
+Usually an Inkscape extension consists of two files, one <code>.inx</code> file and 
+one <code>.py</code> file. The <code>.inx</code> file contains xml code describing the interface 
+and the <code>.py</code> file is the 
+Python file. The <code>.py</code> file usually imports other modules so an extension 
+could involve multiple Python modules. </p>
+<p>The <code>Triangle</code> extension code is in the <code>triangle.inx</code> and <code>triangle.py</code> 
+files. Both are in the system extension directory. </p>
+<h2>Inx File</h2>
+<p>The <code>triangle.inx</code> file has 27 lines. The content of the file is shown below.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span> ➊
+<span class="nt">&lt;inkscape-extension</span>
+    <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Triangle<span class="nt">&lt;/name&gt;</span>    ➋
+    <span class="nt">&lt;id&gt;</span>math.triangle<span class="nt">&lt;/id&gt;</span>   ➌
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;s_a&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0.01&quot;</span> <span class="na">max=</span><span class="s">&quot;10000&quot;</span>  
+        <span class="na">gui-text=</span><span class="s">&quot;Side Length a (px):&quot;</span><span class="nt">&gt;</span>100.0<span class="nt">&lt;/param&gt;</span>  ➍
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;s_c&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0.01&quot;</span> <span class="na">max=</span><span class="s">&quot;10000&quot;</span> 
+        <span class="na">gui-text=</span><span class="s">&quot;Side Length c (px):&quot;</span><span class="nt">&gt;</span>100.0<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;a_a&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0&quot;</span>    <span class="na">max=</span><span class="s">&quot;180&quot;</span>   
+        <span class="na">gui-text=</span><span class="s">&quot;Angle a (deg):&quot;</span><span class="nt">&gt;</span>60<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;a_b&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0&quot;</span>    <span class="na">max=</span><span class="s">&quot;180&quot;</span>   
+        <span class="na">gui-text=</span><span class="s">&quot;Angle b (deg):&quot;</span><span class="nt">&gt;</span>30<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;a_c&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0&quot;</span>    <span class="na">max=</span><span class="s">&quot;180&quot;</span>   
+        <span class="na">gui-text=</span><span class="s">&quot;Angle c (deg):&quot;</span><span class="nt">&gt;</span>90<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;s_b&quot;</span> <span class="na">type=</span><span class="s">&quot;float&quot;</span> <span class="na">min=</span><span class="s">&quot;0.01&quot;</span> <span class="na">max=</span><span class="s">&quot;10000&quot;</span> 
+        <span class="na">gui-text=</span><span class="s">&quot;Side Length b (px):&quot;</span><span class="nt">&gt;</span>100.0<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;mode&quot;</span> <span class="na">type=</span><span class="s">&quot;optiongroup&quot;</span> <span class="na">appearance=</span><span class="s">&quot;combo&quot;</span>     
+        <span class="na">gui-text=</span><span class="s">&quot;Mode:&quot;</span><span class="nt">&gt;</span>  ➎
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;3_sides&quot;</span><span class="nt">&gt;</span>From Three Sides<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;s_ab_a_c&quot;</span><span class="nt">&gt;</span>From Sides a, b and Angle c<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;s_ab_a_a&quot;</span><span class="nt">&gt;</span>From Sides a, b and Angle a<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;s_a_a_ab&quot;</span><span class="nt">&gt;</span>From Side a and Angles a, b<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;s_c_a_ab&quot;</span><span class="nt">&gt;</span>From Side c and Angles a, b<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;effect&gt;</span>
+        <span class="nt">&lt;object-type&gt;</span>all<span class="nt">&lt;/object-type&gt;</span>
+        <span class="nt">&lt;effects-menu&gt;</span>
+            <span class="nt">&lt;submenu</span> <span class="na">name=</span><span class="s">&quot;Render&quot;</span><span class="nt">/&gt;</span> ➏
+        <span class="nt">&lt;/effects-menu&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">location=</span><span class="s">&quot;inx&quot;</span> 
+            <span class="na">interpreter=</span><span class="s">&quot;python&quot;</span><span class="nt">&gt;</span>triangle.py<span class="nt">&lt;/command&gt;</span> ➐
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/inkscape-extension&gt;</span>
+</code></pre></div>
+
+<p>Here is a list of descriptions for the numbered lines. </p>
+<ol>
+<li>this line indicates it is an xml file</li>
+<li>name tag, specifies the name on submenu (Render -&gt; Triangle)</li>
+<li>id tag, unique id of the extension</li>
+<li>param tag, specifies an input control on the dialog box</li>
+<li>param tag, specifies a select control </li>
+<li>submenu tag, shows up as a submenu (Extensions -&gt; Render)</li>
+<li>command tag, the name of the Python file to invoke</li>
+</ol>
+<p>The first line and <code>inkscape-extension</code> tag are boilerplate code. Every 
+extension has those lines.  Inside the <code>inkscape-extension</code> tag, there 
+are <code>name</code>, <code>id</code>, <code>param</code>, <code>effect</code>, and <code>script</code> tags. </p>
+<p>The <code>name</code> tag value <code>Triangle</code> shows up on the menu. The second 
+level menu <code>Render</code> under <code>Extensions</code> is specified in the <code>submenu</code> tag 
+under <code>effect &gt; effects-menu</code>.  </p>
+<p>The <code>id</code> value must be unique for each extension. We can add 
+a namespace such as <code>math.</code> before the <code>triangle</code> to make it distinctive. </p>
+<p>The <code>param</code> tags represent input controls on the dialog. This <code>Triangle</code> extension 
+includes two types of param element <code>float</code> and <code>optiongroup</code>. There are many other 
+types we can use.  This 
+<a href="https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters">Inkscape wiki page</a> 
+has a complete list. </p>
+<p>The <code>command</code> tag under the <code>script</code> element indicates that the extension 
+code is a Python program in <code>triangle.py</code> file. When we click the <code>apply</code> 
+button on the dialog, the <code>triangle.py</code> Python program will start running. </p>
+<p>The <code>.inx</code> file is in <span class="caps">XML</span> format. 
+<span class="caps">XML</span> stands for <em>extensible markup language</em>, which is a popular file format 
+in early 2000s. I remember attending a seminar in college and the 
+speaker says something like every one should learn <span class="caps">XML</span> and write in <span class="caps">XML</span>. The 
+format becomes less popular over time. The default Inkscape file format 
+<span class="caps">SVG</span> is also in <span class="caps">XML</span> format. </p>
+<h2>Python File</h2>
+<p>The <code>triangle.py</code> file has 188 lines. Part of the content is shown below.  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">acos</span><span class="p">,</span> <span class="n">asin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">sqrt</span>
+
+<span class="kn">import</span> <span class="nn">inkex</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">draw_SVG_tri</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> 
+    <span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="o">......</span>
+
+<span class="k">def</span> <span class="nf">draw_tri_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>  
+    <span class="k">if</span> <span class="n">is_valid_tri_from_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">):</span>
+        <span class="n">a_b</span> <span class="o">=</span> <span class="n">angle_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> <span class="n">s_b</span><span class="p">)</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  
+        <span class="n">b</span> <span class="o">=</span> <span class="n">v_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">s_c</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  
+        <span class="n">c</span> <span class="o">=</span> <span class="n">v_add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">pt_on_circ</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">pi</span> <span class="o">-</span> <span class="n">a_b</span><span class="p">))</span>  
+        <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">offx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> 
+        <span class="n">offy</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> 
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">offx</span><span class="p">,</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">offy</span><span class="p">)</span>  
+
+        <span class="n">draw_SVG_tri</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;Triangle&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inkex</span><span class="o">.</span><span class="n">errormsg</span><span class="p">(</span><span class="s1">&#39;Invalid Triangle Specifications.&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Triangle</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">EffectExtension</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pars</span><span class="p">):</span>
+        <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--s_a&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> 
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length a&quot;</span><span class="p">)</span>
+        <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--s_b&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>  
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length b&quot;</span><span class="p">)</span>
+        <span class="o">...</span>
+        <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--mode&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;3_sides&#39;</span><span class="p">,</span> 
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length c&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">effect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tri</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">get_current_layer</span><span class="p">()</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">namedview</span><span class="o">.</span><span class="n">center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;2px&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;3_sides&#39;</span><span class="p">:</span>
+            <span class="n">s_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span>
+            <span class="n">s_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span>
+            <span class="n">s_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span>
+            <span class="n">draw_tri_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> 
+                <span class="n">offset</span><span class="p">,</span> <span class="n">stroke_width</span><span class="p">,</span> <span class="n">tri</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;s_ab_a_c&#39;</span><span class="p">:</span>
+            <span class="o">...</span>
+        <span class="o">......</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">Triangle</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The last two lines of the file is the main entry point.  The Python program 
+initializes an instance of <code>Triangle</code> class and calls the <code>run</code> method. 
+The <code>Triangle</code> class 
+itself only defines two methods <code>add_argument</code> and <code>effect</code>, so the <code>run</code> method 
+must be inherited from other classes. </p>
+<p>The <code>Triangle</code> class is inherited from <code>EffectExtension</code> class of <code>inkex</code> module.
+The Python modules are in the <code>inkex</code> directory. The <code>inkex</code> is 
+the most basic module of Inkscape extension system. It acts like a framework upon 
+which we build user extensions. </p>
+<p>Here are directory names and file names under the <code>inkex</code> directory. The first 
+column shows that it is a directory or the python file line number. </p>
+<pre>
+ (dir) deprecated-simple 
+ (dir) elements  
+ (dir) tester  
+    33 ./__init__.py     # line of code | file name
+   377 ./base.py
+   425 ./bezier.py
+   474 ./colors.py
+   233 ./command.py
+   403 ./deprecated.py
+   378 ./extensions.py
+    50 ./inkscape_env.py
+   214 ./inx.py
+    66 ./localization.py
+  1672 ./paths.py
+   100 ./ports.py
+   382 ./styles.py
+  1116 ./transforms.py
+   120 ./turtle.py
+    76 ./tween.py
+   107 ./units.py
+   209 ./utils.py
+  6435 total
+
+     3 directories, 18 files
+</pre>
+
+<p>The <code>EffectExtension</code> class is defined in the <code>extensions.py</code> file, but it&#8217;s just 
+a subclass of <code>SvgThroughMixin</code> and <code>InkscapeExtension</code>. Pay attention to the docstring 
+of the class, which summarizes what this class does. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">EffectExtension</span><span class="p">(</span><span class="n">SvgThroughMixin</span><span class="p">,</span> <span class="n">InkscapeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes the SVG from Inkscape, modifies the selection or the document</span>
+<span class="sd">    and returns an SVG to Inkscape.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<p>The <code>SvgThroughMixin</code> and <code>InkscapeExtension</code> classes are defined in the <code>base.py</code> 
+file. The <code>run</code> method is defined in <code>InkscapeExtension</code> class. The code is shown 
+below. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">stdout</span><span class="p">):</span>
+    <span class="c1"># type: (Optional[List[str]], Union[str, IO]) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Main entry point for any Inkscape Extension&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_raw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_raw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">effect</span><span class="p">())</span>
+    <span class="k">except</span> <span class="n">AbortExtension</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">err</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">ABORT_STATUS</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean_up</span><span class="p">()</span>
+</code></pre></div>
+
+<h2>Logging Experiment</h2>
+<p>Let&#8217;s add some logging code to this file and check logging output. If you are not 
+familiar with Python logging module, take a look at the 
+<a href="https://docs.python.org/3/howto/logging.html">Python Logging Howto Page</a>. This 
+15 minutes <a href="https://youtu.be/-ARI4Cz-awo">youtube video</a> 
+explains the basics of logging very well. </p>
+<p>In order to 
+modify files in the system extension directory, we need to change the directory and 
+file permissions.  Run those bash commands when you are in the <code>system extension</code> 
+directory. Be sure to make a copy of the directory before modifying files. </p>
+<div class="highlight"><pre><span></span><code>$ cd /usr/share/inkscape/extensions
+$ sudo chmod -R 777 ../extensions/
+</code></pre></div>
+
+<p>If you install inkscape via <code>snap</code>, you will have a difficult time modifying any 
+files under <code>/snap</code> directory.  This is a security feature of snap apps. How do 
+I know it? I waste a few hours trying 
+various methods but fail to modify permissions. </p>
+<p>Add those lines at the top of <code>base.py</code> to setup logging module.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.localization</span> <span class="kn">import</span> <span class="n">localize</span>
+
+ <span class="c1"># setup logging</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/home/george/Desktop/new-logging.txt&#39;</span><span class="p">,</span> 
+    <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then add six logging debug output lines in the <code>run</code> method. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">stdout</span><span class="p">):</span>
+    <span class="c1"># type: (Optional[List[str]], Union[str, IO]) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Main entry point for any Inkscape Extension&quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;run starts&#39;</span><span class="p">)</span>    <span class="c1">##1</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;python exec: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">##2</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sys argv: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">##3</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;input : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">##4</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;output : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">##5</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_raw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_raw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">effect</span><span class="p">())</span>
+
+    <span class="k">except</span> <span class="n">AbortExtension</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">err</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">ABORT_STATUS</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean_up</span><span class="p">()</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;run ends&#39;</span><span class="p">)</span>  <span class="c1">##6</span>
+</code></pre></div>
+
+<p>The results of logging in the <code>new-loggin.txt</code> file are</p>
+<div class="highlight"><pre><span></span><code>DEBUG: run starts
+DEBUG: python exec: /usr/bin/python3
+DEBUG: sys argv: [&#39;triangle.py&#39;, &#39;--s_a=100&#39;, &#39;--s_b=100&#39;, 
+   &#39;--s_c=100&#39;, &#39;--a_a=60&#39;, &#39;--a_b=30&#39;, &#39;--a_c=90&#39;, 
+   &#39;--mode=3_sides&#39;, &#39;/tmp/ink_ext_XXXXXX.svgVYXM70&#39;]
+DEBUG: input : /tmp/ink_ext_XXXXXX.svgVYXM70
+DEBUG: output : &lt;_io.BufferedWriter name=&#39;&lt;stdout&gt;&#39;&gt;
+DEBUG: run ends
+</code></pre></div>
+
+<p>Between the <code>load_raw</code> and <code>save_raw</code> method calls, there is an <code>effect</code> method call. 
+The <code>effect</code> method is defined in the <code>InkscapeExtension</code> class, but it raises an 
+<code>NotImplementedError</code> exception.  The method is a placeholder for subclasses to override. 
+The <code>effect</code> method in <code>Triangle</code> class overrides it. </p>
+<p>The <code>InkscapeExtension</code> class defines a <code>debug</code> method. We can invoke this method 
+to output messages. The method redirects a message to the standard error stream, 
+and Inkscape will display the message on a dialog box. However, the logging 
+module is more flexible to use. The <code>debug</code> method is designed to 
+show a message to the extension user. </p>
+<h2>What&#8217;s Next</h2>
+<p>You may feel overwhelmed or even frustrated by now if you are not familiar 
+with Python. Most Python introductory books do not even discuss classes. But keep 
+reading and experimenting, and the code will gradually start making sense to you. </p>
+<p>Like most things in the programming world, it&#8217;s better to learn a little and 
+start working on something. There may be things that you don&#8217;t understand, 
+but you shouldn&#8217;t 
+wait to start because you probably will never understand everything. 
+The extension Python code is all open source and available to you. You are free 
+to experiment and modify as you like. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="font-italic pl-2">2. Triangle Extension</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

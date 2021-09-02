@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (ce6663b3b7, 2021-05-25)"
+   sodipodi:docname="inx-file.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.94867184"
+     inkscape:cx="668.8298"
+     inkscape:cy="593.98833"
+     inkscape:window-width="2560"
+     inkscape:window-height="1563"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.48426px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.137107"
+       x="7.8915281"
+       y="13.261727"
+       id="text3201"><tspan
+         sodipodi:role="line"
+         id="tspan3199"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="13.261727">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="20.117056"
+         id="tspan3203">&lt;inkscape-extension </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="26.972383"
+         id="tspan3205">    xmlns=&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="33.827713"
+         id="tspan3207">    &lt;name&gt;Triangle&lt;/name&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="40.683041"
+         id="tspan3209">    &lt;id&gt;math.triangle&lt;/id&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="47.538368"
+         id="tspan3211">    &lt;param name=&quot;s_a&quot; type=&quot;float&quot; min=&quot;0.01&quot; max=&quot;10000&quot; </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="54.3937"
+         id="tspan3213">        gui-text=&quot;Side Length a (px):&quot;&gt;100.0&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="61.249027"
+         id="tspan3215">    &lt;param name=&quot;s_c&quot; type=&quot;float&quot; min=&quot;0.01&quot; max=&quot;10000&quot; </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="68.104355"
+         id="tspan3217">        gui-text=&quot;Side Length c (px):&quot;&gt;100.0&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="74.959686"
+         id="tspan3219">    &lt;param name=&quot;a_a&quot; type=&quot;float&quot; min=&quot;0&quot;    max=&quot;180&quot;   </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="81.815018"
+         id="tspan3221">        gui-text=&quot;Angle a (deg):&quot;&gt;60&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="88.670341"
+         id="tspan3223">    &lt;param name=&quot;a_b&quot; type=&quot;float&quot; min=&quot;0&quot;    max=&quot;180&quot;   </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="95.525665"
+         id="tspan3225">        gui-text=&quot;Angle b (deg):&quot;&gt;30&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="102.381"
+         id="tspan3227">    &lt;param name=&quot;a_c&quot; type=&quot;float&quot; min=&quot;0&quot;    max=&quot;180&quot;   </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="109.23633"
+         id="tspan3229">        gui-text=&quot;Angle c (deg):&quot;&gt;90&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="116.09166"
+         id="tspan3231">    &lt;param name=&quot;s_b&quot; type=&quot;float&quot; min=&quot;0.01&quot; max=&quot;10000&quot; </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="122.94698"
+         id="tspan3233">        gui-text=&quot;Side Length b (px):&quot;&gt;100.0&lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="129.80231"
+         id="tspan3235">    &lt;param name=&quot;mode&quot; type=&quot;optiongroup&quot; appearance=&quot;combo&quot;    </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="136.65764"
+         id="tspan3237">        gui-text=&quot;Mode:&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="143.51297"
+         id="tspan3239">        &lt;option value=&quot;3_sides&quot;&gt;From Three Sides&lt;/option&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="150.3683"
+         id="tspan3241">        &lt;option value=&quot;s_ab_a_c&quot;&gt;From Sides a, b and Angle c&lt;/option&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="157.22363"
+         id="tspan3243">        &lt;option value=&quot;s_ab_a_a&quot;&gt;From Sides a, b and Angle a&lt;/option&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="164.07896"
+         id="tspan3245">        &lt;option value=&quot;s_a_a_ab&quot;&gt;From Side a and Angles a, b&lt;/option&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="170.93428"
+         id="tspan3247">        &lt;option value=&quot;s_c_a_ab&quot;&gt;From Side c and Angles a, b&lt;/option&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="177.78961"
+         id="tspan3249">    &lt;/param&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="184.64494"
+         id="tspan3251">    &lt;effect&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="191.50027"
+         id="tspan3253">        &lt;object-type&gt;all&lt;/object-type&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="198.35561"
+         id="tspan3255">        &lt;effects-menu&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="205.21092"
+         id="tspan3257">            &lt;submenu name=&quot;Render&quot;/&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="212.06625"
+         id="tspan3259">        &lt;/effects-menu&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="218.92159"
+         id="tspan3261">    &lt;/effect&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="225.77692"
+         id="tspan3263">    &lt;script&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="232.63225"
+         id="tspan3265">        &lt;command location=&quot;inx&quot; </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="239.48758"
+         id="tspan3267">            interpreter=&quot;python&quot;&gt;triangle.py&lt;/command&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="246.3429"
+         id="tspan3269">    &lt;/script&gt;</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.137107"
+         x="7.8915281"
+         y="253.19823"
+         id="tspan3271">&lt;/inkscape-extension&gt;</tspan></text>
+  </g>
+</svg>

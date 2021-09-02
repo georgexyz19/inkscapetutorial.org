@@ -1,0 +1,122 @@
+div.highlight pre {
+    /* display: inline-block; */
+    padding: 5px 10px;
+    /* overflow-x: scroll; */
+    /* word-wrap: break-word; */
+    border: 1px solid #c7c7c7;
+    border-left: 3px solid #0e94ec;
+    /* background: #f6f6f6; */
+}
+
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+/* for blockquote simulate github style */
+/* https://gist.github.com/andyferra/2554919 */
+blockquote {
+    margin: 15px 0; 
+}
+
+blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #555; /* change from 777 */
+}
+
+blockquote > :first-child {
+    margin-top: 0; 
+}
+
+blockquote > :last-child {
+    margin-bottom: 0; 
+}
+
+img {
+    margin: 0.75rem 0;
+}
+
+
+/* custom bootstrap headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem; }
+  
+/* add margin bottom on a page */
+body {
+    padding-bottom: 3rem;
+}
+
+.homepage-header {
+    margin-top: 500px;
+    
+}
+
+
+dl {
+  margin-left: 1.5rem;
+  list-style-position: outside;
+}
+
+dd {
+    display: inline;
+}
+
+dd:after {
+    display: block;
+    content: ''; 
+    margin-bottom: 0.25rem;
+}
+
+dt {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+  font-size: 88%;
+  color: #15228a;
+  word-wrap: break-word;
+  display: inline;
+  font-weight: normal;
+}
+
+dt:after {
+    content: ':';
+}
+
+.cmd {
+  margin-left: 1.5rem;
+  margin-bottom: 0.25rem;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+  font-size: 88%;
+  color: #15228a;
+  word-wrap: break-word;
+  font-weight: normal;
+}

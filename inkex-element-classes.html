@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="All element classes like Polyline and TextElement are directly or indirectly derived from BaseElement class, which is define in the inkex/elements/_base.py module. The BaseElement class is subclassed …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Inkex Element Classes - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 9.&nbsp;&nbsp;Inkex Element Classes</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-24 10:54:00-04:00">
+          Tuesday, 08/24/2021 10:54
+        </time>
+
+      </div>
+
+      <p>All element classes like <code>Polyline</code> and <code>TextElement</code> are directly or indirectly derived from 
+<code>BaseElement</code> class, which is define in the <code>inkex/elements/_base.py</code> module. The 
+<code>BaseElement</code> class is subclassed from <code>etree.ElementBase</code> class.  The <code>etree.ElementBase</code> 
+class is described as &#8220;public Element class&#8221; in its 
+<a href="https://lxml.de/api/lxml.etree.ElementBase-class.html">documentation page</a>. </p>
+<p>The <code>BaseElement</code> defines an <code>__init_subclass__</code> magic method which will register all 
+its subclasses and add them to a <code>lookup_table</code> defined in <code>NodeBasedLookup</code> class. When 
+the <span class="caps">XML</span> parser starts parsing a document, it will use this <code>lookup_table</code> 
+to find appropriate custom element class for each element. It probably can be implemented 
+as a class decorator in Python, but every <code>BaseElement</code> subclasses need to be decorated 
+with the decorator.  </p>
+<div class="highlight"><pre><span></span><code>class BaseElement(etree.ElementBase):
+    &quot;&quot;&quot;Provide automatic namespaces to all calls&quot;&quot;&quot;
+    def __init_subclass__(cls):
+        if cls.tag_name:
+            NodeBasedLookup.register_class(cls)
+</code></pre></div>
+
+<p>Here is a class hierarchy diagram for some element classes. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext14/elemclasses.svg" alt="elem classes"> 
+</div>
+
+<h2>SvgDocumentElement Class</h2>
+<p>When we load an <span class="caps">SVG</span> document into memory with inkex module, the root element is an 
+<code>SvgDocumentElement</code> class object. Let&#8217;s draw some shapes on canvas, save the <span class="caps">SVG</span> 
+file, and load it. The drawing has 4 simple elements as shown below. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext9/drawing.svg" alt="a drawing"> 
+</div>
+
+<p>The <code>load_svg</code> function is defined in the <code>inkex/elements/_base.py</code> module. The 
+function invokes <code>etree.parse</code> method to load the <span class="caps">SVG</span> file. The return value is 
+an <code>ElementTree</code> object. As discussed in the last chapter, we can call the 
+<code>getroot</code> method to get a top level <code>Element</code> object, which is the <code>svg</code> tag 
+element. The <code>svg</code> tag element is actually of type <code>SvgDocumentElement</code>, which 
+is subclass of <code>etree._Element</code> class. </p>
+<div class="highlight"><pre><span></span><code>george@Inspiron-5515:~$ /usr/bin/python3
+Python 3.9.5 (default, May 11 2021, 08:20:37) 
+[GCC 10.3.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.path.append(&#39;/usr/share/inkscape/extensions&#39;)
+
+&gt;&gt;&gt; from inkex import load_svg
+&gt;&gt;&gt; et = load_svg(&#39;/home/george/Desktop/drawing-21.svg&#39;)
+&gt;&gt;&gt; et
+&lt;lxml.etree._ElementTree object at 0x7f3d0f71ca80&gt;
+
+&gt;&gt;&gt; svg = et.getroot()
+&gt;&gt;&gt; svg.tag
+&#39;{http://www.w3.org/2000/svg}svg&#39;
+&gt;&gt;&gt; svg.__class__
+&lt;class &#39;inkex.elements._svg.SvgDocumentElement&#39;&gt;
+
+&gt;&gt;&gt; from lxml import etree
+&gt;&gt;&gt; from inkex import BaseElement
+&gt;&gt;&gt; isinstance(svg, etree.ElementBase)
+True
+&gt;&gt;&gt; isinstance(svg, etree._Element)
+True
+&gt;&gt;&gt; issubclass(etree.ElementBase, etree._Element)
+True
+</code></pre></div>
+
+<p>The <code>Element</code> class object is iterable.  When we loop through the object, 
+we can print out child tag names. The four shape elements are nested inside 
+the <code>g</code> layer object, and we can loop through the layer object to print 4 
+element tag names. </p>
+<p>The interesting part of the results shown below is that all element nested 
+inside the <code>svg</code> tag has an <code>svg</code> namespace unless it is specified with an explicit 
+namespace such as <code>sodipodi:namedview</code>. </p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; len(svg)
+3
+&gt;&gt;&gt; for el in svg:
+...   print(el.tag)
+... 
+{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}namedview
+{http://www.w3.org/2000/svg}defs
+{http://www.w3.org/2000/svg}g
+
+&gt;&gt;&gt; gel = svg[-1] # group
+&gt;&gt;&gt; gel.tag
+&#39;{http://www.w3.org/2000/svg}g&#39;
+&gt;&gt;&gt; len(gel)
+4
+&gt;&gt;&gt; for el in gel:
+...   print(el.tag)
+... 
+{http://www.w3.org/2000/svg}rect
+{http://www.w3.org/2000/svg}ellipse
+{http://www.w3.org/2000/svg}path
+{http://www.w3.org/2000/svg}path
+</code></pre></div>
+
+<p>The <code>SvgDocumentElement</code> class is defined in the <code>inkex/elements/_svg.py</code> module. The 
+class defines an <code>_init</code> method, which is called once during <code>Element</code> class instantiation 
+time.  Other methods and properties are not hard to understand. Here are some examples.</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; svg.get_ids()
+{&#39;svg5&#39;, &#39;rect31&#39;, &#39;path55&#39;, &#39;layer1&#39;, &#39;path159&#39;, &#39;path274&#39;, &#39;defs2&#39;, &#39;namedview7&#39;}
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.get_unique_id(&#39;rect31&#39;)
+&#39;rect318029&#39;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.get_ids()
+{&#39;svg5&#39;, &#39;rect31&#39;, &#39;path55&#39;, &#39;layer1&#39;, &#39;path159&#39;, &#39;path274&#39;, 
+    &#39;rect318029&#39;, &#39;defs2&#39;, &#39;namedview7&#39;}
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg. get_page_bbox()
+BoundingBox((0, 210.0),(0, 297.0))
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.get_current_layer()
+&lt;Element {http://www.w3.org/2000/svg}g at 0x7f3d0ccfabd0&gt;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.getElementById(&#39;path55&#39;)
+&lt;Element {http://www.w3.org/2000/svg}ellipse at 0x7f3d0c0ebdb0&gt;
+
+&gt;&gt;&gt; svg.getElementByName(&#39;Layer 1&#39;)
+&lt;Element {http://www.w3.org/2000/svg}g at 0x7f3d0ccfabd0&gt;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.name
+&#39;drawing-21.svg&#39;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.namedview
+&lt;Element {http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}namedview
+    at 0x7f3d0c0ebbd0&gt;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.get_viewbox()
+[0.0, 0.0, 210.0, 297.0]
+&gt;&gt;&gt; 
+&gt;&gt;&gt; svg.width
+210.0
+&gt;&gt;&gt; svg.height
+297.0
+&gt;&gt;&gt; svg.scale
+1.0
+&gt;&gt;&gt; svg.unit
+&#39;mm&#39;
+&gt;&gt;&gt; svg.stylesheets
+[]
+&gt;&gt;&gt; svg.stylesheet
+[]
+</code></pre></div>
+
+<h2>BaseElement Class</h2>
+<p>The <code>BaseElement</code> class is defined in the <code>inkex/elements/_base.py</code> module. All element 
+classes derive from the <code>BaseElement</code> class, and the methods and properties are designed for 
+different types of elements. The class defines a <code>WRAPPED_ATTRS</code> class variable, and a 
+<code>wrapped_attrs</code> property, which returns a dictionary. </p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; svg.wrapped_attrs
+{&#39;transform&#39;: (&#39;transform&#39;, &lt;class &#39;inkex.transforms.Transform&#39;&gt;), 
+  &#39;style&#39;: (&#39;style&#39;, &lt;class &#39;inkex.styles.Style&#39;&gt;), 
+  &#39;class&#39;: (&#39;classes&#39;, &lt;class &#39;inkex.styles.Classes&#39;&gt;)}
+</code></pre></div>
+
+<p>The <code>BaseElement</code> class defines <code>__setattr__</code> and <code>__getattr__</code> magic methods. They 
+add supports for three nested attribute <code>transform</code>, <code>style</code>, and <code>class</code>. For example, 
+we can assign a string value to the transform property. The <code>__setattr__</code> method 
+will convert it to an <code>Transform</code> class object and assign it to the property. </p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; rel = gel[0]
+&gt;&gt;&gt; rel.transform
+Transform(((1, 0, 0), (0, 1, 0)))
+&gt;&gt;&gt; rel.transform =&#39;translate(10, 10) rotate(30)&#39;
+&gt;&gt;&gt; rel.transform
+Transform(((0.866025, -0.5, 10), (0.5, 0.866025, 10)))
+&gt;&gt;&gt; rel.transform =&#39;scale(2)&#39;
+&gt;&gt;&gt; rel.transform
+Transform(((2, 0, 0), (0, 2, 0)))
+</code></pre></div>
+
+<p>The <code>BaseElement</code> class also defines <code>set</code> and <code>get</code> methods.  Both methods add 
+namespace support. When we set an attribute with a namespace like <code>inkscape:label</code>, 
+the <code>set</code> method will convert the namespace <code>inkscape</code> to a long string <code>{http...}</code>. 
+The <code>update</code> method calls <code>set</code> method to set attributes, and the <code>new</code> method 
+calls <code>update</code> method. So both <code>new</code> and <code>update</code> methods supports nested attribute and 
+namespace. The <code>pop</code> method deletes an existing attribute. </p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; rel.set(&#39;inkscape:label&#39;, &#39;rectangle&#39;)
+&gt;&gt;&gt; rel.attrib
+{&#39;id&#39;: &#39;rect31&#39;, &#39;width&#39;: &#39;43.4631&#39;, ...
+   &#39;{http://www.inkscape.org/namespaces/inkscape}label&#39;: &#39;rectangle&#39;}
+
+&gt;&gt;&gt; rel.update(width=&#39;40&#39;, inkscape__label=&#39;rect1&#39;) # double underscore as sep
+&gt;&gt;&gt; rel.attrib
+{&#39;id&#39;: &#39;rect31&#39;, &#39;width&#39;: &#39;40&#39;, ... 
+  &#39;{http://www.inkscape.org/namespaces/inkscape}label&#39;: &#39;rect1&#39;}
+
+&gt;&gt;&gt; rel.pop(&#39;inkscape:label&#39;)
+&#39;rect1&#39;
+</code></pre></div>
+
+<p>Other notable methods in the class are shown in the example code below. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">Group</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;newgroup&#39;</span><span class="p">)</span>  <span class="c1"># create a new group obj</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+<span class="sa">b</span><span class="s1">&#39;&lt;g inkscape:label=&quot;newgroup&quot;/&gt;&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gel_new</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0ccfa630</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">gel</span><span class="p">:</span>
+<span class="o">...</span>   <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">ellipse</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span>
+
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">set_random_id</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">eid</span>
+<span class="s1">&#39;g1675&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+<span class="s1">&#39;g1675&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="s1">&#39;g1678&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">eid</span>
+<span class="s1">&#39;g1678&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">root</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">svg</span> <span class="n">at</span> <span class="mh">0x7f3d0f7229a0</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel</span><span class="o">.</span><span class="n">descendants</span><span class="p">()</span>
+<span class="n">ElementList</span><span class="p">([(</span><span class="s1">&#39;/*/*[3]&#39;</span><span class="p">,</span> 
+      <span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0ccfabd0</span><span class="o">&gt;</span><span class="p">),</span> 
+    <span class="p">(</span><span class="s1">&#39;/*/*[3]/*[1]&#39;</span><span class="p">,</span> 
+      <span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ebd60</span><span class="o">&gt;</span><span class="p">),</span> 
+    <span class="o">...</span> <span class="p">)</span>  
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()</span>
+<span class="n">ElementList</span><span class="p">([(</span><span class="s1">&#39;/*/*[3]&#39;</span><span class="p">,</span> 
+    <span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0ccfabd0</span><span class="o">&gt;</span><span class="p">),</span> 
+    <span class="p">(</span><span class="s1">&#39;/*&#39;</span><span class="p">,</span> 
+      <span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">svg</span> <span class="n">at</span> <span class="mh">0x7f3d0f7229a0</span><span class="o">&gt;</span><span class="p">)])</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">findone</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>  <span class="c1"># return nothing</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">findone</span><span class="p">(</span><span class="s1">&#39;svg:g&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0ccfabd0</span><span class="o">&gt;</span>
+
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">findone</span><span class="p">(</span><span class="s1">&#39;//svg:rect&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ebd60</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;//svg:rect&#39;</span><span class="p">)</span>   <span class="c1"># not sure why error, a bug?</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">&quot;/usr/share/inkscape/extensions/inkex/elements/_base.py&quot;</span><span class="p">,</span> 
+      <span class="n">line</span> <span class="mi">389</span><span class="p">,</span> <span class="ow">in</span> <span class="n">findall</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">namespaces</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;src/lxml/etree.pyx&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1558</span><span class="p">,</span> <span class="ow">in</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">_Element</span><span class="o">.</span><span class="n">findall</span>
+  <span class="n">File</span> <span class="s2">&quot;src/lxml/_elementpath.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">334</span><span class="p">,</span> <span class="ow">in</span> <span class="n">lxml</span><span class="o">.</span><span class="n">_elementpath</span><span class="o">.</span><span class="n">findall</span>
+  <span class="n">File</span> <span class="s2">&quot;src/lxml/_elementpath.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">312</span><span class="p">,</span> <span class="ow">in</span> <span class="n">lxml</span><span class="o">.</span><span class="n">_elementpath</span><span class="o">.</span><span class="n">iterfind</span>
+  <span class="n">File</span> <span class="s2">&quot;src/lxml/_elementpath.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">281</span><span class="p">,</span> <span class="ow">in</span> 
+    <span class="n">lxml</span><span class="o">.</span><span class="n">_elementpath</span><span class="o">.</span><span class="n">_build_path_iterator</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">use</span> <span class="n">absolute</span> <span class="n">path</span> <span class="n">on</span> <span class="n">element</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//svg:rect&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ebd60</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">svg</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//svg:path&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ebea0</span><span class="o">&gt;</span><span class="p">,</span> 
+  <span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span> <span class="n">at</span> <span class="mh">0x7f3d0c0eb9f0</span><span class="o">&gt;</span><span class="p">]</span>
+
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">gel</span><span class="p">:</span>
+<span class="o">...</span>   <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">ellipse</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace_with</span><span class="p">(</span><span class="n">gel_new</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">gel</span><span class="p">:</span>
+<span class="o">...</span>   <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">rect</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">ellipse</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">path</span>
+<span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span>
+<span class="o">&gt;&gt;&gt;</span> 
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">str</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>  <span class="c1"># call __str__ method</span>
+<span class="s1">&#39;svg&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gel_new</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ff400</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">gel</span><span class="p">]</span>  <span class="c1"># this is a better way to see children</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;ellipse&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gel_new</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="n">svg</span><span class="p">}</span><span class="n">g</span> <span class="n">at</span> <span class="mh">0x7f3d0c0ff450</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">gel</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;ellipse&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="font-italic pl-2">9. Element Classes</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

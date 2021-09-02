@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="What Is Inkscape Extension? Before we start developing Inkscape extensions (or plugins), let’s look at one simple built-in extension and understand what’s an Inkscape extension. After we launch …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Get Started With Inkscape Extension - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 1.&nbsp;&nbsp;Get Started With Inkscape Extension</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-07-26 12:51:00-04:00">
+          Monday, 07/26/2021 12:51
+        </time>
+
+      </div>
+
+      <h2>What Is Inkscape Extension?</h2>
+<p>Before we start developing Inkscape extensions (or plugins), let&#8217;s look at one simple 
+built-in extension and understand what&#8217;s an Inkscape extension. </p>
+<p>After we launch Inkscape, click menu <code>Extensions -&gt; Render -&gt; Triangle...</code>. A new dialog 
+will pop up on screen and it looks like this.  </p>
+<div style="max-width:300px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-triangle.png" alt="Triangle Ext Window"> 
+</div>
+
+<p>If we click the <code>apply</code> button, the extension will draw a triangle on the Inkscape canvas. 
+The three sides of the triangle are all of 100 px length.  We can also toggle the <code>live preview</code> 
+box on to show a preview of the triangle. Obviously when the <code>Mode</code> is set to 
+<code>From Three Sides</code> on the dialog, the extension program ignores the three <code>Angle</code> values. </p>
+<div style="max-width:300px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-triangle-drawing.svg" alt="Triangle drawing"> 
+</div>
+
+<p>Let&#8217;s change the <code>Side length a (px)</code> value to 50 and re-apply the extension.  The program 
+will draw a triangle like this.  We know the side on the right hand is <code>a</code>. </p>
+<div style="max-width:300px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-triangle-drawing-2.svg" alt="Triangle drawing 2"> 
+</div>
+
+<p>Next let&#8217;s try to enter an invalid number and see the result.  Change the <code>Side length a (px)</code> 
+value to 250. Note the length of a triangle side can&#8217;t be longer than the sum of other two sides. 
+The program will generate this error message. </p>
+<div style="max-width:400px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-error.png" alt="Triangle error"> 
+</div>
+
+<h2>What Extensions Can Do?</h2>
+<p>The Inkscape itself comes with many extensions which are listed under the <code>Extensions</code> menu. 
+Some of the extensions are intuitive to use such as <code>Gear</code>, <code>Grid</code>, and <code>Calendar</code>. </p>
+<p>The real power of the Inkscape extension system is that we can treat it as an <span class="caps">API</span>. 
+It provides many classes and functions 
+on which programmers can build user extensions. This section will describe some impressive 
+results of Inkscape extensions. </p>
+<p><a href="https://github.com/wanglongqi/WriteTeX">WriteTeX</a> is an extension serving as a 
+LaTeX/TeX editor for Inkscape.  We can insert equations onto Inkscape drawing. 
+Here is an example drawing with equations on the right hand side. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-hcurve.svg" alt="H Curve"> 
+</div>
+
+<p>The drawing below shows a small portion of a large sign poster file which is created 
+with an Inkscape extension. The <a href="/files/ext1/signposter.pdf">full size poster file</a> contains
+ over 700 sign drawings. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext1/ext1-poster.svg" alt="poster"> 
+</div>
+
+<h2>Extension Programs</h2>
+<p>Most Inkscape extensions are written in Python programming language. If you are not familiar 
+with Python, 
+<a href="https://docs.python.org/3/tutorial/">the official python tutorial</a> is a good start point. </p>
+<p>Let&#8217;s find out where the extension programs are located.  Click the menu <code>Edit -&gt; Preferences</code> 
+in Inkscape and choose <code>System</code> on the left panel. We can find two extension directory 
+settings. The value in <code>User extensions</code> field is shown below.</p>
+<div class="highlight"><pre><span></span><code>/home/george/.config/inkscape/extensions
+</code></pre></div>
+
+<p>And below is the value of <code>Inkscape extensions</code> field.  We also call this <code>system 
+extensions</code> directory. </p>
+<div class="highlight"><pre><span></span><code>/usr/share/inkscape/extensions
+</code></pre></div>
+
+<p>My computer runs Ubuntu 21.04 <span class="caps">OS</span>, and Inkscape 1.1 is installed through 
+<code>apt</code> commands as suggested on 
+<a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features">this webpage</a>. If you are running 
+Inkscape under other <span class="caps">OS</span>, the directories will be different. </p>
+<p>The <code>user extensions</code> refers to extensions created by you as an Inkscape user. The 
+<code>inkscape extensions</code> or <code>system extensions</code> refers to the programs that come with 
+the Inkscape installation. We could put our extensions in the <code>inkscape extensions</code> 
+directory, and they will run just fine. But it is better to separate them in two 
+directories. </p>
+<p>We can add two alias to the <code>~/.bashrc</code> file to have easier access to those two 
+directories. </p>
+<div class="highlight"><pre><span></span><code>alias cdsysdir=&#39;cd /usr/share/inkscape/extensions&#39;
+alias cduserdir=&#39;cd ~/.config/inkscape/extensions&#39;
+</code></pre></div>
+
+<h2>System Extensions</h2>
+<p>Let&#8217;s take a look at the <code>system extensions</code> directory and see what is in there. 
+The Linux commands below show that the directory has a total of 554 files and 
+226 Python files. The fourth command below indicates that the Python files have 
+a total of 43,979 lines of code for Inkscape 1.1. </p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/share/inkscape/extensions
+find . -type f <span class="p">|</span> wc -l        <span class="c1"># 554  </span>
+find . -name <span class="s1">&#39;*.py&#39;</span> <span class="p">|</span> wc -l   <span class="c1"># 226</span>
+find . -name <span class="s1">&#39;*.py&#39;</span> -exec wc -l <span class="s1">&#39;{}&#39;</span> +    <span class="c1">#43,979</span>
+</code></pre></div>
+
+<p>The system extensions have lots of code, and it&#8217;s almost impossible for 
+one person to read and understand all of them.  This extension tutorial series
+will try to explain a small subset of those files.  </p>
+<p>If you want to take part in developing or improving those system extensions, 
+this gitlab source code repository is the place to get started.  </p>
+<p><a href="https://gitlab.com/inkscape/extensions/">https://gitlab.com/inkscape/extensions/</a></p>
+<h2>Inkscape Version and Extension</h2>
+<p>Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
+mostly written in Python 2. Even though Python 3.4 was released back in 2014 and 
+many people were writing 
+in Python 3, Inkscape extensions were still in Python 2 for many years. The 
+reason is that most system extensions were created by various developers over time
+and it requires some serious work to convert them to Python 3. Note Python 
+3 is not compatible with Python 2. </p>
+<p>Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
+The Inkscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
+old Inkscape extension which does not work in version 1.1, try to load it 
+with Inkscape 0.92.5 and it may work well. </p>
+<h2>Objectives</h2>
+<p>This tutorial series will not cover everything in Inkscape extension development. 
+The articles are developed from my notes.  It is not as formal 
+as a typical book or software manual, but it is in a much better shape than 
+my notes. I am only trying to point the right direction for beginners. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="font-italic pl-2">1. Get Started</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

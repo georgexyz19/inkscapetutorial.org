@@ -1,0 +1,29 @@
+\[  x' = x + a \] 
+\[ y' = y + b \]
+
+
+
+\[ \begin{bmatrix} x' \\ y' \\ 1  \end{bmatrix} = \begin{bmatrix} 1 & 0 & a \\ 0 & 1 & b \\ 0 & 0 & 1 \\ \end{bmatrix}  \cdot    \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}  \]
+
+
+rotation around (0, 0)
+\[ \begin{bmatrix} x' \\ y' \\ 1  \end{bmatrix}  = \begin{bmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \\ \end{bmatrix} \cdot    \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}  \]
+
+
+scale
+
+\[ \begin{bmatrix} x' \\ y' \\ 1  \end{bmatrix} =  \begin{bmatrix} a & 0 & 0 \\ 0 & b & 0 \\ 0 & 0 & 1 \\ \end{bmatrix}  \cdot    \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}  \]
+
+
+matrix
+
+\[   \begin{bmatrix} a  & c & e \\ b & d & f \\ 0 & 0 & 1 \\ \end{bmatrix}  \]
+
+
+
+rotation around (a, b)
+\[ \begin{bmatrix} x' \\ y' \\ 1  \end{bmatrix}  = \begin{bmatrix} \cos\alpha & -\sin\alpha & -a \cos\alpha + b \sin\alpha + a \\ 
+\sin\alpha & \cos\alpha & -a \sin\alpha -b \cos\alpha + b \\ 
+0 & 0 & 1 \\ \end{bmatrix} 
+\cdot    \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}  \]
+

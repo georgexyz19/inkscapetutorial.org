@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="We will discuss those two line of code in run method of InksacpeExtension class in this chapter. self.load_raw() self.save_raw(self.effect()) Load The code of load_raw method of …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Extensions Workflow - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 4.&nbsp;&nbsp;Extensions Workflow</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-07-28 08:42:00-04:00">
+          Wednesday, 07/28/2021 08:42
+        </time>
+
+      </div>
+
+      <p>We will discuss those two line of code in <code>run</code> method of <code>InksacpeExtension</code> 
+class in this chapter. </p>
+<div class="highlight"><pre><span></span><code>self.load_raw()
+self.save_raw(self.effect())
+</code></pre></div>
+
+<h2>Load</h2>
+<p>The code of <code>load_raw</code> method of <code>InkscapeExtension</code> class is shown below. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># type: () -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Load the input stream or filename, save everything to self&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_io</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_io</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">document</span> <span class="o">=</span> <span class="n">document</span>
+</code></pre></div>
+
+<p>We know the value of <code>self.options.input_file</code> is a string from last chapter, 
+so the if part of the <code>if...else...</code> statement will execute. It calls the 
+<code>open</code> method to create a file object, and pass it to the <code>self.load</code> method. 
+The <code>self.load</code> method defined in the <code>SvgInputMixin</code> class is invoked here.
+Below is the code of the <code>load</code> method of <code>SvgInputMixin</code> class. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+    <span class="c1"># type: (IO) -&gt; etree</span>
+    <span class="sd">&quot;&quot;&quot;Load the stream as an svg xml etree and make a backup&quot;&quot;&quot;</span>
+
+    <span class="n">document</span> <span class="o">=</span> <span class="n">load_svg</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">original_document</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">svg</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">selection</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_all</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">descendants</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">select_all</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">document</span>
+</code></pre></div>
+
+<p>The <code>load</code> method in turn calls a function <code>load_svg</code> imported from another module. 
+It also adds two new instance variable <code>original_document</code> and <code>svg</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.elements._base</span> <span class="kn">import</span> <span class="n">load_svg</span><span class="p">,</span> <span class="n">BaseElement</span>
+</code></pre></div>
+
+<p>Here is the function <code>load_svg</code> definition in the <code>inkex/elements/_base.py</code> module. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+<span class="o">......</span>
+
+<span class="n">SVG_PARSER</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">huge_tree</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strip_cdata</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">SVG_PARSER</span><span class="o">.</span><span class="n">set_element_class_lookup</span><span class="p">(</span><span class="n">NodeBasedLookup</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">load_svg</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load SVG file using the SVG_PARSER&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> 
+        <span class="n">stream</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">))</span>\
+      <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="ow">and</span> 
+            <span class="n">stream</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&lt;&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> 
+                                <span class="n">parser</span><span class="o">=</span><span class="n">SVG_PARSER</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">SVG_PARSER</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here the last statement <code>return etree.parse(...)</code> is executed because <code>steam</code> 
+is a file object, not a string or bytes type. The <code>etree.parse</code> method in <code>lxml</code> 
+module does the actual loading work. The <code>lxml</code> module is not in the standard 
+library, and it is a third part library. It will be automatically installed 
+when we install Inkscape. We will discuss <code>lxml</code> module later. </p>
+<h2>Modify</h2>
+<p>The <code>Triangle</code> object has two instance variables <code>document</code> and <code>svg</code>, and both
+reference the same <span class="caps">XML</span> tree in memory. We can modify the <span class="caps">XML</span> tree via either of 
+those two variables. It also saves a copy 
+of <code>document</code> in <code>original_document</code> instance variable. </p>
+<p>The actual modification happens in the <code>effect</code> method of <code>Triangle</code> class thru the <code>svg</code> instance variable. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">effect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tri</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">get_current_layer</span><span class="p">()</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">namedview</span><span class="o">.</span><span class="n">center</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+    <span class="n">stroke_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;2px&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;3_sides&#39;</span><span class="p">:</span>
+        <span class="n">s_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_a</span>
+        <span class="n">s_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_b</span>
+        <span class="n">s_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">s_c</span>
+        <span class="n">draw_tri_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> 
+                <span class="n">stroke_width</span><span class="p">,</span> <span class="n">tri</span><span class="p">)</span>
+    <span class="o">......</span>
+</code></pre></div>
+
+<p>The first line of the method calls <code>get_current_layer</code> method of <code>svg</code> object
+to get an object representing current layer. The current layer information is saved in 
+the <span class="caps">SVG</span> file itself.  The second line get the Inkscape view center coordinates. 
+The next four lines of code convert number unit from pixel to <span class="caps">SVG</span> internal default unit 
+millimeter.  For example, the <code>s_a</code> value is 100 px before the conversion, and 
+the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
+So the conversion is 100/96 in * 25.4 = 26.45 mm.</p>
+<p>The <code>effect</code> method calls <code>draw_tri_from_3_sides</code> function defined earlier in the 
+module. The function in turn calls the <code>draw_SVG_tri</code> function to create an 
+<code>inkex.PathElement</code> element and add it to the layer. We will discuss the 
+<code>PathElement</code> and other <span class="caps">SVG</span> elements later. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">draw_SVG_tri</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="n">point3</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;stroke&#39;</span><span class="p">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-width&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> 
+            <span class="s1">&#39;fill&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">}</span>
+    <span class="n">elem</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">PathElement</span><span class="p">())</span>
+    <span class="n">elem</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+        <span class="s1">&#39;style&#39;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+        <span class="s1">&#39;inkscape:label&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+         <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;M &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point1</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">X</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> 
+                    <span class="nb">str</span><span class="p">(</span><span class="n">point1</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">Y</span><span class="p">])</span> <span class="o">+</span>
+              <span class="s1">&#39; L &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point2</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">X</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> 
+                    <span class="nb">str</span><span class="p">(</span><span class="n">point2</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">Y</span><span class="p">])</span> <span class="o">+</span>
+              <span class="s1">&#39; L &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point3</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">X</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> 
+                    <span class="nb">str</span><span class="p">(</span><span class="n">point3</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">Y</span><span class="p">])</span> <span class="o">+</span>
+              <span class="s1">&#39; L &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point1</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">X</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> 
+                    <span class="nb">str</span><span class="p">(</span><span class="n">point1</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="n">Y</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; z&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">elem</span>
+
+<span class="o">.....</span>
+
+<span class="k">def</span> <span class="nf">draw_tri_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>  
+    <span class="c1"># draw a triangle from three sides (with a given offset</span>
+    <span class="k">if</span> <span class="n">is_valid_tri_from_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_b</span><span class="p">,</span> <span class="n">s_c</span><span class="p">):</span>
+        <span class="n">a_b</span> <span class="o">=</span> <span class="n">angle_from_3_sides</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">s_c</span><span class="p">,</span> <span class="n">s_b</span><span class="p">)</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># a is the origin</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">v_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">s_c</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1">#point B is horizontal from origin</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">v_add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">pt_on_circ</span><span class="p">(</span><span class="n">s_a</span><span class="p">,</span> <span class="n">pi</span> <span class="o">-</span> <span class="n">a_b</span><span class="p">))</span>  <span class="c1"># get point c</span>
+        <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">offx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>  
+        <span class="c1"># b or c could be the furthest right</span>
+        <span class="n">offy</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># c is the highest point</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">offx</span><span class="p">,</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">offy</span><span class="p">)</span>  
+        <span class="c1"># add the centre of the triangle to the offset</span>
+
+        <span class="n">draw_SVG_tri</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;Triangle&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inkex</span><span class="o">.</span><span class="n">errormsg</span><span class="p">(</span><span class="s1">&#39;Invalid Triangle Specifications.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Save</h2>
+<p>This section discusses the third method call <code>self.save_raw</code> shown at the beginning 
+of this chapter. The <code>save_raw</code> method is defined in <code>InkscapeExtension</code> class like 
+this. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">save_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ret</span><span class="p">):</span>
+    <span class="c1"># type: (Any) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Save to the output stream, use everything from self&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_changed</span><span class="p">(</span><span class="n">ret</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The method tests if the <span class="caps">SVG</span> file has changed via the <code>has_changed</code> method in 
+<code>SvgThroughMixin</code> class. It converts the <code>original_document</code> and <code>document</code> 
+objects to string and compares if they are the same. </p>
+<p>The <code>save_raw</code> method then calls the <code>save</code> method defined in <code>SvgOutputMixin</code>
+class. The code of <code>save</code> method is shown below. It calls the <code>write</code> method 
+of output stream to transmit the modified <span class="caps">SVG</span> back to Inkscape. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+    <span class="c1"># type: (IO) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Save the svg document to the given stream&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span>
+    <span class="k">elif</span> <span class="s1">&#39;Element&#39;</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+        <span class="c1"># isinstance can&#39;t be used here because etree is broken</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">etree</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+        <span class="c1"># actually execute this part</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown type of document: </span>
+            <span class="p">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">}</span> <span class="n">can</span> <span class="ow">not</span> <span class="n">save</span><span class="o">.</span><span class="s2">&quot;)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># we hope that this happens only when </span>
+           <span class="c1"># document needs to be encoded</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> <span class="c1"># type: ignore</span>
+</code></pre></div>
+
+<h2>Python Module lxml</h2>
+<p>When we develop an Inkscape extension, we don&#8217;t need to care too much about 
+load and save processes. The <code>inkex</code> module already has code to handle
+them. It actually warps around a third party python module <code>lxml</code>, which 
+does the <span class="caps">XML</span> loading, parsing, and saving.  The 
+<a href="https://lxml.de/">lxml official website</a> 
+has lots of useful information. We will also discuss this module in later chapters. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="font-italic pl-2">4. Extension Workflow</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="What is lxml The Inkscape SVG files are in xml format. When we write an Inkscape extension, we could write the code to parse the xml, modify the content, and …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>lxml Basics - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 8.&nbsp;&nbsp;lxml Basics</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-03 09:42:00-04:00">
+          Tuesday, 08/03/2021 09:42
+        </time>
+
+      </div>
+
+      <h2>What is lxml</h2>
+<p>The Inkscape <code>SVG</code> files are in xml format. When we write an Inkscape extension, 
+we could write the code to parse the xml, modify the 
+content, and send it back to Inkscape. Or we can use other well 
+designed and tested code for xml parsing and handling. Generally speaking, 
+reusing other people&#8217;s existing code saves programming time. The 
+drawback is that we have to spend time to learn how to use existing code. </p>
+<p>The <a href="https://lxml.de/">lxml</a> 
+<span class="caps">XML</span> toolkit is a Python binding for the C libraries libxml2 and libxslt. It is 
+similar to Python standard library module <code>xml.etree.ElementTree</code>, but it is faster and 
+easier to program. 
+The Inkscape extension developers long recognized the value of <code>lxml</code> python 
+package. The package <code>inkex</code> wraps many functions of <code>lxml</code> so extension 
+developers do not have to deal with <code>lxml</code> directly.  </p>
+<p>It is usually enough for Inkscape developers to only work with <code>inkex</code> package. 
+But sometimes we want to use functionality in <code>lxml</code> directly, or try to understand 
+the code in <code>inkex</code> package, so it&#8217;s better to know the basics of <code>lxml</code> package. </p>
+<h1>Module etree</h1>
+<p>Main features of <code>lxml</code> package are in the <code>etree</code> module. We will discuss several 
+functions and classes in the etree module in this chapter. </p>
+<p>Note terms like function, method, or class constructor may not be accurate. 
+They are all callable objects in Python. In this chapter, we simply call them functions or methods. </p>
+<ul>
+<li>etree.parse</li>
+<li>etree.ElementTree</li>
+<li>etree.tostring</li>
+<li>etree.fromstring</li>
+<li>etree.Element</li>
+<li>etree.SubElement</li>
+<li>etree.<span class="caps">XML</span></li>
+<li>etree.<span class="caps">XMLID</span></li>
+</ul>
+<p>The <code>etree.parse</code> function is the quick way to convert an <span class="caps">XML</span> file into an <code>ElementTree</code>
+object. The function accepts an <span class="caps">XML</span> file name (or file object) and an optional parser, 
+and returns an <code>ElementTree</code> instance. </p>
+<div class="highlight"><pre><span></span><code><span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here is a Python interpreter session showing how to load an <span class="caps">SVG</span> file. </p>
+<div class="highlight"><pre><span></span><code>george@Inspiron-5515:~$ /usr/bin/python3
+Python 3.9.5 (default, May 11 2021, 08:20:37) 
+[GCC 10.3.0] on linux
+&gt;&gt;&gt; from lxml import etree
+&gt;&gt;&gt; doc = etree.parse(&#39;/home/george/Desktop/drawing-4.svg&#39;)
+&gt;&gt;&gt; doc
+&lt;lxml.etree._ElementTree object at 0x7fcbed555ac0&gt;
+
+&gt;&gt;&gt; doc.getroot()
+&lt;Element {http://www.w3.org/2000/svg}svg at 0x7fcbed555d80&gt;
+&gt;&gt;&gt; doc.getroot().tag
+&#39;{http://www.w3.org/2000/svg}svg&#39;
+&gt;&gt;&gt; etree.__version__
+&#39;4.6.3&#39;
+</code></pre></div>
+
+<p>The <code>etree.ElementTree</code> is a wrapper class around the <code>_ElementTree</code> class. We can 
+call <code>etree.ElementTree()</code> method to create an empty document. If we pass a file name 
+(or file object), the return value is an <code>ElementTree</code> instance. If we use the 
+<code>element</code> argument, the file argument will be ignored. It returns an <code>ElementTree</code> 
+object based on an <code>Element</code> object. </p>
+<p>The <code>etree.tostring</code> function converts an <code>ElementTree</code> or <code>Element</code> object 
+to a string containing the <span class="caps">XML</span> content. The <code>etree.fromstring</code> function 
+creates an <code>Element</code> object from a string. </p>
+<div class="highlight"><pre><span></span><code><span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">elem_or_tree</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here is an example testing those three methods. </p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; et = etree.ElementTree(file=&#39;/home/george/Desktop/drawing-5.svg&#39;)
+&gt;&gt;&gt; et
+&lt;lxml.etree._ElementTree object at 0x7fcbeadd23c0&gt;
+&gt;&gt;&gt; etree.tostring(et)
+b&#39;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg ...&#39;
+&gt;&gt;&gt; etree.tostring(et).decode(&#39;utf8&#39;)
+&#39;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg ...&#39;
+&gt;&gt;&gt; ss = etree.tostring(et).decode(&#39;utf8&#39;)
+&gt;&gt;&gt; etree.fromstring(ss)
+&lt;Element {http://www.w3.org/2000/svg}svg at 0x7fcbea9561c0&gt;
+</code></pre></div>
+
+<p>The <code>Element</code> constructor creates and returns an object implementing 
+the Element interface. The <code>SubElement</code> method creates a new <code>Element</code> 
+object, and adds it as the 
+next child of its parent element. It also returns the newly created element. </p>
+<p>Many Inkscape extensions use <code>SubElement</code> method to add new elements before 
+version 1.0. The <code>SubElement</code> method has one more argument <code>parent</code> than 
+the <code>Element</code> constructor. The namespace part of <span class="caps">XML</span> is a little annoying to type. 
+Here are a few examples.  </p>
+<div class="highlight"><pre><span></span><code><span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{},</span> <span class="n">nsmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">extras</span><span class="p">)</span>
+<span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{},</span> <span class="n">nsmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">extras</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="sa">b</span><span class="s1">&#39;&lt;rect x=&quot;50&quot; y=&quot;50&quot; width=&quot;30&quot; height=&quot;20&quot;/&gt;&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;inkscape:label&#39;</span><span class="p">:</span><span class="s1">&#39;Layer 1&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;inkscape:groupmode&#39;</span><span class="p">:</span> <span class="s1">&#39;layer&#39;</span><span class="p">})</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span> <span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">attribute</span> <span class="n">name</span> <span class="s1">&#39;inkscape:label&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">INKNS</span> <span class="o">=</span> <span class="s1">&#39;http://www.inkscape.org/namespaces/inkscape&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">NSMAP</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;inkscape&#39;</span><span class="p">:</span> <span class="n">INKNS</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}label&#39;</span> <span class="o">%</span> <span class="n">INKNS</span> <span class="p">:</span><span class="s1">&#39;Layer 1&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}groupmode&#39;</span> <span class="o">%</span> <span class="n">INKNS</span><span class="p">:</span> <span class="s1">&#39;layer&#39;</span><span class="p">},</span> <span class="n">nsmap</span> <span class="o">=</span> <span class="n">NSMAP</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+<span class="sa">b</span><span class="s1">&#39;&lt;g xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot; </span>
+        <span class="n">inkscape</span><span class="p">:</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Layer 1&quot;</span> <span class="n">inkscape</span><span class="p">:</span><span class="n">groupmode</span><span class="o">=</span><span class="s2">&quot;layer&quot;</span><span class="o">/&gt;</span><span class="s1">&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">layer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+<span class="sa">b</span><span class="s1">&#39;&lt;g xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot; </span>
+        <span class="n">inkscape</span><span class="p">:</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Layer 1&quot;</span> <span class="n">inkscape</span><span class="p">:</span><span class="n">groupmode</span><span class="o">=</span><span class="s2">&quot;layer&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">rect</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;30&quot;</span> <span class="n">height</span><span class="o">=</span><span class="s2">&quot;20&quot;</span><span class="o">/&gt;&lt;/</span><span class="n">g</span><span class="o">&gt;</span><span class="s1">&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> 
+        <span class="n">attrib</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;40&#39;</span><span class="p">})</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff619336740</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+<span class="sa">b</span><span class="s1">&#39;&lt;g xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot; </span>
+    <span class="n">inkscape</span><span class="p">:</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Layer 1&quot;</span> <span class="n">inkscape</span><span class="p">:</span><span class="n">groupmode</span><span class="o">=</span><span class="s2">&quot;layer&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">rect</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;30&quot;</span> <span class="n">height</span><span class="o">=</span><span class="s2">&quot;20&quot;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">rect</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;100&quot;</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;100&quot;</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="n">height</span><span class="o">=</span><span class="s2">&quot;40&quot;</span><span class="o">/&gt;&lt;/</span><span class="n">g</span><span class="o">&gt;</span><span class="s1">&#39;</span>
+</code></pre></div>
+
+<p>The <code>etree.XML</code> function parses an <span class="caps">XML</span> document or fragment from a string and 
+returns the root Element node.  It is similar to 
+the <code>fromstring</code> method. </p>
+<p>The <code>etree.XMLID</code> function parses the text and returns a tuple (root_node, id_dict). 
+The <code>root_node</code> is the same value returned by the <code>etree.XML</code> function. The 
+<code>id_dict</code> contains id-element pairs. The dictionary keys are the <code>id</code> attributes 
+of all elements, and the values are the elements referenced by the <code>id</code> attributes. 
+We could design an <span class="caps">SVG</span> file and assign an <code>id</code> for each element, load the file with 
+<code>etree.XMLID</code> function call, and access element via the <code>id</code> attribute. </p>
+<div class="highlight"><pre><span></span><code><span class="n">etree</span><span class="o">.</span><span class="n">XML</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">etree</span><span class="o">.</span><span class="n">XMLID</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Element Class</h2>
+<p>The <code>Element</code> object represents a node in the <span class="caps">XML</span> tree. It defines many instance methods 
+and properties. <a href="https://lxml.de/api/lxml.etree._Element-class.html">This webpage</a> 
+lists the <code>Element</code> class <span class="caps">API</span>.  </p>
+<p>The notable <code>Element</code> class properties are <code>tag</code> and <code>attrib</code>. The <code>tag</code> is the 
+element tag name and <code>attrib</code> is the element attribute dictionary. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">el</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="s1">&#39;&lt;rect x=&quot;50&quot; y=&quot;50&quot; width=&quot;30&quot; height=&quot;20&quot;/&gt;&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">el</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7f4b489aab40</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">el</span><span class="o">.</span><span class="n">tag</span>
+<span class="s1">&#39;rect&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">el</span><span class="o">.</span><span class="n">attrib</span>
+<span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>The <code>Element</code> instance acts like a Python list, with nested elements acting as 
+members of the list. We can loop through an <code>Element</code> object, and it also supports 
+slice operation. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ss</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;&lt;g xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot; </span>
+<span class="s1">...     inkscape:label=&quot;Layer 1&quot; inkscape:groupmode=&quot;layer&quot;&gt;</span>
+<span class="s1">...         &lt;rect x=&quot;50&quot; y=&quot;50&quot; width=&quot;30&quot; height=&quot;20&quot;/&gt;</span>
+<span class="s1">...         &lt;rect x=&quot;100&quot; y=&quot;100&quot; width=&quot;50&quot; height=&quot;40&quot;/&gt;</span>
+<span class="s1">...    &lt;g&gt; </span>
+<span class="s1">...        &lt;line x1=&quot;10&quot; y1=&quot;10&quot; x2=&quot;40&quot; y2=&quot;40&quot;/&gt;</span>
+<span class="s1">...        &lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;30&quot; height=&quot;20&quot;/&gt;  </span>
+<span class="s1">...    &lt;/g&gt;     </span>
+<span class="s1">... &lt;/g&gt;&#39;&#39;&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">g</span> <span class="n">at</span> <span class="mh">0x7ff52fe4c180</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">tag</span>
+<span class="s1">&#39;g&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="p">:</span>
+<span class="o">...</span>   <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="n">rect</span>
+<span class="n">rect</span>
+<span class="n">g</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff532a4ab80</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52fe50140</span><span class="o">&gt;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The <code>get</code> and <code>set</code> methods retrieves and assigns an attribute value, respectively. 
+The class also has <code>append</code> and <code>insert</code> methods like a list. 
+The <code>remove</code> method deletes an element child, and <code>clear</code> method removes all 
+its child elements and attributes. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;{http://www.inkscape.org/namespaces/inkscape}label&#39;</span><span class="p">)</span>
+<span class="s1">&#39;Layer 1&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;g123252&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="s1">&#39;g123252&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="s1">&#39;&lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;1&quot; height=&quot;1&quot;/&gt;&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cir</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="s1">&#39;&lt;circle cx=&quot;10&quot; cy=&quot;10&quot; r=&quot;10&quot; /&gt;&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cir</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">copy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">et</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et_copy</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et_copy</span><span class="p">]</span>
+<span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et_copy</span><span class="o">.</span><span class="n">tag</span>
+<span class="s1">&#39;g&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et_copy</span><span class="o">.</span><span class="n">attrib</span>
+<span class="p">{}</span>
+</code></pre></div>
+
+<p>The <code>getchildren</code> method returns a list of element children.  The <code>getiterator</code> 
+method walks a subtree and looks for all descendants, and it also accepts a 
+<code>tag</code> argument to look for a specific type of elements. The <code>getroottree</code> method 
+return an <code>ElementTree</code> object which contains <code>Element</code> instance. It also has a 
+<code>getparent</code> method which returns the parent element. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="k">del</span> <span class="n">et</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span> <span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span> <span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">getiterator</span><span class="p">()</span> <span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">getiterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;rect&#39;</span><span class="p">)</span> <span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">getroottree</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span>
+<span class="o">&lt;</span><span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">_ElementTree</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7ff52f59c740</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">g</span> <span class="n">at</span> <span class="mh">0x7ff52f59a4c0</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getparent</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">g</span> <span class="n">at</span> <span class="mh">0x7ff52fe4c180</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>The <code>find</code> method searches for element children and returns a single element 
+that matches the pattern of its <code>path</code> argument. The <code>path</code> argument is 
+a string describing the element for which we are searching. The values are 
+in a format like <code>rect</code> or <code>g/rect</code>.  The <code>findall</code> method is similar to <code>find</code>, and 
+it returns a list of child elements that match the pattern. But it does not 
+search nested elements inside children. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">r1</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;rect&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r1</span><span class="o">.</span><span class="n">attrib</span>
+<span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;g/rect&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r2</span><span class="o">.</span><span class="n">attrib</span>
+<span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;rect&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r3</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59ca80</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59cbc0</span><span class="o">&gt;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The <code>xpath</code> is the most complicated method in <code>Element</code> class, and it supports 
+XPath search language. The XPath expressions support tests, operators, and functions. 
+It works like <code>findall</code> in its simple form. Here are some of its common operators. </p>
+<ul>
+<li><code>/</code> searches for child element starting from itself</li>
+<li><code>//</code> searches for itself and its descendant. </li>
+<li><code>e1|e2</code> combines the elements that matches e1 and e2. </li>
+<li><code>@attribute</code> returns attribute values </li>
+<li><code>e1[@attr=value]</code> elements with attribute value</li>
+<li><code>*</code> wildcard matches all element or all attributes</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;rect&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59ca80</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59cbc0</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;/g&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">g</span> <span class="n">at</span> <span class="mh">0x7ff52fe4c180</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;/g/rect&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59ca80</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59cbc0</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//rect&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x1</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//rect|//g&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x2</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//@width&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x3</span>
+<span class="p">[</span><span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;30&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//rect[@width=50]&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59cbc0</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//@x&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//rect[@x&gt;10]&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59ca80</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59cbc0</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;/g/rect[position()=1]&#39;</span><span class="p">)</span>  <span class="c1"># position is a function</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="n">rect</span> <span class="n">at</span> <span class="mh">0x7ff52f59ca80</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x4</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//*&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x4</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">et</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//line/@*&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Below is a function <code>find_or_create_layer</code> that calls the <code>xpath</code> method. 
+The function searches existing layer names and returns the layer if it 
+finds one, otherwise it creates a new layer and returns it. The function 
+also shows how to deal with <span class="caps">XML</span> namespaces when we are working with <code>lxml</code>.  </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">find_or_create_layer</span><span class="p">(</span><span class="n">svg</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="c1"># find an existing layer or create a new layer</span>
+    <span class="c1"># need import inkex at the beginning of the module</span>
+    <span class="n">layer_name</span> <span class="o">=</span> <span class="s1">&#39;Layer </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;//svg:g[@inkscape:label=&quot;</span><span class="si">%s</span><span class="s1">&quot;]&#39;</span> <span class="o">%</span> <span class="n">layer_name</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">svg</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">inkex</span><span class="o">.</span><span class="n">NSS</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inkex</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">svg</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">addNS</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;inkscape&#39;</span><span class="p">),</span> <span class="n">layer_name</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">addNS</span><span class="p">(</span><span class="s1">&#39;groupmode&#39;</span><span class="p">,</span> <span class="s1">&#39;inkscape&#39;</span><span class="p">),</span> <span class="s1">&#39;layer&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layer</span>
+</code></pre></div>
+
+<h2>ElementTree Class</h2>
+<p>Most <code>ElementTree</code> class methods have the same function as in <code>Element</code> class. 
+The notable methods are <code>getroot</code> and <code>write</code>.  The <code>getroot</code> method returns 
+the root element, and it&#8217;s the opposite of <code>getroottree</code> method of <code>Element</code> class. 
+The <code>write</code> method serializes the <code>ElementTree</code> object back to <span class="caps">XML</span> file. </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span>
+<span class="o">&lt;</span><span class="n">Element</span> <span class="n">g</span> <span class="n">at</span> <span class="mh">0x7ff52fe4c180</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/home/george/Desktop/temp.svg&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>References</h2>
+<p>Module <code>lxml.etree</code> official reference </p>
+<p><span class="ml-4"></span><a href="https://lxml.de/apidoc/lxml.etree.html">https://lxml.de/apidoc/lxml.etree.html</a></p>
+<p>Python Standard Library Module <code>ElementTree</code></p>
+<p><span class="ml-4"></span><a href="https://docs.python.org/3.9/library/xml.etree.elementtree.html">https://docs.python.org/3.9/library/xml.etree.elementtree.html</a></p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="font-italic pl-2">8. LXML Basics</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

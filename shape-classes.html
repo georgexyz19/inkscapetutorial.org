@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Custom Element Classes The inkex module defines many custom element classes. The Python files are under the inkex/elements directory and module names all start with an underscore _. It …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Custom Shape Elements - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 7.&nbsp;&nbsp;Custom Shape Elements</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-04 13:27:00-04:00">
+          Wednesday, 08/04/2021 13:27
+        </time>
+
+      </div>
+
+      <h2>Custom Element Classes</h2>
+<p>The <code>inkex</code> module defines many custom element classes. The Python files are under the 
+<code>inkex/elements</code> directory and module names all start with an underscore <code>_</code>. It indicates 
+that those are internal modules and we should not directly import those modules. 
+When <code>inkex</code> module loads an <span class="caps">SVG</span> file, it uses those custom 
+element classes and returns objects of custom element class instead of generic 
+<code>Element</code> class of <code>lxml</code>. </p>
+<p>The <code>inkex</code> module creators did the hard work of writing custom element classes.  It currently 
+has 64 classes included in Inkscape 1.1 release. Here are a few examples. </p>
+<div class="highlight"><pre><span></span><code>inkex.elements._meta.Defs
+inkex.elements._meta.StyleElement
+inkex.elements._svg.SvgDocumentElement
+inkex.elements._groups.Layer
+inkex.elements._polygons.PathElement
+inkex.elements._polygons.Polyline
+inkex.elements._polygons.Polygon
+inkex.elements._polygons.Line
+inkex.elements._polygons.Rectangle
+inkex.elements._polygons.Circle
+......
+</code></pre></div>
+
+<p>If an <span class="caps">SVG</span> file contains an <code>rect</code> shape element, it will become an <code>Rectangle</code> object in 
+memory when <code>inkex</code> loads and parses the file.  When we write user extensions, we can 
+create objects of those custom element classes, and add them to a containing 
+element such as layer or group. </p>
+<p>Let&#8217;s take a look at the <code>PathElement</code> inheritance tree. The class is derived from <code>ShapeElement</code> 
+which in turn is derived from <code>BaseElement</code> class. </p>
+<pre>
+etree.ElementBase
+  BaseElement
+    ShapeElement
+      PathElement
+</pre>
+
+<h2>Create New Elements</h2>
+<p>The code in the <code>Hello</code> extension shows the typical way to add new elements to a drawing. We 
+create an element object first, set some attributes, and add the element to a
+containing group or layer. The new element will become part of the drawing. </p>
+<p>The example below shows how to add shape and text elements to a drawing. Here are the 
+contents in the <code>newelement.inx</code> file.  </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;inkscape-extension</span> 
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New Element<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;id&gt;</span>user.newelement<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;effect&gt;</span>
+        <span class="nt">&lt;object-type&gt;</span>all<span class="nt">&lt;/object-type&gt;</span>
+        <span class="nt">&lt;effects-menu&gt;</span>
+            <span class="nt">&lt;submenu</span> <span class="na">name=</span><span class="s">&quot;Custom&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/effects-menu&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">location=</span><span class="s">&quot;inx&quot;</span> <span class="na">interpreter=</span><span class="s">&quot;python&quot;</span><span class="nt">&gt;</span>
+          newelements.py<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/inkscape-extension&gt;</span>
+</code></pre></div>
+
+<p>Save the following code in a <code>newelement.py</code> file under user extension directory. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inkex</span>
+<span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">Line</span><span class="p">,</span> <span class="n">Polyline</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span>\
+    <span class="n">Ellipse</span><span class="p">,</span> <span class="n">PathElement</span>
+<span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">TextElement</span>
+
+
+<span class="k">class</span> <span class="nc">NewElement</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">EffectExtension</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">effect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fill&#39;</span> <span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke&#39;</span> <span class="p">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;stroke-width&#39;</span> <span class="p">:</span> <span class="s1">&#39;0.264583&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_template</span> <span class="o">=</span> \
+            <span class="s1">&#39;font-size:</span><span class="si">%d</span><span class="s1">px;text-align:center;text-anchor:middle;&#39;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">get_current_layer</span><span class="p">()</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(),</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">add_rect</span><span class="p">())</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_ellipse</span><span class="p">(),</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_path</span><span class="p">())</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">add_coordinates</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">add_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el1</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">)</span>
+
+        <span class="n">el2</span> <span class="o">=</span> <span class="n">Line</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+        <span class="n">el2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="n">el3</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+        <span class="n">el3</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+            <span class="s1">&#39;x1&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;y1&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;x2&#39;</span><span class="p">:</span> <span class="s1">&#39;80&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;y2&#39;</span><span class="p">:</span> <span class="s1">&#39;40&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="p">})</span>
+
+        <span class="n">el4</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="s1">&#39;40&#39;</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="s1">&#39;80&#39;</span><span class="p">,</span> <span class="n">y2</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el4</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="k">return</span> <span class="n">el1</span><span class="p">,</span> <span class="n">el2</span><span class="p">,</span> <span class="n">el3</span><span class="p">,</span> <span class="n">el4</span>
+
+    <span class="k">def</span> <span class="nf">add_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;60&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="n">el2</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">el2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> 
+        <span class="k">return</span> <span class="n">el1</span><span class="p">,</span> <span class="n">el2</span>
+
+    <span class="k">def</span> <span class="nf">add_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="k">return</span> <span class="n">el</span>
+
+    <span class="k">def</span> <span class="nf">add_ellipse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="k">return</span> <span class="n">el</span>
+
+    <span class="k">def</span> <span class="nf">add_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">()</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;points&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;130,10 160,10 160,25 145,25 145,40 130,40&#39;</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="k">return</span> <span class="n">el</span> 
+
+    <span class="k">def</span> <span class="nf">add_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">PathElement</span><span class="p">()</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;M 130,60 h30 v10 h-15 v10 h-15 z&#39;</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="k">return</span> <span class="n">el</span>
+
+    <span class="k">def</span> <span class="nf">add_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mf">3.88</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">TextElement</span><span class="p">()</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+        <span class="c1"># adjust y position</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">position</span> <span class="o">==</span> <span class="s1">&#39;bottom&#39;</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> 
+        <span class="n">text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_template</span> <span class="o">%</span> <span class="n">font_size</span><span class="p">)</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;xml:space&#39;</span><span class="p">,</span> <span class="s1">&#39;preserve&#39;</span><span class="p">)</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">x0</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">y0</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">add_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">),</span> 
+                        <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">),</span> 
+                        <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> 
+                        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> 
+                        <span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">),</span>
+                    <span class="p">]</span>
+
+        <span class="n">text_elements</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
+        <span class="n">circle_elements</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_circle</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> \
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">text_elements</span> <span class="o">+</span> <span class="n">circle_elements</span>
+
+    <span class="k">def</span> <span class="nf">generate_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.66145</span><span class="p">):</span>
+        <span class="n">circle_style</span> <span class="o">=</span> <span class="s1">&#39;fill:#000000;stroke:none;stroke-width:0.264583&#39;</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">circle_style</span>
+        <span class="k">return</span> <span class="n">el</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">NewElement</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Click the menu <code>Extensions -&gt; Custom -&gt; NewElement</code> to create elements on the 
+current layer of a drawing. The drawing below shows the results. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext7/newelement.png" alt="new elements"> 
+</div>
+
+<p>The code logic is simple. The <code>add_line</code> method of the <code>NewElement</code> class shows four 
+way to create a new <code>Line</code> element and set its attributes. The <code>set</code> method of an 
+element such as <code>el1</code> seems to be the most straightforward way to set attributes. </p>
+<p>The custom element classes do not have a custom <code>__init__</code> method. This is due to 
+a requirement from <code>lxml</code> because they are inherited from <code>ElementBase</code>. </p>
+<h2>GenerateExtension Class</h2>
+<p>Many system extensions like <code>render_gears</code> and <code>render_barcode</code> inherit from <code>GenerateExtension</code> 
+class. The class itself is a subclass of <code>EffectExtension</code>, and it already has code to add 
+elements to the drawing. The source code is in the <code>inkex/extensions.py</code> module. When we 
+inherit from this class, we only need to override the <code>generate</code> method. </p>
+<p>Here is an example of using <code>GenerateExtension</code> to create four lines. We do not need to 
+write any code to deal with layers. The example below creates a new <code>lines</code> layer 
+and adds new elements to the layer. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inkex</span>
+<span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">Line</span>
+
+<span class="k">class</span> <span class="nc">NewElement</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">GenerateExtension</span><span class="p">):</span>
+    <span class="n">container_label</span> <span class="o">=</span> <span class="s1">&#39;lines&#39;</span>
+    <span class="n">container_layer</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fill&#39;</span> <span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke&#39;</span> <span class="p">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;stroke-width&#39;</span> <span class="p">:</span> <span class="s1">&#39;0.264583&#39;</span><span class="p">}</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_lines</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">l</span>
+
+    <span class="k">def</span> <span class="nf">add_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">el1</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+        <span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">)</span>
+
+        <span class="n">el2</span> <span class="o">=</span> <span class="n">Line</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+        <span class="n">el2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="n">el3</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+        <span class="n">el3</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+            <span class="s1">&#39;x1&#39;</span><span class="p">:</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;y1&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;x2&#39;</span><span class="p">:</span> <span class="s1">&#39;80&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;y2&#39;</span><span class="p">:</span> <span class="s1">&#39;40&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+        <span class="p">})</span>
+
+        <span class="n">el4</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="s1">&#39;50&#39;</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="s1">&#39;40&#39;</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="s1">&#39;80&#39;</span><span class="p">,</span> <span class="n">y2</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">)</span>
+        <span class="n">el4</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="k">return</span> <span class="n">el1</span><span class="p">,</span> <span class="n">el2</span><span class="p">,</span> <span class="n">el3</span><span class="p">,</span> <span class="n">el4</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">NewElement</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<h2>Inkex <span class="caps">SVG</span> Parsing</h2>
+<p>When we load an <span class="caps">XML</span> file into memory, we usually use the default <span class="caps">XML</span> parser that comes with 
+<code>lxml</code> module. </p>
+<div class="highlight"><pre><span></span><code>doc = etree.parse(&#39;test.xml&#39;)
+</code></pre></div>
+
+<p>Or you can invoke the <code>etree.XMLParser</code> method to create a parser and pass the parser object to 
+<code>etree.parse</code> method. The <code>huge_tree</code> option shown below &#8220;disables security restrictions 
+and supports deep trees and long text content&#8221;. </p>
+<div class="highlight"><pre><span></span><code>p = etree.XMLParser(huge_tree=True)
+doc = etree.parse(&#39;test.xml&#39;, parser=p)
+</code></pre></div>
+
+<p>The <code>lxml</code> documentation has a page regarding 
+<a href="https://lxml.de/element_classes.html">using custom Element classes in lxml</a>. The 
+&#8220;Tree based element class lookup in Python&#8221; section has an example like this. </p>
+<div class="highlight"><pre><span></span><code>class MyLookup(etree.PythonElementClassLookup):
+    def lookup(self, document, element):
+        return MyElementClass 
+
+parser = etree.XMLParser()
+parser.set_element_class_lookup(MyLookup())
+</code></pre></div>
+
+<p>The <code>MyLookup</code> class must have a method <code>lookup</code> as shown above. The <code>document</code> argument 
+of the <code>lookup</code> method acts like <code>self.document</code> object and the <code>element</code> argument 
+acts like an <code>Element</code> object. The return value <code>MyElementClass</code> is a custom class 
+defined elsewhere which must inherit from <code>etree.ElementBase</code> class. </p>
+<p>The code in the <code>elements/_base.py</code> module follows this model to define the lookup 
+class <code>NodeBasedLookup</code>. It creates a custom parser <code>SVG_PARSER</code> and defines the <code>load_svg</code> 
+method which uses the parser. </p>
+<p>With the parser in place, the return value from <code>etree.parse</code> method will contain <code>Rectangle</code> 
+class object instead of general <code>Element</code> object if it is an <code>rect</code> shape element. 
+This is a simplification. It actually is a Python proxy object because <code>lxml.etree</code> is 
+based on libxml2, which loads the <span class="caps">XML</span> tree into memory in a C structure. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="font-italic pl-2">7. Shape Elements</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

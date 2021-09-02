@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Hello User Extension We have enough discussion on the Triangle extension. Let’s create a Hello user extension modeled after the Triangle. The extension has one input text field that …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Hello Extension - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 active" 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 5.&nbsp;&nbsp;Hello Extension</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-07-30 11:58:00-04:00">
+          Friday, 07/30/2021 11:58
+        </time>
+
+      </div>
+
+      <h2>Hello User Extension</h2>
+<p>We have enough discussion on the <code>Triangle</code> extension.  Let&#8217;s create a <code>Hello</code> 
+user extension modeled after the <code>Triangle</code>. The extension has one input 
+text field that we can enter a name.  After clicking the <code>Apply</code> button, 
+the extension will output <code>Hello &lt;name&gt;</code> to the current drawing. 
+The <code>hello.inx</code> and <code>hello.py</code> files are saved under the user extension directory. </p>
+<div style="max-width:600px">
+  <img class="img-fluid pb-2" src="/images/ext5/ext5-gui.png" alt="gui"> 
+</div>
+
+<h2>Hello.inx File</h2>
+<p>The <code>Hello.inx</code> file is very similar to the <code>Triangle.inx</code> as we discussed before. 
+In fact we make a copy of the <code>Triangle.inx</code> file and modify it. Now we can click 
+<code>Extensions -&gt; Custom -&gt; Hello</code> menu to launch the extension. </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;inkscape-extension</span> 
+    <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Hello<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;id&gt;</span>user.hello<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> 
+        <span class="na">gui-text=</span><span class="s">&quot;What&#39;s your name? &quot;</span><span class="nt">&gt;</span>Inkscape<span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;effect&gt;</span>
+        <span class="nt">&lt;object-type&gt;</span>all<span class="nt">&lt;/object-type&gt;</span>
+        <span class="nt">&lt;effects-menu&gt;</span>
+            <span class="nt">&lt;submenu</span> <span class="na">name=</span><span class="s">&quot;Custom&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/effects-menu&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">location=</span><span class="s">&quot;inx&quot;</span> <span class="na">interpreter=</span><span class="s">&quot;python&quot;</span><span class="nt">&gt;</span>hello.py<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/inkscape-extension&gt;</span>
+</code></pre></div>
+
+<h2>Python Hello.py Code</h2>
+<p>The <code>hello.py</code> file also doesn&#8217;t have much new code than in <code>triangle.py</code>. 
+The <code>add_text</code> method is modified from another system extension module <code>path_number_node.py</code>. 
+It creates a TextElement and sets the <code>text</code> and <code>style</code> attributes. The 
+element is then added onto the current layer via the <code>layer.add</code> method. </p>
+<p>The <code>Triangle</code> extension discussed in the previous chapters essentially does 
+the same thing. It creates an <code>PathElement</code>, and then the element is added to 
+the current layer. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inkex</span>
+<span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">TextElement</span>
+
+<span class="k">class</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">EffectExtension</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pars</span><span class="p">):</span>
+        <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Inkscape&#39;</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;name input&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">effect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">name</span> 
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">get_current_layer</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;40px&#39;</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">add_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a text label at the given location&quot;&quot;&quot;</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">TextElement</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">elem</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;18pt&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;fill-opacity&#39;</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;stroke&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;font-weight&#39;</span><span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;font-style&#39;</span><span class="p">:</span> <span class="s1">&#39;normal&#39;</span> <span class="p">}</span>
+        <span class="k">return</span> <span class="n">elem</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">Hello</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>When we are working on a user extension, we can modify the Python code and 
+click the <code>Apply</code> button to run the modified code.  However, if we change the 
+content in <code>.inx</code> file, we have to exit and restart Inkscape for the change to 
+take effect. </p>
+<h2>Output</h2>
+<p>Below is the result of running the extension. The origin (0, 0) of <span class="caps">SVG</span> coordinate 
+system is the point on the top left corner. The x value increases from left to right, 
+and y value increases from top to bottom.  The text coordinate represents 
+40 pixel from left of the page, and 40 pixel down from top the page.  The font size is 
+set at 18 point.   </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext5/hello-inkscape.png" alt="screenshot"> 
+</div>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="font-italic pl-2">5. Hello Extension</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

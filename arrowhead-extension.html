@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Problem The Dimension system extension discussed in Chapter 14 adds markers as arrowheads for dimension lines. The markers have a stroke width which causes the arrowheads to extrude beyond leading …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Arrowhead Extension - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 active" 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 16.&nbsp;&nbsp;Arrowhead Extension</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-30 13:13:00-04:00">
+          Monday, 08/30/2021 13:13
+        </time>
+
+      </div>
+
+      <h2>Problem</h2>
+<p>The <code>Dimension</code> system extension discussed in Chapter 14 adds markers as 
+arrowheads for dimension lines. The markers have a stroke width which 
+causes the arrowheads to extrude beyond leading lines. When we zoom in to 
+the arrow heads, they look like this figure. </p>
+<div style="max-width:500px">
+  <img class="img-fluid pb-2" src="/images/ext16/arrowheads.png" alt="arrowheads"> 
+</div>
+
+<p>If we manually set the marker stroke width to zero, it will have another 
+problem. The tip of the arrow head is on top of the dimension line, and 
+the arrowhead doesn&#8217;t look good as shown below. </p>
+<div style="max-width:300px">
+  <img class="img-fluid pb-2" src="/images/ext16/arrowhead2.png" alt="arrowhead2"> 
+</div>
+
+<p>What is the right way to draw the arrowhead? We should offset the start point 
+of the dimension line by a distance <code>d</code>, so the arrowhead itself will cover the 
+dimension line. Marker 
+elements are often difficult to manupilate in Inkscape, so we will draw 
+a filled path as arrowhead.  </p>
+<div style="max-width:300px">
+  <img class="img-fluid pb-2" src="/images/ext16/distance.png" alt="distance"> 
+</div>
+
+<p>This sounds like something which an Inkscape extension can do. Let&#8217;s create 
+such an extension. </p>
+<h2>Arrowheads</h2>
+<p>A simple arrowhead can be determined by two variables angle (A) and 
+length (L). The angle is between two side lines (red) and the length is from 
+the tip to the back of arrowhead (blue).  The extension will support 
+two shapes <code>sharp</code> and <code>normal</code> as shown below. </p>
+<div style="max-width:400px">
+  <img class="img-fluid pb-2" src="/images/ext16/variables.svg" alt="variables"> 
+</div>
+
+<p>Sometimes we need an arrowhead at one end of a 
+path and sometimes we need it at both ends. The extension will support 
+adding arrowhead at the begin, at the end, or at both ends. When we draw a 
+straight line in Inkscape with the <code>Bezier</code> tool, the <code>d</code> attribute could 
+have values like the values shown below.  The begin point is the coordinate after the <code>M</code> 
+(Move), and end point is the second coordinate or a calculated coordinate 
+based on values after <code>H</code> (Horizontal) or <code>V</code> (Vertical). Note the begin 
+point could be on the right or top of end point.  </p>
+<div class="highlight"><pre><span></span><code>M 104.51948,88.538059 143.37506,72.466987
+M 173.74472,28.097683 H 204.0094
+M 183.58612,45.030754 V 74.30451
+</code></pre></div>
+
+<p>The dialog shown below is the extension user interface. When we use the 
+extension, we need to draw a line on the canvas, have the line selected, 
+and click the <code>Custom -&gt; Draw Arrowhead</code> menu, choose the values on the 
+dialog and click apply.  The extension Python code will add an arrowhead 
+to the drawing and modify the selected path. </p>
+<div style="max-width:400px">
+  <img class="img-fluid pb-2" src="/images/ext16/interface.png" alt="interface"> 
+</div>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="font-italic pl-2">16. Arrowhead Extension</p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

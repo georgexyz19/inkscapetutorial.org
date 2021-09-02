@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Selection One piece of information Inkscape transmits to an extension is selected elements. The extension receives command line arguments which are the ids of selected elements from Inkscape. For example …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Selection - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 15.&nbsp;&nbsp;Selection</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-28 00:18:00-04:00">
+          Saturday, 08/28/2021 00:18
+        </time>
+
+      </div>
+
+      <h2>Selection</h2>
+<p>One piece of information Inkscape transmits to an extension is selected elements. 
+The extension receives command line arguments which are the ids of selected elements 
+from Inkscape. </p>
+<p>For example, we have a drawing with 4 selected elements as shown below. When we click 
+the <code>apply</code> button on an extension user interface, the extension receives 4 &#8220;--id=&#8230;&#8221; 
+values as shown in the <code>sys.argv</code> variable below. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext15/selection-fig.png" alt="selection"> 
+</div>
+
+<div class="highlight"><pre><span></span><code>sys argv: [&#39;hello.py&#39;, &#39;--id=rect1125&#39;, &#39;--id=path1149&#39;, &#39;--id=path1253&#39;, &#39;--id=path1358&#39;, 
+            &#39;--name=inkscape&#39;, &#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&#39;]
+</code></pre></div>
+
+<p>The id values are the id attributes of selected elements.  The id attribute is unique 
+for each element, so the extension knows which elements are selected. </p>
+<p>The <code>inkex</code> uses <code>argparse</code> Python standard library module to parse arguments. The 
+code is in the <code>__init__</code> method of <code>SvgInputMixin</code> class (inkex/base.py module). </p>
+<div class="highlight"><pre><span></span><code>self.arg_parser.add_argument(
+    &quot;--id&quot;, action=&quot;append&quot;, type=str, dest=&quot;ids&quot;, default=[],
+    help=&quot;id attribute of object to manipulate&quot;)
+
+self.arg_parser.add_argument(
+    &quot;--selected-nodes&quot;, action=&quot;append&quot;, type=str, dest=&quot;selected_nodes&quot;, default=[],
+    help=&quot;id:subpath:position of selected nodes, if any&quot;)
+</code></pre></div>
+
+<p>The selected ids will become a list which is accessed as <code>self.options.ids</code> in an
+extension.</p>
+<div class="highlight"><pre><span></span><code>self.options : Namespace(input_file=&#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&#39;, output=None, 
+                name=&#39;inkscape&#39;, ids=[&#39;rect1125&#39;, &#39;path1149&#39;, 
+                &#39;path1253&#39;, &#39;path1358&#39;], selected_nodes=[]) 
+</code></pre></div>
+
+<p>When <code>inkex</code> loads an <span class="caps">SVG</span> file, it will set an instance variable <code>selection</code> 
+on the <code>SvgDocumentElement</code> class object. The <code>selection</code> variable is of type 
+<code>ElementList</code> and its value is set in the <code>load</code> method of <code>SvgInputMixin</code> class. </p>
+<div class="highlight"><pre><span></span><code>self.svg = document.getroot()
+self.svg.selection.set(*self.options.ids)
+</code></pre></div>
+
+<h2>ElementList Class</h2>
+<p>The <code>ElementList</code> class is defined in the <code>inkex/elements/_selected.py</code> module. 
+Even though it is called <code>ElementList</code>, it subclasses <code>OrderedDict</code> and it&#8217;s a 
+dictionary.  When we iterate through an instance variable, it iterates through 
+the values of the dictionary and the class acts like a list. The values of 
+the dictionary are the selected element objects. </p>
+<p>We would think the keys of the dictionary are the ids of selected elements and 
+the values are the corresponding element objects.  However, the keys are actually 
+<code>xml_path</code> of selected element. The <code>xml_path</code> is a property defined in the 
+<code>BaseElement</code> class and it calls the <code>getpath</code> method of <code>ElementTree</code> class. 
+The <a href="https://lxml.de/api/lxml.etree._ElementTree-class.html#getpath">lxml documentation</a> 
+describes that &#8220;[getpath method] returns a structural, absolute XPath expression to find the 
+element&#8221;.  </p>
+<p><code>ElementList</code> key is a string value. It&#8217;s the value before colon as shown below. 
+The first part <code>/*</code> refers 
+to the <code>svg</code> element.  The second part <code>/*[3]</code> refer to <code>g</code> layer element nested inside <code>svg</code>. 
+The <code>g</code> element is listed after <code>sodipodi:namedview</code> and <code>defs</code> elements. 
+The third part <code>/*[1]</code> refers to the rect element, which is the first 
+one nested under <code>g</code> element. </p>
+<div class="highlight"><pre><span></span><code># ELementList dict format: xml_path to element
+/*/*[3]/*[1] : rect
+/*/*[3]/*[2] : ellipse
+/*/*[3]/*[3] : path
+/*/*[3]/*[4] : path
+</code></pre></div>
+
+<p>The <code>ElementList</code> class also defines an <code>ids</code> instance variable, which is a 
+dictionary mapping <code>id</code> to <code>xml_path</code>. The class also have a method <code>id_dict</code> 
+which returns a dictionary mapping <code>id</code> to <code>element</code>. Why does the class choose 
+to use <code>xml_path</code> value as the dictionary key? It seems it&#8217;s for the <code>paint_order</code> 
+method which return a list of selected elements by z-order (bottom to top). </p>
+<p>The most useful method in the <code>ElementList</code> class probably is <code>filter</code>. We can 
+filter out the elements by type. The method return a new <code>ElementList</code> object 
+containing only the element with certain type. The code below shows an 
+example, and the <code>selected_elems</code> contains only path elements. </p>
+<div class="highlight"><pre><span></span><code>from inkex import PathElement
+select_elems = self.svg.selection.filter(PathElement)
+</code></pre></div>
+
+<p>The <code>bounding_box</code> method returns a <code>BoundingBox</code> object for selected elements. 
+It&#8217;s very useful when we need to know the size of selected elements such as 
+the <code>Dimensions</code> extension. </p>
+<p>The Inkscape itself preserves the select order when passing the ids to extension. 
+The first element in the <code>ElementList</code> is the first selected element in Inkscape. 
+The extension system doesn&#8217;t provide a way to transmit selected elements back to 
+Inkscape, so we can&#8217;t modify selections in an Inkscape extension.</p>
+<h2>Selected Nodes</h2>
+<p>Similar to selected elements, Inkscape also passes selected nodes to extensions. 
+In inkscape we use the node selection tool to select nodes on a path. For example, 
+the drawing below shows that the first two nodes are selected (blue dots).  When 
+we click the apply button on an extension interface, the extension receives several 
+<code>--selected-nodes=...</code> arguments. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext15/node-sel.png" alt="node selection"> 
+</div>
+
+<p>The argument values are in a format shown below. The help message of <code>add_argument</code> 
+indicates it is in <code>id:subpath:position</code> format. Notice the <code>subpath</code> and <code>position</code> 
+values are both zero based here. </p>
+<p>[&#8216;path3535:0:1&#8217;, &#8216;path3535:0:0&#8217;]</p>
+<p>Searching through the system extension directory, the <code>selected-nodes</code> values 
+are not used in any extensions.  However, it might be useful when we need to 
+deal with path nodes in extensions. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="font-italic pl-2">15. Selection</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

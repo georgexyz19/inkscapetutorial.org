@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Extension Units Inkscape extension documentation page has a units page. Inkscape units themselves are not complicated, and the difficult part is how Inkscape projects units in user coordinate system to …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>Units and Coordinate Systems - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 10.&nbsp;&nbsp;Units and Coordinate Systems</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-08-07 23:18:00-04:00">
+          Saturday, 08/07/2021 23:18
+        </time>
+
+      </div>
+
+      <h2>Extension Units</h2>
+<p>Inkscape extension <a href="https://inkscape.gitlab.io/extensions/documentation/index.html">documentation page</a> has a <a href="https://inkscape.gitlab.io/extensions/documentation/units.html">units</a> 
+page. Inkscape units themselves are not complicated, and the difficult part is how 
+Inkscape projects units in user coordinate system to viewport coordinate system. </p>
+<p>Most common units in Inkscape are pixel, point, millimeter, and inch. The <code>inkex/units.py</code> 
+module defines a <code>CONVERSIONS</code> dictionary.  The base unit is <code>pixel</code> or <code>px</code>.  The dictionary 
+value is the converting factor from other unit to <code>px</code>. For example, 1 <code>in</code> equals 96.0 <code>px</code>, 
+and 1 <code>point</code> or <code>pt</code> equals 1.3333 <code>px</code>.  </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># a dictionary of unit to user unit conversion factors</span>
+<span class="n">CONVERSIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="mf">96.0</span><span class="p">,</span>
+    <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="mf">1.3333333333333333</span><span class="p">,</span>
+    <span class="s1">&#39;px&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s1">&#39;mm&#39;</span><span class="p">:</span> <span class="mf">3.779527559055118</span><span class="p">,</span>
+    <span class="s1">&#39;cm&#39;</span><span class="p">:</span> <span class="mf">37.79527559055118</span><span class="p">,</span>
+    <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="mf">3779.527559055118</span><span class="p">,</span>
+    <span class="s1">&#39;km&#39;</span><span class="p">:</span> <span class="mf">3779527.559055118</span><span class="p">,</span>
+    <span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mf">0.94488188976378</span><span class="p">,</span>
+    <span class="s1">&#39;pc&#39;</span><span class="p">:</span> <span class="mf">16.0</span><span class="p">,</span>
+    <span class="s1">&#39;yd&#39;</span><span class="p">:</span> <span class="mf">3456.0</span><span class="p">,</span>
+    <span class="s1">&#39;ft&#39;</span><span class="p">:</span> <span class="mf">1152.0</span><span class="p">,</span>
+    <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># Default px</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>When we are working on a drawing, we often use different units to describe different elements. 
+We describe the line stroke width as <code>1px</code> or <code>2px</code>, line length as <code>20mm</code> or <code>1.5in</code>, 
+font size as <code>12pt</code> or <code>10pt</code>, 
+paper size as <code>letter</code> (8.5in x 11in) in the <span class="caps">US</span>, or A4 (210mm x 297mm). </p>
+<p>The <code>1px</code> 
+stroke width is an commonly picked number. If we want narrower width, <code>0.75px</code> is a good choice. 
+We can choose <code>1.5px</code> or <code>2px</code> width when we need a bolder line. Microsoft Word default 
+font is <code>11pt</code> Calibri, and it was <code>12pt</code> <em>Times New Roman</em> in earlier versions. An <code>10pt</code> 
+font size is still considered legible when printed on paper, and smaller font size is 
+often considered too tiny to read. </p>
+<h2>Coordinate Systems</h2>
+<p>When we create a <code>Line</code> element and add it to the drawing, we usually do not need to specify 
+a unit for line length.  For example, here is the code for <code>el11</code> in previous chapter. </p>
+<div class="highlight"><pre><span></span><code><span class="n">el1</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span> <span class="s1">&#39;40&#39;</span><span class="p">)</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We do not need to specify the units for the <span class="caps">SVG</span> file either. The default <code>A4</code> page <span class="caps">SVG</span> 
+file has those lines. </p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;svg</span>
+   <span class="na">width=</span><span class="s">&quot;210mm&quot;</span>
+   <span class="na">height=</span><span class="s">&quot;297mm&quot;</span>
+   <span class="na">viewBox=</span><span class="s">&quot;0 0 210 297&quot;</span>
+</code></pre></div>
+
+<p>What do those numbers mean?  The width and height attributes of svg tag mean the Inkscape 
+canvas size. It is also called <em>viewport coordinate system</em>. It is on the right hand side of the 
+following drawing. The default size 210mm x 297mm is the same size of a piece of A4 page. When 
+we export the drawing to an <span class="caps">PDF</span> file, it will have the same size. If we print the <span class="caps">PDF</span> file 
+on a piece of A4 paper, it is supposed to be 100% of the <span class="caps">PDF</span>. </p>
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext10/viewport.svg" alt="viewport"> 
+</div>
+
+<p>When we create a line from (10, 10) to (40, 40), the coordinates are in the <em>user coordinate system</em> or 
+<em>user space</em>. It is on the left hand size of the above drawing. 
+The user coordinate system origin and size are defined as the <code>viewBox</code> attribute of <code>svg</code> 
+tag. The <code>viewBox</code> attribue values (0 0 210 297) also do not have units. </p>
+<p>What are the units of those 
+values? The svg specification says that the default user space unit is <code>pixel</code>. 
+If we set the line start point 
+as (10px, 10px) and end point as (40px, 40px) the result will be the same. However, the line will 
+show up on the canvas as from (10mm, 10mm) to (40mm, 40mm) because line is mapped from user coordinate 
+system to viewport coordinate system. This is confusing here.  We set the coordinates 
+in pixel, but they show up on canvas in <code>mm</code>. So it is better to leave the units out. </p>
+<div class="highlight"><pre><span></span><code><span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;10px&#39;</span><span class="p">)</span> <span class="c1"># same as `10`</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;10px&#39;</span><span class="p">)</span> <span class="c1"># prefer no unit</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;40px&#39;</span><span class="p">)</span>
+<span class="n">el1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span> <span class="s1">&#39;40px&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If we set the line from (10mm, 10mm) to (40mm, 40mm), it will be the same as set the coordinates 
+from (37.795, 37.995) to (151.18, 151.18) in the user space.  Inkscape will automatically convert 
+those numbers to pixels. </p>
+<h2>Unit Conversion</h2>
+<p>What if we know the size of an element on canvas, what value should we set in user space?
+For example, we want a line with a stroke width of <code>1px</code>, what value should we set for 
+the <code>stroke-width</code> attribute? The stroke width of <code>1px</code> is the same as <code>1/3.7795 = 0.2646mm</code>. 
+When we set the <code>stroke-width</code> value as <code>0.2646</code>, it will show up as <code>1px</code> width on canvas.</p>
+<p>We can also call <code>unittouu</code> method (property) of <code>BaseElement</code> class to do the conversion 
+for us. It will convert a value in viewport coordinate system to user space. This covers 
+most of what we need to know about Inkscape units and coordinate system mapping. </p>
+<div class="highlight"><pre><span></span><code><span class="n">sw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;1px&#39;</span><span class="p">)</span> <span class="c1"># sw is .2645...</span>
+</code></pre></div>
+
+<p>If we want <code>10pt</code> font size text, we set the font-size to the below value. This is a more natural 
+way to describe element sizes. </p>
+<div class="highlight"><pre><span></span><code><span class="n">fz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">svg</span><span class="o">.</span><span class="n">unittouu</span><span class="p">(</span><span class="s1">&#39;10pt&#39;</span><span class="p">)</span> <span class="c1"># fz value is 3.5278</span>
+</code></pre></div>
+
+<p>You may find coordinate mapping confusing if you do 
+not have prior experiences on computer graphics system. The Inkscape 1.0 changes the 
+y-axle of the viewport coordinate system to increase fom top to bottom, and origin to the 
+top left corner. Before Inkscape 1.0, the origin is at the bottom left corner. You can 
+imagine that the coordinate systems are even more confusing then. </p>
+<h2>Units Module</h2>
+<p>The <code>inkex/units.py</code> Python module is independent of other modules, so it&#8217;s easy to 
+understand code in this module. Let&#8217;s experiment the module in Python interpreter. 
+Start the python interpreter with <code>/usr/bin/python3</code> command if the system has multiple python 
+versions installed.  This is the system Python with <code>lxml</code> module installed. </p>
+<div class="highlight"><pre><span></span><code>george@Inspiron-5515:~$ /usr/bin/python3
+Python 3.9.5 (default, May 11 2021, 08:20:37) 
+[GCC 10.3.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+</code></pre></div>
+
+<p>If we simply import <code>inkex</code>, the interpreter can&#8217;t find where the module is located. 
+We can add the path to the <code>sys.path</code>.  </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">inkex</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;inkex&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/usr/share/inkscape/extensions&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">inkex</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">inkex</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>help(inkex.units)</code> command will show the functions defined in the module and 
+a short description for each function. </p>
+<ul>
+<li>
+<p><code>are_near_relative(point_a, point_b, eps=0.01)</code><br>
+    Return true if the points are near to eps</p>
+</li>
+<li>
+<p><code>convert_unit(value, to_unit, default='px')</code><br>
+    Returns user units given a string representation of units in another system</p>
+</li>
+<li>
+<p><code>discover_unit(value, viewbox, default='px')</code><br>
+    Attempt to detect the unit being used based on the viewbox</p>
+</li>
+<li>
+<p><code>parse_unit(value, default_unit='px', default_value=None)</code><br>
+    Takes a value such as 55.32px and returns (55.32, &#8216;px&#8217;)<br>
+    Returns default (None) if no match can be found</p>
+</li>
+<li>
+<p><code>render_unit(value, unit)</code><br>
+    Checks and then renders a number with its unit</p>
+</li>
+</ul>
+<p>It is nice to have source code available. But it is easier for us to understand 
+how to use those functions through examples.  We can <code>grep</code> the Inkscape system 
+extensions to find out how they are used.  </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">parse_unit</span><span class="p">(</span><span class="s1">&#39;55.32px&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>
+<span class="p">(</span><span class="mf">55.32</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">parse_unit</span><span class="p">(</span><span class="s1">&#39;55.32pt&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>
+<span class="p">(</span><span class="mf">55.32</span><span class="p">,</span> <span class="s1">&#39;pt&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">parse_unit</span><span class="p">(</span><span class="s1">&#39;55.32bt&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="c1"># returns None</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">parse_unit</span><span class="p">(</span><span class="s1">&#39;55.32&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>
+<span class="p">(</span><span class="mf">55.32</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">)</span> <span class="c1"># default unit is pixel</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">are_near_relative</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.121</span><span class="p">)</span>
+<span class="kc">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">are_near_relative</span><span class="p">(</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.122</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">are_near_relative</span><span class="p">(</span><span class="mf">0.1234</span><span class="p">,</span> <span class="mf">0.1232</span><span class="p">)</span>
+<span class="kc">True</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">discover_unit</span><span class="p">(</span><span class="s1">&#39;210mm&#39;</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;px&#39;</span><span class="p">)</span>
+<span class="s1">&#39;mm&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">discover_unit</span><span class="p">(</span><span class="s1">&#39;8.5in&#39;</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;px&#39;</span><span class="p">)</span>
+<span class="s1">&#39;px&#39;</span>  <span class="c1"># default</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">discover_unit</span><span class="p">(</span><span class="s1">&#39;8.5in&#39;</span><span class="p">,</span> <span class="mf">215.9</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;px&#39;</span><span class="p">)</span>
+<span class="s1">&#39;mm&#39;</span>  <span class="c1"># letter size</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">convert_unit</span><span class="p">(</span><span class="s1">&#39;8.5in&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">)</span>
+<span class="mf">215.9</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">render_unit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">)</span>
+<span class="s1">&#39;10in&#39;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">convert_unit</span><span class="p">(</span><span class="s1">&#39;8.5&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">)</span>
+<span class="mf">2.2489583333333334</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">convert_unit</span><span class="p">(</span><span class="s1">&#39;1px&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">)</span>
+<span class="mf">0.26458333333333334</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">units</span><span class="o">.</span><span class="n">convert_unit</span><span class="p">(</span><span class="s1">&#39;10pt&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">)</span>
+<span class="mf">3.5277777777777777</span>
+</code></pre></div>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="font-italic pl-2">10. Units</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

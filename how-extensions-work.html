@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+    <link rel="icon" type="image/x-icon" href="/theme/images/favicon.ico" >
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.georgexyz.com/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Class Initialization The last two lines of triangle.py files are shown below. The first line is boilerplate code. If we run this module on terminal, the Python interpreter will …" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
+     crossorigin="anonymous"></script>
+    <title>How Extensions Work - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 3.&nbsp;&nbsp;How Extensions Work</h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2021-07-28 08:42:00-04:00">
+          Wednesday, 07/28/2021 08:42
+        </time>
+
+      </div>
+
+      <h2>Class Initialization</h2>
+<p>The last two lines of <code>triangle.py</code> files are shown below. The first line is 
+boilerplate code. If we run this module on terminal, the Python interpreter will set the 
+<code>__name__</code> to <code>__main__</code> and the code <code>Triangle().run()</code> will start. </p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">Triangle</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The first part of the second line <code>Triangle()</code> initializes an instance of 
+<code>Triangle</code> class. We can think of the <code>Triangle().run()</code> as two statements like this. </p>
+<div class="highlight"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">()</span>
+<span class="n">t</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>In this section we will discuss class initialization part <code>t = Triangle()</code>, and 
+in the next section we will examine the run part <code>t.run()</code>. </p>
+<p>The class <code>Triangle</code> itself does not define an <code>__init__</code> method, and 
+the <code>__init__</code> methods in superclasses will be invoked automatically. The 
+diagram below shows the superclasses of <code>Triangle</code>.  </p>
+<div style="max-width:600px">
+  <img class="img-fluid pb-2" src="/images/ext3/extension-classes.svg" alt="classes"> 
+</div>
+
+<p>Both <code>SvgInputMixin</code> and <code>InkscapeExtension</code> classes have <code>__init__</code> methods, and
+those will be invoked. </p>
+<p>Here is the code in the <code>__init__</code> method of <code>SvgInputMixin</code> class.  It simply calls
+<code>add_argument</code> method twice.  The <code>super().__init__()</code> statement invokes <code>__init__</code> 
+method in <code>object</code> because <code>super</code> refers to <code>object</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># __init__ in SvgInputMixin class, base.py</span>
+<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--id&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;ids&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;id attribute of object to manipulate&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--selected-nodes&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;selected_nodes&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;id:subpath:position of selected nodes, if any&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Let&#8217;s look at the <code>__init__</code> method in <code>InkscapeExtension</code> class next. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># __init__ in InkscapeExtension class </span>
+<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># type: () -&gt; None</span>
+    <span class="n">NSS</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extra_nss</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">file_io</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># type: Optional[IO]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">document</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># type: Union[None, bytes, str, etree]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;INPUT_FILE&quot;</span><span class="p">,</span> 
+        <span class="nb">type</span><span class="o">=</span><span class="n">filename_arg</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Filename of the input file (default is stdin)&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Optional output filename for saving &quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;the result (default is stdout).&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="p">)</span>
+
+    <span class="n">localize</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The <code>NSS.update(...)</code> line is for <span class="caps">XML</span> namespaces.  The <code>NSS</code> itself is an abbreviation
+for <em>Namespace Specific String</em>. </p>
+<p>The <code>__init__</code> method initializes four instance variables <code>file_io</code>, <code>options</code>, 
+<code>document</code>, and <code>arg_parser</code>. It calls the <code>add_argument</code> methods of <code>ArgumentParser</code> 
+class twice, and then it calls the <code>add_arguments</code> class method.  The <code>add_argument</code> method 
+is overridden in <code>Triangle</code> class, so the <code>add_argument</code> method in the <code>Triangle</code> class 
+will be called. The method calls <code>add_argument</code> of <code>ArgumentParser</code> class seven times. 
+Note the method name is <code>add_argument</code> in <code>ArgumentParser</code> class and it is <code>add_arguments</code>
+in <code>Triangle</code> class. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># add_argument method in Triangle class</span>
+<span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pars</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Triangle add_arguments method starts&#39;</span><span class="p">)</span>  <span class="c1">##</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--s_a&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length a&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--s_b&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length b&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--s_c&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length c&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--a_a&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Angle a&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--a_b&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Angle b&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--a_c&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> 
+        <span class="n">default</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Angle c&quot;</span><span class="p">)</span>
+    <span class="n">pars</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--mode&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;3_sides&#39;</span><span class="p">,</span> 
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Side Length c&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Triangle add_arguments method ends&#39;</span><span class="p">)</span>  <span class="c1">##</span>
+</code></pre></div>
+
+<p>We can add a pair of logging statements at the beginning and end of the method call to 
+find out the call sequence.  The similar statements are added to the two <code>__init__</code> 
+methods, and the result is shown below. </p>
+<div class="highlight"><pre><span></span><code>DEBUG: SvgInputMixin __init__ starts 
+DEBUG: InkscapeExtension __init__ starts
+DEBUG: Triangle add_arguments method starts
+DEBUG: Triangle add_arguments method ends
+DEBUG: InkscapeExtension __init__ ends
+DEBUG: SvgInputMixin __init__ ends
+</code></pre></div>
+
+<p>The interesting part here is that the <code>__init__</code> method in <code>SvgInputMixin</code> is called 
+first.  When the Python interpreter encounters the <code>self.arg_parser</code> instance variable, 
+it can&#8217;t find the definition.  It suspends this <code>__init__</code> method call and starts 
+invoking <code>__init__</code> method in <code>InkscapeExtension</code> class. The <code>add_arguments</code> method 
+starts and ends as expected because it is called within the <code>__init__</code> method of 
+<code>InkscapeExtension</code>.  The <code>__init__</code> method in <code>InkscapeExtension</code> class returns first, 
+and then the <code>__init__</code> method in <code>SvgInputMixin</code> class returns. </p>
+<h2>Run Method</h2>
+<p>After the initialization, the <code>run</code> method is where everything happens. Here is 
+the code of <code>run</code> method in <code>InkscapeExtension</code> class. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">stdout</span><span class="p">):</span>
+    <span class="c1"># type: (Optional[List[str]], Union[str, IO]) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Main entrypoint for any Inkscape Extension&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_raw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_raw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">effect</span><span class="p">())</span>
+    <span class="k">except</span> <span class="n">AbortExtension</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">err</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">ABORT_STATUS</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean_up</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Let&#8217;s take a close look at the code between <code>try</code> and <code>except...</code> lines. 
+From last chapter, we know that the <code>sys.argv</code> value is a list of arguments. 
+The <code>args</code> value is a list start from the second item. </p>
+<div class="highlight"><pre><span></span><code>[&#39;triangle.py&#39;, &#39;--s_a=100&#39;, &#39;--s_b=100&#39;, 
+   &#39;--s_c=100&#39;, &#39;--a_a=60&#39;, &#39;--a_b=30&#39;, &#39;--a_c=90&#39;, 
+   &#39;--mode=3_sides&#39;, &#39;/tmp/ink_ext_XXXXXX.svgVYXM70&#39;]
+</code></pre></div>
+
+<p>The <code>parse_arguments</code> method in <code>InkscapeExtension</code> class simply calls 
+<code>parse_args</code> method of <code>arg_parser</code> object. The returned value is assigned 
+to the <code>options</code> instance variable, which is a <code>Namespace</code> object. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">parse_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="c1"># type: (List[str]) -&gt; None</span>
+    <span class="sd">&quot;&quot;&quot;Parse the given arguments and set &#39;self.options&#39;&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div>
+
+<p>After the <code>parse_arguments</code> method call, the <code>self.options</code> value is 
+the <code>Namespace</code> object shown below. We can access variables in the object like 
+a property (e.g., <code>self.options.input_file</code>). Notice the <code>ids</code> and <code>selected_nodes</code> 
+instance varaibles in <code>Namespace</code>. </p>
+<div class="highlight"><pre><span></span><code>Namespace(input_file=&#39;/tmp/ink_ext_XXXXXX.svgVJUG70&#39;, 
+          output=None, s_a=100.0, s_b=100.0, s_c=100.0, 
+          a_a=60.0, a_b=30.0, a_c=90.0, mode=&#39;3_sides&#39;, 
+          ids=[], selected_nodes=[]) 
+</code></pre></div>
+
+<p>The next four statements changes the <code>self.options.output</code> and <code>self.options.input_file</code> 
+values if they are <code>None</code>. The 
+<code>self.options.input_file</code> does not change in the <code>Triangle</code> example. </p>
+<p>We can think of the last two lines as the three lines shown below. 
+Upon this point, the program is working on initialization and setting up 
+variables. These three lines of code is doing the actually work, loading 
+the temporary svg file, modifying it, and sending it back to Inkscape. 
+We will examine those method calls in the next chapter. </p>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">load_raw</span><span class="p">()</span>
+<span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">save_raw</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Python ArgParse Module</h2>
+<p>From the above discussion, we should have a basic idea how Inkscape extensions 
+work. When we launch Inkcape, it will check files under user extension 
+and system extension directories, and create menu items under the <code>Extensions</code> 
+top level menu.  </p>
+<p>When we click an extension menu such as <code>Triangle</code>, Inkscape will setup the 
+input and output stream of Python environment and call the Python interpreter 
+installed at this path <code>/usr/bin/python3</code>.  It also passes the following 
+arguments to the Python interpreter. </p>
+<div class="highlight"><pre><span></span><code>[&#39;triangle.py&#39;, &#39;--s_a=100&#39;, &#39;--s_b=100&#39;, 
+   &#39;--s_c=100&#39;, &#39;--a_a=60&#39;, &#39;--a_b=30&#39;, &#39;--a_c=90&#39;, 
+   &#39;--mode=3_sides&#39;, &#39;/tmp/ink_ext_XXXXXX.svgVYXM70&#39;]
+</code></pre></div>
+
+<p>This is similar to enter a command on a bash terminal. </p>
+<div class="highlight"><pre><span></span><code>$/usr/bin/python3 triangle.py --s_a=100 --s_b=100 --s_c=100 \
+    --a_a=60 --a_b=30 --a_c=90 --mode=3_sides \
+    /tmp/ink_ext_XXXXXX.svgVYXM70
+</code></pre></div>
+
+<p>The <code>argparse</code> is the Python standard library module which turns command 
+line options (like <code>--s_a=100</code>) and arguments (like <code>/tmp/ink...</code>) into 
+variables we can access (<code>self.options.s_a</code>) in the program. </p>
+<p>Python documentation site has an 
+<a href="https://docs.python.org/3/howto/argparse.html">official argparse module tutorial</a>. 
+The <code>argparse</code> module was introduced in Python 3.4, which supersedes the <code>optparse</code> 
+in Python2. The old Inkscape extensions before Inkscape 1.0 use <code>optparse</code> module. </p>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="font-italic pl-2">3. How Extensions Work</p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.georgexyz.com/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
