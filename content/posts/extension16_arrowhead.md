@@ -7,17 +7,17 @@ note: Arrowhead Extension
 
 ## Problem
 
-The `Dimension` system extension discussed in Chapter 14 adds markers as 
-arrowheads for dimension lines. The markers have a stroke width which 
+The `Dimensions` system extension discussed in Chapter 14 adds markers as 
+arrowheads. The markers have a stroke width which 
 causes the arrowheads to extrude beyond leading lines. When we zoom in to 
-the arrow heads, they look like this figure. 
+the arrowheads, they look like this. 
 
 <div style="max-width:500px">
   <img class="img-fluid pb-2" src="/images/ext16/arrowheads.png" alt="arrowheads"> 
 </div>
 
-If we manually set the marker stroke width to zero, it will have another 
-problem. The tip of the arrow head is on top of the dimension line, and 
+If we manually set the marker stroke width to zero, we will have another 
+problem. The tip of the arrowhead is on top of the dimension line, and 
 the arrowhead doesn't look good as shown below. 
 
 <div style="max-width:300px">
@@ -27,7 +27,7 @@ the arrowhead doesn't look good as shown below.
 What is the right way to draw the arrowhead? We should offset the start point 
 of the dimension line by a distance `d`, so the arrowhead itself will cover the 
 dimension line. Marker 
-elements are often difficult to manupilate in Inkscape, so we will draw 
+elements are often difficult to manipulate in Inkscape, so we will draw 
 a filled path as arrowhead.  
 
 <div style="max-width:300px">
@@ -67,9 +67,36 @@ The dialog shown below is the extension user interface. When we use the
 extension, we need to draw a line on the canvas, have the line selected, 
 and click the `Custom -> Draw Arrowhead` menu, choose the values on the 
 dialog and click apply.  The extension Python code will add an arrowhead 
-to the drawing and modify the selected path. 
+to the drawing and modify the selected path. The `draw_arrowhead.inx` file 
+contains the extension GUI code and `draw_arrowhead.py` is the extension 
+Python file. 
 
 <div style="max-width:400px">
   <img class="img-fluid pb-2" src="/images/ext16/interface.png" alt="interface"> 
 </div>
 
+## Optimum Arrowhead Angles
+
+What are the optimum arrowhead angles? The experiment drawing below shows all 
+arrowheads with angles between 15 and 50 degrees with 2.5 degree increment. 
+Arrowheads with angle 25 or 30 look
+nice to me and most arrowheads on my drawings have either 25 or 30 degree angles. The 
+Python file `arrowhead_angle.py` is used to generate this drawing.  
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext16/anglesharp.svg" alt="sharp angle"> 
+</div>
+
+## Modify Dimensions Extension
+
+We can modify the dimensions extension and use the arrowheads discussed in this 
+chapter.  The drawing below shows the same figure discussed in Chapter 14. When we zoom in to the arrowheads, the tip of the arrowhead aligns well with the 
+leading lines.  The revised code is in the `custom_dimensions.py` file. 
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext16/dimensionsrev.svg" alt="revised dimension"> 
+</div>
+
+<div style="max-width:600px">
+  <img class="img-fluid pb-2" src="/images/ext16/arrowheadsrev.png" alt="arrowhead revised"> 
+</div>
