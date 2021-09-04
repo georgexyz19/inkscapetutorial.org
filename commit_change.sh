@@ -36,10 +36,10 @@ then
   git status
   git add -A
   git commit -m "$1"
-  git push hub master # update source code
+  git push orgin master # update source code
   
   ghp-import output -b gh-pages
-  git push hub gh-pages
+  git push origin gh-pages
 else 
     echo "Activate virtual env first, then run command"
 fi
