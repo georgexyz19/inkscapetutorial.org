@@ -186,7 +186,8 @@ Python file &lt;code&gt;arrowhead_angle.py&lt;/code&gt; is used to generate this
 
 &lt;h2&gt;Modify Dimensions Extension&lt;/h2&gt;
 &lt;p&gt;We can modify the dimensions extension and use the arrowheads discussed in this 
-chapter.  The drawing below shows the same figure discussed in Chapter 14. When we zoom in to the arrowheads, the tip of the arrowhead aligns well with the 
+chapter.  The drawing below shows the same figure discussed in Chapter 14. When we 
+zoom in to the arrowheads, the tip of the arrowhead aligns well with the 
 leading lines.  The revised code is in the &lt;code&gt;custom_dimensions.py&lt;/code&gt; file. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/dimensionsrev.svg" alt="revised dimension"&gt; 
@@ -194,7 +195,20 @@ leading lines.  The revised code is in the &lt;code&gt;custom_dimensions.py&lt;/
 
 &lt;div style="max-width:600px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/arrowheadsrev.png" alt="arrowhead revised"&gt; 
-&lt;/div&gt;</content><category term="extension"></category></entry><entry><title>Selection</title><link href="https://www.inkscapetutorial.org/selection.html" rel="alternate"></link><published>2021-08-28T00:18:00-04:00</published><updated>2021-08-28T00:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-28:/selection.html</id><summary type="html">&lt;h2&gt;Selection&lt;/h2&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Others&lt;/h2&gt;
+&lt;p&gt;The extension program includes code to handle a two segment path. When we are working 
+on a drawing, we often need to add arrowhead to such path. &lt;/p&gt;
+&lt;div style="max-width:800px"&gt;
+  &lt;img class="img-fluid pb-2" src="/images/ext16/twosegment.svg" alt="two segment path"&gt; 
+&lt;/div&gt;
+
+&lt;p&gt;The current arrowhead program is still simple and straightforward. It could become 
+complicated. The current program does not handle curves, and adding curve support 
+will be challenging. The code makes changes to the path, and we could save the 
+original path information in the arrowhead element and retrieve it when we need 
+it later.  &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Selection</title><link href="https://www.inkscapetutorial.org/selection.html" rel="alternate"></link><published>2021-08-28T00:18:00-04:00</published><updated>2021-08-28T00:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-28:/selection.html</id><summary type="html">&lt;h2&gt;Selection&lt;/h2&gt;
 &lt;p&gt;One piece of information Inkscape transmits to an extension is selected elements. 
 The extension receives command line arguments which are the ids of selected elements 
 from Inkscape. &lt;/p&gt;
