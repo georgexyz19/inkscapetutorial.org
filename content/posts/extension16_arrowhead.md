@@ -90,7 +90,8 @@ Python file `arrowhead_angle.py` is used to generate this drawing.
 ## Modify Dimensions Extension
 
 We can modify the dimensions extension and use the arrowheads discussed in this 
-chapter.  The drawing below shows the same figure discussed in Chapter 14. When we zoom in to the arrowheads, the tip of the arrowhead aligns well with the 
+chapter.  The drawing below shows the same figure discussed in Chapter 14. When we 
+zoom in to the arrowheads, the tip of the arrowhead aligns well with the 
 leading lines.  The revised code is in the `custom_dimensions.py` file. 
 
 <div style="max-width:800px">
@@ -100,3 +101,18 @@ leading lines.  The revised code is in the `custom_dimensions.py` file.
 <div style="max-width:600px">
   <img class="img-fluid pb-2" src="/images/ext16/arrowheadsrev.png" alt="arrowhead revised"> 
 </div>
+
+## Others
+
+The extension program includes code to handle a two segment path. When we are working 
+on a drawing, we often need to add arrowhead to such path. 
+
+<div style="max-width:800px">
+  <img class="img-fluid pb-2" src="/images/ext16/twosegment.svg" alt="two segment path"> 
+</div>
+
+The current arrowhead program is still simple and straightforward. It could become 
+complicated. The current program does not handle curves, and adding curve support 
+will be challenging. The code makes changes to the path, and we could save the 
+original path information in the arrowhead element and retrieve it when we need 
+it later.  
