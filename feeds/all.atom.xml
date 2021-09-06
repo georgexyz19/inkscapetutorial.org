@@ -7,36 +7,36 @@ This article discusses the steps to customize Inkscape in both Windows and Ubunt
 &lt;h2&gt;Windows Setup&lt;/h2&gt;
 &lt;p&gt;Inkscape official website has a portable version.  You can download a 
 7-zip file from this official
-&lt;a href="https://inkscape.org/release/0.92.4/windows/64-bit/"&gt;download page&lt;/a&gt;. 
+&lt;a href="https://inkscape.org/release/inkscape-1.1/windows/64-bit/"&gt;download page&lt;/a&gt;. 
 Click the third download button under text &amp;#8220;Binary archive in 7zip 
 format (64bit)&amp;#8221; to down a .7z file. A free utility software 7-zip 
 is able to extract .7z file into a directory. The 7-zip software also has 
 a portable version if you do not want to install it. &lt;/p&gt;
 &lt;p&gt;After the file is extracted into this directory, double clicking 
-&lt;code&gt;inkscape.exe&lt;/code&gt; starts Inkscape. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\Username\Documents\inkscape0.92.4
+&lt;code&gt;bin\inkscape.exe&lt;/code&gt; or &lt;code&gt;Run Inkscape!&lt;/code&gt; file starts Inkscape. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\&amp;lt;username&amp;gt;\Documents\inkscape-1.1-x64\inkscape
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h4&gt;Inkscape User Extension Directory&lt;/h4&gt;
+&lt;h3&gt;Inkscape User Extension Directory&lt;/h3&gt;
 &lt;p&gt;In Inkscape, click menu item &lt;code&gt;Edit &amp;gt; Preferences&lt;/code&gt; to open preference 
 dialog (Ctrl + Shift + p). Choose &lt;code&gt;System&lt;/code&gt; on the left, and the right side 
 shows system paths for variables.  The default value 
 for &lt;code&gt;User extensions&lt;/code&gt; is,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\Username\AppData\Roaming\inkscape\extensions
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\&amp;lt;username&amp;gt;\AppData\Roaming\inkscape\extensions
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Open this location in File Explorer and copy and paste extension files 
-(.py and .inx) into the directory. The extension program will show up 
-under &lt;code&gt;Extensions&lt;/code&gt; top level menu next time Inkscape is started. Or you
+(.py and .inx) into the directory. The extension programs will show up 
+under &lt;code&gt;Extensions&lt;/code&gt; top level menu next time Inkscape starts. Or you
 can change the location to a different directory. &lt;/p&gt;
-&lt;h4&gt;Fonts&lt;/h4&gt;
+&lt;h3&gt;Fonts&lt;/h3&gt;
 &lt;p&gt;There are two ways to customize fonts in Inkscape. 
-The first one is to drop font files into &lt;code&gt;C:\Windows\Fonts&lt;/code&gt; directory. 
+The first one is to copy font files into &lt;code&gt;C:\Windows\Fonts&lt;/code&gt; directory. 
 The fonts become accessible to all Windows programs.  You can find 
-and download .ttf font files online (such as popular &lt;code&gt;Roboto&lt;/code&gt; fonts).&lt;/p&gt;
+and download online &lt;code&gt;.ttf&lt;/code&gt; font files such as popular &lt;code&gt;Roboto&lt;/code&gt; fonts.&lt;/p&gt;
 &lt;p&gt;The second way is to create a new &lt;code&gt;fonts&lt;/code&gt; directory at the location 
-where &lt;code&gt;inkscape.exe&lt;/code&gt; is stored, and copy files into
-this directory. Open file &lt;code&gt;\etc\fonts\conf.d\50-user.conf&lt;/code&gt; and add 
+where Inkscape folder is extracted, and copy files into
+this &lt;code&gt;fonts&lt;/code&gt; directory. Open file &lt;code&gt;\etc\fonts\conf.d\50-user.conf&lt;/code&gt; and add 
 a line &lt;code&gt;&amp;lt;dir&amp;gt;./fonts&amp;lt;/dir&amp;gt;&lt;/code&gt; before the last line. Check the new fonts 
 on &lt;code&gt;Text and Font&lt;/code&gt; dialog in Inkscape. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;... 
@@ -44,74 +44,35 @@ on &lt;code&gt;Text and Font&lt;/code&gt; dialog in Inkscape. &lt;/p&gt;
 &amp;lt;/fontconfig&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h4&gt;Install Dependencies for Plugin WriteTex&lt;/h4&gt;
-&lt;p&gt;WriteTex is a nice Inkscape extension for adding LaTeX equations onto
-a drawing.  Other options are available, but WriteTex is simple and 
-reliable. &lt;/p&gt;
-&lt;p&gt;This extension requires LaTeX system and pdf2svg program installed. 
-WriteTex calls LaTeX system to generate a &lt;span class="caps"&gt;PDF&lt;/span&gt; file, and calls 
-pdf2svg to convert &lt;span class="caps"&gt;PDF&lt;/span&gt; to an &lt;span class="caps"&gt;SVG&lt;/span&gt; file. Then it loads 
-the &lt;span class="caps"&gt;SVG&lt;/span&gt; onto Inkscape drawing. &lt;/p&gt;
-&lt;p&gt;The WriteTex plugin files &lt;code&gt;writetex.inx&lt;/code&gt; and &lt;code&gt;writetex.py&lt;/code&gt; are 
-available on 
-&lt;a href="https://github.com/wanglongqi/WriteTeX"&gt;this github page&lt;/a&gt;.  Download
-those two files and drop them into &lt;code&gt;User extension&lt;/code&gt; directory. &lt;/p&gt;
-&lt;p&gt;You can download a texlive &lt;span class="caps"&gt;ISO&lt;/span&gt; file from 
-&lt;a href="https://www.tug.org/texlive/acquire-iso.html"&gt;this web page&lt;/a&gt;. 
-Use 7-zip to extract the &lt;span class="caps"&gt;ISO&lt;/span&gt; file into a directory.  Double click
-&lt;code&gt;install-tl-advanced.bat&lt;/code&gt; to run advanced installation.
-You may choose portable version and install LaTeX system into 
-a directory. &lt;/p&gt;
-&lt;p&gt;Program pdf2svg can be downloaded from 
-&lt;a href="https://github.com/wanglongqi/WriteTeX/releases/download/v1.1/pdf2svg-x64.7z"&gt;this github address&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Suppose texlive and pdf2svg-x64 directories are stored in this location, &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\Username\Downloads\WriteTex-dep
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Two directories containing files &lt;code&gt;xelatex.exe&lt;/code&gt; and &lt;code&gt;pdf2svg.exe&lt;/code&gt; should be 
-added to the system path. In Windows 10 File Explorer, right click &lt;code&gt;This PC&lt;/code&gt; and 
-choose &lt;code&gt;Properties&lt;/code&gt;.  Choose &lt;code&gt;Advanced system settings&lt;/code&gt; and click &lt;code&gt;Advanced&lt;/code&gt;
-tab on the dialog.  Click &lt;code&gt;Environment Variables&lt;/code&gt; button and &lt;code&gt;Path&lt;/code&gt; variable. 
-Then click &lt;code&gt;Edit&lt;/code&gt; and add two directories to the list. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\Username\Downloads\WriteTex-dep\pdf2svg-x64
-C:\Users\Username\Downloads\WriteTex-dep\texlive\bin\win32
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;The purpose of above steps is for WriteTex python extension to find 
-&lt;code&gt;xelatex.exe&lt;/code&gt; and &lt;code&gt;pdf2svg.exe&lt;/code&gt; programs. &lt;/p&gt;
-&lt;h4&gt;How to Enter Equations with Plugin WriteTex&lt;/h4&gt;
-&lt;p&gt;Enter equations between &amp;#92;[ and &amp;#92;] in LaTeX Source box and click &lt;code&gt;Apply&lt;/code&gt;. 
-Some LaTeX symbols like &lt;code&gt;\dfrac&lt;/code&gt; need AmsTeX.  Add the line below to 
-&lt;code&gt;Preamble File&lt;/code&gt; box and toggle box &lt;code&gt;Trade above as contents&lt;/code&gt;. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;\usepackage{amsmath, amsthm, amssymb, amsfonts} 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;div style="max-width:400px"&gt;
-  &lt;img class="img-fluid" src="/images/writetex-interface.png" alt="WriteTex Interface"&gt; 
-&lt;/div&gt;
-
-&lt;p&gt;The third tab &lt;code&gt;View Original TeX&lt;/code&gt; on the dialog enables you to view texts 
-of equations.  Choose an equation in Inkscape and click &lt;code&gt;Apply&lt;/code&gt; button.
-A dialog will pop up showing equation input. &lt;/p&gt;
-&lt;h3&gt;Ubuntu Setup&lt;/h3&gt;
-&lt;p&gt;In Ubuntu 18.04, bash command &lt;code&gt;sudo apt install inkscape&lt;/code&gt; installs Inkscape. 
-If you want the latest stable version,
-&lt;a href="https://code.launchpad.net/~inkscape.dev/+archive/ubuntu/stable"&gt;this web page&lt;/a&gt; 
+&lt;h2&gt;Ubuntu Setup&lt;/h2&gt;
+&lt;p&gt;In Ubuntu 21.04, bash command &lt;code&gt;sudo apt install inkscape&lt;/code&gt; installs Inkscape 1.0.2 
+as of 9/1/2021. If you want the latest stable version 1.1,
+&lt;a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features"&gt;this omg ubuntu web page&lt;/a&gt; 
 provides more information. You add a ppa repository first and then 
 type the same bash command to install. &lt;/p&gt;
-&lt;p&gt;To add fonts in Ubuntu, you create a .fonts subdirectory in the home directory
-and drop font files into it.  The fonts will become available in Inkscape. &lt;/p&gt;
-&lt;h4&gt;WriteTex in Ubuntu&lt;/h4&gt;
-&lt;p&gt;The steps to add Inkscape extension in Ubuntu 18.04 are the same 
-as in Windows.  However it is easier to install dependencies for WriteTex. 
-The two commands below install the texlive and pdf2svg programs. 
-The programs are automatically added to the system path. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt-get install texlive
-sudo apt-get install pdf2svg
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo add-apt-repository ppa:inkscape.dev/stable-1.1
+sudo apt install inkscape
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The texlive installation does not include xelatex.  You change &lt;code&gt;xelatex&lt;/code&gt;
-to &lt;code&gt;pdflatex&lt;/code&gt; on the WriteTex dialog to make it work. &lt;/p&gt;</content><category term="posts"></category><category term="inkscape"></category><category term="ubuntu"></category></entry><entry><title>Arrowhead Extension</title><link href="https://www.inkscapetutorial.org/arrowhead-extension.html" rel="alternate"></link><published>2021-08-30T13:13:00-04:00</published><updated>2021-08-30T13:13:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-30:/arrowhead-extension.html</id><summary type="html">&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;To add fonts in Ubuntu, we create a .fonts subdirectory in the home directory
+and copy font files into it.  The fonts will become available in Inkscape. &lt;/p&gt;
+&lt;h2&gt;Custom Settings&lt;/h2&gt;
+&lt;p&gt;Inkscape has lots of settings that users can customize. However, a few 
+default settings do not work very well, and it is suggested to change them. 
+We can access Preference dialog via menu &lt;code&gt;Edit &amp;gt; Preference&lt;/code&gt; or keyboard 
+shortcut &lt;code&gt;Ctrl + Shift + p&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;We suggest changing &lt;code&gt;Bounding box to use&lt;/code&gt; from &lt;code&gt;Visual bounding box&lt;/code&gt; to 
+&lt;code&gt;Geometric bounding box&lt;/code&gt;. The setting is under &lt;code&gt;Tools&lt;/code&gt; on the left panel. &lt;/p&gt;
+&lt;p&gt;The default &lt;code&gt;Dialog behavior&lt;/code&gt; is &lt;code&gt;Dockable&lt;/code&gt; under &lt;code&gt;Interface/Widnows&lt;/code&gt; 
+panel.  We suggest changing it to &lt;code&gt;Floating&lt;/code&gt; to be more consistent with 
+other Windows programs.&lt;/p&gt;
+&lt;div style="max-width:600px"&gt;
+  &lt;img class="img-fluid pb-2" src="/images/geometric.png" alt="geometric"&gt; 
+&lt;/div&gt;
+
+&lt;div style="max-width:600px"&gt;
+  &lt;img class="img-fluid pb-2" src="/images/floating.png" alt="floating"&gt; 
+&lt;/div&gt;</content><category term="posts"></category><category term="inkscape"></category><category term="ubuntu"></category></entry><entry><title>Arrowhead Extension</title><link href="https://www.inkscapetutorial.org/arrowhead-extension.html" rel="alternate"></link><published>2021-08-30T13:13:00-04:00</published><updated>2021-08-30T13:13:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-30:/arrowhead-extension.html</id><summary type="html">&lt;h2&gt;Problem&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;Dimensions&lt;/code&gt; system extension discussed in Chapter 14 adds markers as 
 arrowheads. The markers have a stroke width which 
 causes the arrowheads to extrude beyond leading lines. When we …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Problem&lt;/h2&gt;

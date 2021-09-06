@@ -82,36 +82,36 @@ This article discusses the steps to customize Inkscape in both Windows and Ubunt
 <h2>Windows Setup</h2>
 <p>Inkscape official website has a portable version.  You can download a 
 7-zip file from this official
-<a href="https://inkscape.org/release/0.92.4/windows/64-bit/">download page</a>. 
+<a href="https://inkscape.org/release/inkscape-1.1/windows/64-bit/">download page</a>. 
 Click the third download button under text &#8220;Binary archive in 7zip 
 format (64bit)&#8221; to down a .7z file. A free utility software 7-zip 
 is able to extract .7z file into a directory. The 7-zip software also has 
 a portable version if you do not want to install it. </p>
 <p>After the file is extracted into this directory, double clicking 
-<code>inkscape.exe</code> starts Inkscape. </p>
-<div class="highlight"><pre><span></span><code>C:\Users\Username\Documents\inkscape0.92.4
+<code>bin\inkscape.exe</code> or <code>Run Inkscape!</code> file starts Inkscape. </p>
+<div class="highlight"><pre><span></span><code>C:\Users\&lt;username&gt;\Documents\inkscape-1.1-x64\inkscape
 </code></pre></div>
 
-<h4>Inkscape User Extension Directory</h4>
+<h3>Inkscape User Extension Directory</h3>
 <p>In Inkscape, click menu item <code>Edit &gt; Preferences</code> to open preference 
 dialog (Ctrl + Shift + p). Choose <code>System</code> on the left, and the right side 
 shows system paths for variables.  The default value 
 for <code>User extensions</code> is,</p>
-<div class="highlight"><pre><span></span><code>C:\Users\Username\AppData\Roaming\inkscape\extensions
+<div class="highlight"><pre><span></span><code>C:\Users\&lt;username&gt;\AppData\Roaming\inkscape\extensions
 </code></pre></div>
 
 <p>Open this location in File Explorer and copy and paste extension files 
-(.py and .inx) into the directory. The extension program will show up 
-under <code>Extensions</code> top level menu next time Inkscape is started. Or you
+(.py and .inx) into the directory. The extension programs will show up 
+under <code>Extensions</code> top level menu next time Inkscape starts. Or you
 can change the location to a different directory. </p>
-<h4>Fonts</h4>
+<h3>Fonts</h3>
 <p>There are two ways to customize fonts in Inkscape. 
-The first one is to drop font files into <code>C:\Windows\Fonts</code> directory. 
+The first one is to copy font files into <code>C:\Windows\Fonts</code> directory. 
 The fonts become accessible to all Windows programs.  You can find 
-and download .ttf font files online (such as popular <code>Roboto</code> fonts).</p>
+and download online <code>.ttf</code> font files such as popular <code>Roboto</code> fonts.</p>
 <p>The second way is to create a new <code>fonts</code> directory at the location 
-where <code>inkscape.exe</code> is stored, and copy files into
-this directory. Open file <code>\etc\fonts\conf.d\50-user.conf</code> and add 
+where Inkscape folder is extracted, and copy files into
+this <code>fonts</code> directory. Open file <code>\etc\fonts\conf.d\50-user.conf</code> and add 
 a line <code>&lt;dir&gt;./fonts&lt;/dir&gt;</code> before the last line. Check the new fonts 
 on <code>Text and Font</code> dialog in Inkscape. </p>
 <div class="highlight"><pre><span></span><code>... 
@@ -119,74 +119,35 @@ on <code>Text and Font</code> dialog in Inkscape. </p>
 &lt;/fontconfig&gt;
 </code></pre></div>
 
-<h4>Install Dependencies for Plugin WriteTex</h4>
-<p>WriteTex is a nice Inkscape extension for adding LaTeX equations onto
-a drawing.  Other options are available, but WriteTex is simple and 
-reliable. </p>
-<p>This extension requires LaTeX system and pdf2svg program installed. 
-WriteTex calls LaTeX system to generate a <span class="caps">PDF</span> file, and calls 
-pdf2svg to convert <span class="caps">PDF</span> to an <span class="caps">SVG</span> file. Then it loads 
-the <span class="caps">SVG</span> onto Inkscape drawing. </p>
-<p>The WriteTex plugin files <code>writetex.inx</code> and <code>writetex.py</code> are 
-available on 
-<a href="https://github.com/wanglongqi/WriteTeX">this github page</a>.  Download
-those two files and drop them into <code>User extension</code> directory. </p>
-<p>You can download a texlive <span class="caps">ISO</span> file from 
-<a href="https://www.tug.org/texlive/acquire-iso.html">this web page</a>. 
-Use 7-zip to extract the <span class="caps">ISO</span> file into a directory.  Double click
-<code>install-tl-advanced.bat</code> to run advanced installation.
-You may choose portable version and install LaTeX system into 
-a directory. </p>
-<p>Program pdf2svg can be downloaded from 
-<a href="https://github.com/wanglongqi/WriteTeX/releases/download/v1.1/pdf2svg-x64.7z">this github address</a></p>
-<p>Suppose texlive and pdf2svg-x64 directories are stored in this location, </p>
-<div class="highlight"><pre><span></span><code>C:\Users\Username\Downloads\WriteTex-dep
-</code></pre></div>
-
-<p>Two directories containing files <code>xelatex.exe</code> and <code>pdf2svg.exe</code> should be 
-added to the system path. In Windows 10 File Explorer, right click <code>This PC</code> and 
-choose <code>Properties</code>.  Choose <code>Advanced system settings</code> and click <code>Advanced</code>
-tab on the dialog.  Click <code>Environment Variables</code> button and <code>Path</code> variable. 
-Then click <code>Edit</code> and add two directories to the list. </p>
-<div class="highlight"><pre><span></span><code>C:\Users\Username\Downloads\WriteTex-dep\pdf2svg-x64
-C:\Users\Username\Downloads\WriteTex-dep\texlive\bin\win32
-</code></pre></div>
-
-<p>The purpose of above steps is for WriteTex python extension to find 
-<code>xelatex.exe</code> and <code>pdf2svg.exe</code> programs. </p>
-<h4>How to Enter Equations with Plugin WriteTex</h4>
-<p>Enter equations between &#92;[ and &#92;] in LaTeX Source box and click <code>Apply</code>. 
-Some LaTeX symbols like <code>\dfrac</code> need AmsTeX.  Add the line below to 
-<code>Preamble File</code> box and toggle box <code>Trade above as contents</code>. </p>
-<div class="highlight"><pre><span></span><code>\usepackage{amsmath, amsthm, amssymb, amsfonts} 
-</code></pre></div>
-
-<div style="max-width:400px">
-  <img class="img-fluid" src="/images/writetex-interface.png" alt="WriteTex Interface"> 
-</div>
-
-<p>The third tab <code>View Original TeX</code> on the dialog enables you to view texts 
-of equations.  Choose an equation in Inkscape and click <code>Apply</code> button.
-A dialog will pop up showing equation input. </p>
-<h3>Ubuntu Setup</h3>
-<p>In Ubuntu 18.04, bash command <code>sudo apt install inkscape</code> installs Inkscape. 
-If you want the latest stable version,
-<a href="https://code.launchpad.net/~inkscape.dev/+archive/ubuntu/stable">this web page</a> 
+<h2>Ubuntu Setup</h2>
+<p>In Ubuntu 21.04, bash command <code>sudo apt install inkscape</code> installs Inkscape 1.0.2 
+as of 9/1/2021. If you want the latest stable version 1.1,
+<a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features">this omg ubuntu web page</a> 
 provides more information. You add a ppa repository first and then 
 type the same bash command to install. </p>
-<p>To add fonts in Ubuntu, you create a .fonts subdirectory in the home directory
-and drop font files into it.  The fonts will become available in Inkscape. </p>
-<h4>WriteTex in Ubuntu</h4>
-<p>The steps to add Inkscape extension in Ubuntu 18.04 are the same 
-as in Windows.  However it is easier to install dependencies for WriteTex. 
-The two commands below install the texlive and pdf2svg programs. 
-The programs are automatically added to the system path. </p>
-<div class="highlight"><pre><span></span><code>sudo apt-get install texlive
-sudo apt-get install pdf2svg
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:inkscape.dev/stable-1.1
+sudo apt install inkscape
 </code></pre></div>
 
-<p>The texlive installation does not include xelatex.  You change <code>xelatex</code>
-to <code>pdflatex</code> on the WriteTex dialog to make it work. </p>
+<p>To add fonts in Ubuntu, we create a .fonts subdirectory in the home directory
+and copy font files into it.  The fonts will become available in Inkscape. </p>
+<h2>Custom Settings</h2>
+<p>Inkscape has lots of settings that users can customize. However, a few 
+default settings do not work very well, and it is suggested to change them. 
+We can access Preference dialog via menu <code>Edit &gt; Preference</code> or keyboard 
+shortcut <code>Ctrl + Shift + p</code>. </p>
+<p>We suggest changing <code>Bounding box to use</code> from <code>Visual bounding box</code> to 
+<code>Geometric bounding box</code>. The setting is under <code>Tools</code> on the left panel. </p>
+<p>The default <code>Dialog behavior</code> is <code>Dockable</code> under <code>Interface/Widnows</code> 
+panel.  We suggest changing it to <code>Floating</code> to be more consistent with 
+other Windows programs.</p>
+<div style="max-width:600px">
+  <img class="img-fluid pb-2" src="/images/geometric.png" alt="geometric"> 
+</div>
+
+<div style="max-width:600px">
+  <img class="img-fluid pb-2" src="/images/floating.png" alt="floating"> 
+</div>
 
     </div>
 
