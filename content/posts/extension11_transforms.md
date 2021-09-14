@@ -12,14 +12,14 @@ also view it as moving an imaginary coordinate system with it. The element stays
 same location in the imaginary coordinate system. Translate, rotate, and scale are three 
 common transforms in Inkscape. 
 
-<div style="max-width:800px">
-  <img class="img-fluid pb-2" src="/images/ext10/coordinate.svg" alt="coordinate-system"> 
+<div style="max-width:800px" class="text-center">
+  <img class="img-fluid pb-2" src="/images/ext11/coordinate.svg" alt="coordinate-system"> 
 </div>
 
 The translate transform is simply moving an object.  The coordinate of a point on 
 the object (x, y) will change to (x', y'). The `a` and `b` values in the equations 
 shown below represent the distances along X and Y axles the object has moved. If 
-we write the first and second equations below in a matrix form, we have the third 
+we write two equations below in a matrix form, we have the third 
 equation. 
 
 
@@ -28,7 +28,8 @@ equation.
 </div>
 
 The two equations below are for rotation and scale. The rotation angle (alpha) is 
-clockwise as the y axle increases from top to bottom.  
+clockwise because the y axle increases from top to bottom. The `a` and `b` of 
+the scale equation represent the scale factor along X and Y. 
 
 <div style="max-width:800px;" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"> 
@@ -41,7 +42,7 @@ around a coordinate (a, b), the equation becomes like this.
   <img class="img-fluid pb-2" src="/images/ext11/equations2a.svg" alt="equation 2a"> 
 </div>
 
-The matrix is in this form when we combine those three transforms. 
+The matrix is in this form when those three transforms are combined. 
 
 <div style="max-width:800px" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations3.svg" alt="equation 3"> 
@@ -119,7 +120,8 @@ Here is an simple extension to test `transform` attribute of rectangle element.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+<inkscape-extension 
+    xmlns="http://www.inkscape.org/namespace/inkscape/extension">
     <name>Transform Element</name>
     <id>user.transform</id>
     <effect>
@@ -187,7 +189,9 @@ if __name__ == '__main__':
     NewElement().run()
 ```
 
-The SVG results are also shown below. 
+Notice in the above examples, we can combine multiple transforms as 
+the string argument to the `Transform` constructor, or multiply multiple 
+`Transform` objects. The SVG results are shown below. 
 
 ```xml
     <rect
@@ -242,10 +246,8 @@ defines two functions `cubic_extrema` and `quadratic_extrema`.  Those classes
 and functions are not necessarily related to `transforms`. 
 
 The `Vector2d` and `DirectedLineSegment` classes are very useful when we are working 
-on mathematical drawings. We can use vector algebra to get the coordinates 
-of points, then draw them as lines or polygons on the canvas. 
-
-
+on mathematical drawings. We can apply vector algebra to calculate coordinates 
+of points, and draw them as lines or polygons on the canvas. 
 
 ## References
 
@@ -256,6 +258,6 @@ The book *Mathematical Illustrations, A Manual Of Geometry and Postscript* by
 Bill Casselman is an excellent reference for math drawings. Here is the 
 [link](https://personal.math.ubc.ca/~cass/graphics/manual/) to the book webpage. The pdfs of the book chapters are available on the webpage. 
 
-The book *Introduction To Computer Graphics* by James Foley and others has a chapter 
+The book *Introduction To Computer Graphics* by James Foley and others has a Chapter 
 Geometrical Transformations. The transform equations in this book are in the 
-same format as shown on this page. 
+same format as on this page. 
