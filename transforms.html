@@ -84,21 +84,22 @@
 also view it as moving an imaginary coordinate system with it. The element stays at the 
 same location in the imaginary coordinate system. Translate, rotate, and scale are three 
 common transforms in Inkscape. </p>
-<div style="max-width:800px">
-  <img class="img-fluid pb-2" src="/images/ext10/coordinate.svg" alt="coordinate-system"> 
+<div style="max-width:800px" class="text-center">
+  <img class="img-fluid pb-2" src="/images/ext11/coordinate.svg" alt="coordinate-system"> 
 </div>
 
 <p>The translate transform is simply moving an object.  The coordinate of a point on 
 the object (x, y) will change to (x&#8217;, y&#8217;). The <code>a</code> and <code>b</code> values in the equations 
 shown below represent the distances along X and Y axles the object has moved. If 
-we write the first and second equations below in a matrix form, we have the third 
+we write two equations below in a matrix form, we have the third 
 equation. </p>
 <div style="max-width:800px" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations.svg" alt="equation 1"> 
 </div>
 
 <p>The two equations below are for rotation and scale. The rotation angle (alpha) is 
-clockwise as the y axle increases from top to bottom.  </p>
+clockwise because the y axle increases from top to bottom. The <code>a</code> and <code>b</code> of 
+the scale equation represent the scale factor along X and Y. </p>
 <div style="max-width:800px;" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"> 
 </div>
@@ -109,7 +110,7 @@ around a coordinate (a, b), the equation becomes like this.</p>
   <img class="img-fluid pb-2" src="/images/ext11/equations2a.svg" alt="equation 2a"> 
 </div>
 
-<p>The matrix is in this form when we combine those three transforms. </p>
+<p>The matrix is in this form when those three transforms are combined. </p>
 <div style="max-width:800px" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations3.svg" alt="equation 3"> 
 </div>
@@ -172,7 +173,8 @@ system extensions do not use this function very often.  Only a few system extens
 set the <code>transform</code> attribute. </p>
 <p>Here is an simple extension to test <code>transform</code> attribute of rectangle element. </p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="nt">&lt;inkscape-extension</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;inkscape-extension</span> 
+    <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;name&gt;</span>Transform Element<span class="nt">&lt;/name&gt;</span>
     <span class="nt">&lt;id&gt;</span>user.transform<span class="nt">&lt;/id&gt;</span>
     <span class="nt">&lt;effect&gt;</span>
@@ -239,7 +241,9 @@ set the <code>transform</code> attribute. </p>
     <span class="n">NewElement</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
-<p>The <span class="caps">SVG</span> results are also shown below. </p>
+<p>Notice in the above examples, we can combine multiple transforms as 
+the string argument to the <code>Transform</code> constructor, or multiply multiple 
+<code>Transform</code> objects. The <span class="caps">SVG</span> results are shown below. </p>
 <div class="highlight"><pre><span></span><code>    <span class="nt">&lt;rect</span>
        <span class="na">x=</span><span class="s">&quot;10&quot;</span>
        <span class="na">y=</span><span class="s">&quot;10&quot;</span>
@@ -289,17 +293,17 @@ notable classes are <code>Vector2d</code>, <code>BoundingBox</code>, and <code>D
 defines two functions <code>cubic_extrema</code> and <code>quadratic_extrema</code>.  Those classes
 and functions are not necessarily related to <code>transforms</code>. </p>
 <p>The <code>Vector2d</code> and <code>DirectedLineSegment</code> classes are very useful when we are working 
-on mathematical drawings. We can use vector algebra to get the coordinates 
-of points, then draw them as lines or polygons on the canvas. </p>
+on mathematical drawings. We can apply vector algebra to calculate coordinates 
+of points, and draw them as lines or polygons on the canvas. </p>
 <h2>References</h2>
 <p>Anthony J. Pettofrezzo published two books <em>Vectors and Their Applications</em> and 
 <em>Matrices And Transformations</em>. Both books are relevant to the transforms module discussed in this chapter. </p>
 <p>The book <em>Mathematical Illustrations, A Manual Of Geometry and Postscript</em> by 
 Bill Casselman is an excellent reference for math drawings. Here is the 
 <a href="https://personal.math.ubc.ca/~cass/graphics/manual/">link</a> to the book webpage. The pdfs of the book chapters are available on the webpage. </p>
-<p>The book <em>Introduction To Computer Graphics</em> by James Foley and others has a chapter 
+<p>The book <em>Introduction To Computer Graphics</em> by James Foley and others has a Chapter 
 Geometrical Transformations. The transform equations in this book are in the 
-same format as shown on this page. </p>
+same format as on this page. </p>
 
     </div>
 

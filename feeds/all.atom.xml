@@ -936,21 +936,22 @@ also view it as moving an imaginary coordinate system with it. The element …&l
 also view it as moving an imaginary coordinate system with it. The element stays at the 
 same location in the imaginary coordinate system. Translate, rotate, and scale are three 
 common transforms in Inkscape. &lt;/p&gt;
-&lt;div style="max-width:800px"&gt;
-  &lt;img class="img-fluid pb-2" src="/images/ext10/coordinate.svg" alt="coordinate-system"&gt; 
+&lt;div style="max-width:800px" class="text-center"&gt;
+  &lt;img class="img-fluid pb-2" src="/images/ext11/coordinate.svg" alt="coordinate-system"&gt; 
 &lt;/div&gt;
 
 &lt;p&gt;The translate transform is simply moving an object.  The coordinate of a point on 
 the object (x, y) will change to (x&amp;#8217;, y&amp;#8217;). The &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; values in the equations 
 shown below represent the distances along X and Y axles the object has moved. If 
-we write the first and second equations below in a matrix form, we have the third 
+we write two equations below in a matrix form, we have the third 
 equation. &lt;/p&gt;
 &lt;div style="max-width:800px" class="text-center"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext11/equations.svg" alt="equation 1"&gt; 
 &lt;/div&gt;
 
 &lt;p&gt;The two equations below are for rotation and scale. The rotation angle (alpha) is 
-clockwise as the y axle increases from top to bottom.  &lt;/p&gt;
+clockwise because the y axle increases from top to bottom. The &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; of 
+the scale equation represent the scale factor along X and Y. &lt;/p&gt;
 &lt;div style="max-width:800px;" class="text-center"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"&gt; 
 &lt;/div&gt;
@@ -961,7 +962,7 @@ around a coordinate (a, b), the equation becomes like this.&lt;/p&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext11/equations2a.svg" alt="equation 2a"&gt; 
 &lt;/div&gt;
 
-&lt;p&gt;The matrix is in this form when we combine those three transforms. &lt;/p&gt;
+&lt;p&gt;The matrix is in this form when those three transforms are combined. &lt;/p&gt;
 &lt;div style="max-width:800px" class="text-center"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext11/equations3.svg" alt="equation 3"&gt; 
 &lt;/div&gt;
@@ -1024,7 +1025,8 @@ system extensions do not use this function very often.  Only a few system extens
 set the &lt;code&gt;transform&lt;/code&gt; attribute. &lt;/p&gt;
 &lt;p&gt;Here is an simple extension to test &lt;code&gt;transform&lt;/code&gt; attribute of rectangle element. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;inkscape-extension&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.inkscape.org/namespace/inkscape/extension&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;inkscape-extension&lt;/span&gt; 
+    &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.inkscape.org/namespace/inkscape/extension&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;name&amp;gt;&lt;/span&gt;Transform Element&lt;span class="nt"&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;id&amp;gt;&lt;/span&gt;user.transform&lt;span class="nt"&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;effect&amp;gt;&lt;/span&gt;
@@ -1091,7 +1093,9 @@ set the &lt;code&gt;transform&lt;/code&gt; attribute. &lt;/p&gt;
     &lt;span class="n"&gt;NewElement&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The &lt;span class="caps"&gt;SVG&lt;/span&gt; results are also shown below. &lt;/p&gt;
+&lt;p&gt;Notice in the above examples, we can combine multiple transforms as 
+the string argument to the &lt;code&gt;Transform&lt;/code&gt; constructor, or multiply multiple 
+&lt;code&gt;Transform&lt;/code&gt; objects. The &lt;span class="caps"&gt;SVG&lt;/span&gt; results are shown below. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;    &lt;span class="nt"&gt;&amp;lt;rect&lt;/span&gt;
        &lt;span class="na"&gt;x=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt;
        &lt;span class="na"&gt;y=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt;
@@ -1141,17 +1145,17 @@ notable classes are &lt;code&gt;Vector2d&lt;/code&gt;, &lt;code&gt;BoundingBox&l
 defines two functions &lt;code&gt;cubic_extrema&lt;/code&gt; and &lt;code&gt;quadratic_extrema&lt;/code&gt;.  Those classes
 and functions are not necessarily related to &lt;code&gt;transforms&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;Vector2d&lt;/code&gt; and &lt;code&gt;DirectedLineSegment&lt;/code&gt; classes are very useful when we are working 
-on mathematical drawings. We can use vector algebra to get the coordinates 
-of points, then draw them as lines or polygons on the canvas. &lt;/p&gt;
+on mathematical drawings. We can apply vector algebra to calculate coordinates 
+of points, and draw them as lines or polygons on the canvas. &lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
 &lt;p&gt;Anthony J. Pettofrezzo published two books &lt;em&gt;Vectors and Their Applications&lt;/em&gt; and 
 &lt;em&gt;Matrices And Transformations&lt;/em&gt;. Both books are relevant to the transforms module discussed in this chapter. &lt;/p&gt;
 &lt;p&gt;The book &lt;em&gt;Mathematical Illustrations, A Manual Of Geometry and Postscript&lt;/em&gt; by 
 Bill Casselman is an excellent reference for math drawings. Here is the 
 &lt;a href="https://personal.math.ubc.ca/~cass/graphics/manual/"&gt;link&lt;/a&gt; to the book webpage. The pdfs of the book chapters are available on the webpage. &lt;/p&gt;
-&lt;p&gt;The book &lt;em&gt;Introduction To Computer Graphics&lt;/em&gt; by James Foley and others has a chapter 
+&lt;p&gt;The book &lt;em&gt;Introduction To Computer Graphics&lt;/em&gt; by James Foley and others has a Chapter 
 Geometrical Transformations. The transform equations in this book are in the 
-same format as shown on this page. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Units and Coordinate Systems</title><link href="https://www.inkscapetutorial.org/units-and-coordinate-systems.html" rel="alternate"></link><published>2021-08-07T23:18:00-04:00</published><updated>2021-08-07T23:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-07:/units-and-coordinate-systems.html</id><summary type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
+same format as on this page. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Units and Coordinate Systems</title><link href="https://www.inkscapetutorial.org/units-and-coordinate-systems.html" rel="alternate"></link><published>2021-08-07T23:18:00-04:00</published><updated>2021-08-07T23:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-07:/units-and-coordinate-systems.html</id><summary type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
 &lt;p&gt;Inkscape extension &lt;a href="https://inkscape.gitlab.io/extensions/documentation/index.html"&gt;documentation page&lt;/a&gt; has a &lt;a href="https://inkscape.gitlab.io/extensions/documentation/units.html"&gt;units&lt;/a&gt; 
 page. Inkscape units themselves are not complicated, and the difficult part is how 
 Inkscape projects units in user coordinate system to …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
