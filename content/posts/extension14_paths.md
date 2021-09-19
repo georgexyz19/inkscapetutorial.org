@@ -7,13 +7,13 @@ note: Paths
 
 ## PathElement Class
 
-The `PathElement` class represent a path element on a drawing.  The class is defined in 
+The `PathElement` class represents a path element on a drawing.  The class is defined in 
 the `inkex/elements/_polygons.py` module. It is derived from `PathElementBase` class. 
 Both classes only include a few methods and properties. The Python interpreter session 
 below shows how to get hold of a path element and invoke its methods and properties. 
 
 The same drawing `drawing-21.svg` discussed in Chapter 9 is used here as an example. 
-The path element is a typical bezier curve with two end points and two control points. 
+The path element is a typical Bezier curve with two end points and two control points. 
 
 ```
 george@Inspiron-5515:~$ /usr/bin/python3
@@ -77,11 +77,12 @@ path
 ## Path Class
 
 The `path` property defined in `ShapeElement` class returns a `Path` object. 
-Notice other classes derived from `ShapeElement` also has this `path` property. 
+Other classes derived from `ShapeElement` also have this `path` property. 
 
 The `Path` class is defined in `inkex/paths.py` module. The `Path` object is 
 interesting, and it is a list of other class objects. The `inkex/paths.py` module 
-defines many classes such as `Move`, `move`, `Horz`, `horz`, `Curve`, `curve` etc.
+defines many other classes such as `Move`, `move`, `Horz`, `horz`, `Curve`, 
+`curve` etc.
 
 ```
 >>> p = pel.path
@@ -123,7 +124,6 @@ BoundingBox((80.341223, 113.12895),(74.37224453581157, 87.908862))
 'M 80.3412 87.9089 C 99.575 67.2665 103.398 73.9063 113.129 83.6942'
 >>> 
 >>> p_str = str(p)
->>> p_new = Path(p_str)
 >>> from inkex import Path
 >>> p_new = Path(p_str)
 >>> p_new
@@ -145,8 +145,8 @@ Move(80, 88)
 
 ```
 
-It is easy to create a `Path` element from composing class object. 
-Here is an example to create a similar bezier curve as shown above and 
+It is easy to create a `Path` element from composing class objects. 
+Here is an example to create a similar Bezier curve as shown above and 
 add it to a drawing in memory.
 
 ```
@@ -182,8 +182,8 @@ path  # new path element
 ## Path Related Extensions
 
 Inkscape comes with many path related system extensions. They are listed under `Modify Path`, 
-`Generate From Path`, and `Visualize Path` submenus under `Extensions` top level menu. 
-Let's look at one of them and discuss its code. 
+`Generate From Path`, and `Visualize Path` submenus under `Extensions` menu. 
+Let's examine one of them and discuss its code. 
 
 When we work on engineering drawings, the dimension tool is indispensable. The `Dimensions` 
 menu under `Visualize Path` is such a tool. We can select several path elements or a single 
@@ -203,5 +203,5 @@ same as subclassing `EffectExtension` class directly.
 
 The `Dimension` class defines 5 methods. We have discussed `add_arguments` and `effect` 
 methods in previous chapters.  The other three methods `add_marker`, `horz_line`, 
-`vert_line` are fairly easy to understand. 
+`vert_line` are easy to understand. 
 
