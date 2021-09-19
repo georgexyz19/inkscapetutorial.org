@@ -278,15 +278,15 @@ values are both zero based here. &lt;/p&gt;
 &lt;p&gt;Searching through the system extension directory, the &lt;code&gt;selected-nodes&lt;/code&gt; values 
 are not used in any extensions.  However, it might be useful when we need to 
 deal with path nodes in extensions. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Paths</title><link href="https://www.inkscapetutorial.org/paths.html" rel="alternate"></link><published>2021-08-25T14:42:00-04:00</published><updated>2021-08-25T14:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-25:/paths.html</id><summary type="html">&lt;h2&gt;PathElement Class&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;PathElement&lt;/code&gt; class represent a path element on a drawing.  The class is defined in 
+&lt;p&gt;The &lt;code&gt;PathElement&lt;/code&gt; class represents a path element on a drawing.  The class is defined in 
 the &lt;code&gt;inkex/elements/_polygons.py&lt;/code&gt; module. It is derived from &lt;code&gt;PathElementBase&lt;/code&gt; class. 
 Both …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;PathElement Class&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;PathElement&lt;/code&gt; class represent a path element on a drawing.  The class is defined in 
+&lt;p&gt;The &lt;code&gt;PathElement&lt;/code&gt; class represents a path element on a drawing.  The class is defined in 
 the &lt;code&gt;inkex/elements/_polygons.py&lt;/code&gt; module. It is derived from &lt;code&gt;PathElementBase&lt;/code&gt; class. 
 Both classes only include a few methods and properties. The Python interpreter session 
 below shows how to get hold of a path element and invoke its methods and properties. &lt;/p&gt;
 &lt;p&gt;The same drawing &lt;code&gt;drawing-21.svg&lt;/code&gt; discussed in Chapter 9 is used here as an example. 
-The path element is a typical bezier curve with two end points and two control points. &lt;/p&gt;
+The path element is a typical Bezier curve with two end points and two control points. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;george@Inspiron-5515:~$ /usr/bin/python3
 Python 3.9.5 (default, May 11 2021, 08:20:37) 
 [GCC 10.3.0] on linux
@@ -347,10 +347,11 @@ path
 
 &lt;h2&gt;Path Class&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;path&lt;/code&gt; property defined in &lt;code&gt;ShapeElement&lt;/code&gt; class returns a &lt;code&gt;Path&lt;/code&gt; object. 
-Notice other classes derived from &lt;code&gt;ShapeElement&lt;/code&gt; also has this &lt;code&gt;path&lt;/code&gt; property. &lt;/p&gt;
+Other classes derived from &lt;code&gt;ShapeElement&lt;/code&gt; also have this &lt;code&gt;path&lt;/code&gt; property. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;Path&lt;/code&gt; class is defined in &lt;code&gt;inkex/paths.py&lt;/code&gt; module. The &lt;code&gt;Path&lt;/code&gt; object is 
 interesting, and it is a list of other class objects. The &lt;code&gt;inkex/paths.py&lt;/code&gt; module 
-defines many classes such as &lt;code&gt;Move&lt;/code&gt;, &lt;code&gt;move&lt;/code&gt;, &lt;code&gt;Horz&lt;/code&gt;, &lt;code&gt;horz&lt;/code&gt;, &lt;code&gt;Curve&lt;/code&gt;, &lt;code&gt;curve&lt;/code&gt; etc.&lt;/p&gt;
+defines many other classes such as &lt;code&gt;Move&lt;/code&gt;, &lt;code&gt;move&lt;/code&gt;, &lt;code&gt;Horz&lt;/code&gt;, &lt;code&gt;horz&lt;/code&gt;, &lt;code&gt;Curve&lt;/code&gt;, 
+&lt;code&gt;curve&lt;/code&gt; etc.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; p = pel.path
 &amp;gt;&amp;gt;&amp;gt; p
 [Move(80.3412, 87.9089), Curve(99.575, 67.2665, 
@@ -390,7 +391,6 @@ BoundingBox((80.341223, 113.12895),(74.37224453581157, 87.908862))
 &amp;#39;M 80.3412 87.9089 C 99.575 67.2665 103.398 73.9063 113.129 83.6942&amp;#39;
 &amp;gt;&amp;gt;&amp;gt; 
 &amp;gt;&amp;gt;&amp;gt; p_str = str(p)
-&amp;gt;&amp;gt;&amp;gt; p_new = Path(p_str)
 &amp;gt;&amp;gt;&amp;gt; from inkex import Path
 &amp;gt;&amp;gt;&amp;gt; p_new = Path(p_str)
 &amp;gt;&amp;gt;&amp;gt; p_new
@@ -411,8 +411,8 @@ Move(80.3412, 87.9089)
 Move(80, 88)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;It is easy to create a &lt;code&gt;Path&lt;/code&gt; element from composing class object. 
-Here is an example to create a similar bezier curve as shown above and 
+&lt;p&gt;It is easy to create a &lt;code&gt;Path&lt;/code&gt; element from composing class objects. 
+Here is an example to create a similar Bezier curve as shown above and 
 add it to a drawing in memory.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from inkex.paths import Move, Curve
 &amp;gt;&amp;gt;&amp;gt; p2 = Path()
@@ -444,8 +444,8 @@ path  # new path element
 
 &lt;h2&gt;Path Related Extensions&lt;/h2&gt;
 &lt;p&gt;Inkscape comes with many path related system extensions. They are listed under &lt;code&gt;Modify Path&lt;/code&gt;, 
-&lt;code&gt;Generate From Path&lt;/code&gt;, and &lt;code&gt;Visualize Path&lt;/code&gt; submenus under &lt;code&gt;Extensions&lt;/code&gt; top level menu. 
-Let&amp;#8217;s look at one of them and discuss its code. &lt;/p&gt;
+&lt;code&gt;Generate From Path&lt;/code&gt;, and &lt;code&gt;Visualize Path&lt;/code&gt; submenus under &lt;code&gt;Extensions&lt;/code&gt; menu. 
+Let&amp;#8217;s examine one of them and discuss its code. &lt;/p&gt;
 &lt;p&gt;When we work on engineering drawings, the dimension tool is indispensable. The &lt;code&gt;Dimensions&lt;/code&gt; 
 menu under &lt;code&gt;Visualize Path&lt;/code&gt; is such a tool. We can select several path elements or a single 
 element and apply the extension. The extension will draw the auxiliary lines and two 
@@ -462,7 +462,7 @@ The &lt;code&gt;Dimension&lt;/code&gt; class doesn&amp;#8217;t use any methods i
 same as subclassing &lt;code&gt;EffectExtension&lt;/code&gt; class directly. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;Dimension&lt;/code&gt; class defines 5 methods. We have discussed &lt;code&gt;add_arguments&lt;/code&gt; and &lt;code&gt;effect&lt;/code&gt; 
 methods in previous chapters.  The other three methods &lt;code&gt;add_marker&lt;/code&gt;, &lt;code&gt;horz_line&lt;/code&gt;, 
-&lt;code&gt;vert_line&lt;/code&gt; are fairly easy to understand. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Drawings For Practice</title><link href="https://www.inkscapetutorial.org/drawings-for-practice.html" rel="alternate"></link><published>2021-08-24T10:54:00-04:00</published><updated>2021-08-24T10:54:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-24:/drawings-for-practice.html</id><summary type="html">&lt;p&gt;The previous chapters cover most contents of Inkscape extension development.  This 
+&lt;code&gt;vert_line&lt;/code&gt; are easy to understand. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Drawings For Practice</title><link href="https://www.inkscapetutorial.org/drawings-for-practice.html" rel="alternate"></link><published>2021-08-24T10:54:00-04:00</published><updated>2021-08-24T10:54:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-24:/drawings-for-practice.html</id><summary type="html">&lt;p&gt;The previous chapters cover most contents of Inkscape extension development.  This 
 chapter will describe some drawing ideas for practice. We could manually draw 
 those figures in Inkscape, but the point …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The previous chapters cover most contents of Inkscape extension development.  This 
 chapter will describe some drawing ideas for practice. We could manually draw 

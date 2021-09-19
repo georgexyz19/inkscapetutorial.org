@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="PathElement Class The PathElement class represent a path element on a drawing. The class is defined in the inkex/elements/_polygons.py module. It is derived from PathElementBase class. Both …" />
+<meta name="description" content="PathElement Class The PathElement class represents a path element on a drawing. The class is defined in the inkex/elements/_polygons.py module. It is derived from PathElementBase class. Both …" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
      crossorigin="anonymous"></script>
     <title>Paths - Inkscape Tutorial</title>
@@ -80,12 +80,12 @@
       </div>
 
       <h2>PathElement Class</h2>
-<p>The <code>PathElement</code> class represent a path element on a drawing.  The class is defined in 
+<p>The <code>PathElement</code> class represents a path element on a drawing.  The class is defined in 
 the <code>inkex/elements/_polygons.py</code> module. It is derived from <code>PathElementBase</code> class. 
 Both classes only include a few methods and properties. The Python interpreter session 
 below shows how to get hold of a path element and invoke its methods and properties. </p>
 <p>The same drawing <code>drawing-21.svg</code> discussed in Chapter 9 is used here as an example. 
-The path element is a typical bezier curve with two end points and two control points. </p>
+The path element is a typical Bezier curve with two end points and two control points. </p>
 <div class="highlight"><pre><span></span><code>george@Inspiron-5515:~$ /usr/bin/python3
 Python 3.9.5 (default, May 11 2021, 08:20:37) 
 [GCC 10.3.0] on linux
@@ -146,10 +146,11 @@ path
 
 <h2>Path Class</h2>
 <p>The <code>path</code> property defined in <code>ShapeElement</code> class returns a <code>Path</code> object. 
-Notice other classes derived from <code>ShapeElement</code> also has this <code>path</code> property. </p>
+Other classes derived from <code>ShapeElement</code> also have this <code>path</code> property. </p>
 <p>The <code>Path</code> class is defined in <code>inkex/paths.py</code> module. The <code>Path</code> object is 
 interesting, and it is a list of other class objects. The <code>inkex/paths.py</code> module 
-defines many classes such as <code>Move</code>, <code>move</code>, <code>Horz</code>, <code>horz</code>, <code>Curve</code>, <code>curve</code> etc.</p>
+defines many other classes such as <code>Move</code>, <code>move</code>, <code>Horz</code>, <code>horz</code>, <code>Curve</code>, 
+<code>curve</code> etc.</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; p = pel.path
 &gt;&gt;&gt; p
 [Move(80.3412, 87.9089), Curve(99.575, 67.2665, 
@@ -189,7 +190,6 @@ BoundingBox((80.341223, 113.12895),(74.37224453581157, 87.908862))
 &#39;M 80.3412 87.9089 C 99.575 67.2665 103.398 73.9063 113.129 83.6942&#39;
 &gt;&gt;&gt; 
 &gt;&gt;&gt; p_str = str(p)
-&gt;&gt;&gt; p_new = Path(p_str)
 &gt;&gt;&gt; from inkex import Path
 &gt;&gt;&gt; p_new = Path(p_str)
 &gt;&gt;&gt; p_new
@@ -210,8 +210,8 @@ Move(80.3412, 87.9089)
 Move(80, 88)
 </code></pre></div>
 
-<p>It is easy to create a <code>Path</code> element from composing class object. 
-Here is an example to create a similar bezier curve as shown above and 
+<p>It is easy to create a <code>Path</code> element from composing class objects. 
+Here is an example to create a similar Bezier curve as shown above and 
 add it to a drawing in memory.</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from inkex.paths import Move, Curve
 &gt;&gt;&gt; p2 = Path()
@@ -243,8 +243,8 @@ path  # new path element
 
 <h2>Path Related Extensions</h2>
 <p>Inkscape comes with many path related system extensions. They are listed under <code>Modify Path</code>, 
-<code>Generate From Path</code>, and <code>Visualize Path</code> submenus under <code>Extensions</code> top level menu. 
-Let&#8217;s look at one of them and discuss its code. </p>
+<code>Generate From Path</code>, and <code>Visualize Path</code> submenus under <code>Extensions</code> menu. 
+Let&#8217;s examine one of them and discuss its code. </p>
 <p>When we work on engineering drawings, the dimension tool is indispensable. The <code>Dimensions</code> 
 menu under <code>Visualize Path</code> is such a tool. We can select several path elements or a single 
 element and apply the extension. The extension will draw the auxiliary lines and two 
@@ -261,7 +261,7 @@ The <code>Dimension</code> class doesn&#8217;t use any methods in <code>PathModi
 same as subclassing <code>EffectExtension</code> class directly. </p>
 <p>The <code>Dimension</code> class defines 5 methods. We have discussed <code>add_arguments</code> and <code>effect</code> 
 methods in previous chapters.  The other three methods <code>add_marker</code>, <code>horz_line</code>, 
-<code>vert_line</code> are fairly easy to understand. </p>
+<code>vert_line</code> are easy to understand. </p>
 
     </div>
 
