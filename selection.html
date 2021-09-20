@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="Selection One piece of information Inkscape transmits to an extension is selected elements. The extension receives command line arguments which are the ids of selected elements from Inkscape. For example …" />
+<meta name="description" content="Selection One piece of information which Inkscape sends to an extension is selected elements. The extension receives ids of selected elements as command line arguments from Inkscape. For example, we …" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
      crossorigin="anonymous"></script>
     <title>Selection - Inkscape Tutorial</title>
@@ -80,8 +80,8 @@
       </div>
 
       <h2>Selection</h2>
-<p>One piece of information Inkscape transmits to an extension is selected elements. 
-The extension receives command line arguments which are the ids of selected elements 
+<p>One piece of information which Inkscape sends to an extension is selected elements. 
+The extension receives ids of selected elements as command line arguments 
 from Inkscape. </p>
 <p>For example, we have a drawing with 4 selected elements as shown below. When we click 
 the <code>apply</code> button on an extension user interface, the extension receives 4 &#8220;--id=&#8230;&#8221; 
@@ -94,8 +94,8 @@ values as shown in the <code>sys.argv</code> variable below. </p>
             &#39;--name=inkscape&#39;, &#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&#39;]
 </code></pre></div>
 
-<p>The id values are the id attributes of selected elements.  The id attribute is unique 
-for each element, so the extension knows which elements are selected. </p>
+<p>The id values are the id attributes of selected elements.  Because the id attribute is unique 
+for each element, the extension knows which elements are selected. </p>
 <p>The <code>inkex</code> uses <code>argparse</code> Python standard library module to parse arguments. The 
 code is in the <code>__init__</code> method of <code>SvgInputMixin</code> class (inkex/base.py module). </p>
 <div class="highlight"><pre><span></span><code>self.arg_parser.add_argument(
@@ -127,7 +127,7 @@ Even though it is called <code>ElementList</code>, it subclasses <code>OrderedDi
 dictionary.  When we iterate through an instance variable, it iterates through 
 the values of the dictionary and the class acts like a list. The values of 
 the dictionary are the selected element objects. </p>
-<p>We would think the keys of the dictionary are the ids of selected elements and 
+<p>We would think that keys of the dictionary are the ids of selected elements and 
 the values are the corresponding element objects.  However, the keys are actually 
 <code>xml_path</code> of selected element. The <code>xml_path</code> is a property defined in the 
 <code>BaseElement</code> class and it calls the <code>getpath</code> method of <code>ElementTree</code> class. 
@@ -150,9 +150,9 @@ one nested under <code>g</code> element. </p>
 <p>The <code>ElementList</code> class also defines an <code>ids</code> instance variable, which is a 
 dictionary mapping <code>id</code> to <code>xml_path</code>. The class also have a method <code>id_dict</code> 
 which returns a dictionary mapping <code>id</code> to <code>element</code>. Why does the class choose 
-to use <code>xml_path</code> value as the dictionary key? It seems it&#8217;s for the <code>paint_order</code> 
-method which return a list of selected elements by z-order (bottom to top). </p>
-<p>The most useful method in the <code>ElementList</code> class probably is <code>filter</code>. We can 
+to use <code>xml_path</code> value as the dictionary key? It is probably for the <code>paint_order</code> 
+method which returns a list of selected elements by z-order (bottom to top). </p>
+<p>One very useful method in the <code>ElementList</code> class is <code>filter</code>. We can 
 filter out the elements by type. The method return a new <code>ElementList</code> object 
 containing only the element with certain type. The code below shows an 
 example, and the <code>selected_elems</code> contains only path elements. </p>
@@ -161,7 +161,7 @@ select_elems = self.svg.selection.filter(PathElement)
 </code></pre></div>
 
 <p>The <code>bounding_box</code> method returns a <code>BoundingBox</code> object for selected elements. 
-It&#8217;s very useful when we need to know the size of selected elements such as 
+It&#8217;s useful when we need to know the size of selected elements such as 
 the <code>Dimensions</code> extension. </p>
 <p>The Inkscape itself preserves the select order when passing the ids to extension. 
 The first element in the <code>ElementList</code> is the first selected element in Inkscape. 
@@ -170,7 +170,7 @@ Inkscape, so we can&#8217;t modify selections in an Inkscape extension.</p>
 <h2>Selected Nodes</h2>
 <p>Similar to selected elements, Inkscape also passes selected nodes to extensions. 
 In inkscape we use the node selection tool to select nodes on a path. For example, 
-the drawing below shows that the first two nodes are selected (blue dots).  When 
+the drawing below shows that the first two nodes are selected (blue square dots).  When 
 we click the apply button on an extension interface, the extension receives several 
 <code>--selected-nodes=...</code> arguments. </p>
 <div style="max-width:800px">

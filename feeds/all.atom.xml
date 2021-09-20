@@ -170,12 +170,12 @@ complicated. The current program does not handle curves, and adding curve suppor
 will be challenging. The code makes changes to the path, and we could save the 
 original path information in the arrowhead element and retrieve it when we need 
 it later.  &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Selection</title><link href="https://www.inkscapetutorial.org/selection.html" rel="alternate"></link><published>2021-08-28T00:18:00-04:00</published><updated>2021-08-28T00:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-28:/selection.html</id><summary type="html">&lt;h2&gt;Selection&lt;/h2&gt;
-&lt;p&gt;One piece of information Inkscape transmits to an extension is selected elements. 
-The extension receives command line arguments which are the ids of selected elements 
+&lt;p&gt;One piece of information which Inkscape sends to an extension is selected elements. 
+The extension receives ids of selected elements as command line arguments 
 from Inkscape. &lt;/p&gt;
-&lt;p&gt;For example …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Selection&lt;/h2&gt;
-&lt;p&gt;One piece of information Inkscape transmits to an extension is selected elements. 
-The extension receives command line arguments which are the ids of selected elements 
+&lt;p&gt;For example, we …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Selection&lt;/h2&gt;
+&lt;p&gt;One piece of information which Inkscape sends to an extension is selected elements. 
+The extension receives ids of selected elements as command line arguments 
 from Inkscape. &lt;/p&gt;
 &lt;p&gt;For example, we have a drawing with 4 selected elements as shown below. When we click 
 the &lt;code&gt;apply&lt;/code&gt; button on an extension user interface, the extension receives 4 &amp;#8220;--id=&amp;#8230;&amp;#8221; 
@@ -188,8 +188,8 @@ values as shown in the &lt;code&gt;sys.argv&lt;/code&gt; variable below. &lt;/p&
             &amp;#39;--name=inkscape&amp;#39;, &amp;#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&amp;#39;]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The id values are the id attributes of selected elements.  The id attribute is unique 
-for each element, so the extension knows which elements are selected. &lt;/p&gt;
+&lt;p&gt;The id values are the id attributes of selected elements.  Because the id attribute is unique 
+for each element, the extension knows which elements are selected. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;inkex&lt;/code&gt; uses &lt;code&gt;argparse&lt;/code&gt; Python standard library module to parse arguments. The 
 code is in the &lt;code&gt;__init__&lt;/code&gt; method of &lt;code&gt;SvgInputMixin&lt;/code&gt; class (inkex/base.py module). &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.arg_parser.add_argument(
@@ -221,7 +221,7 @@ Even though it is called &lt;code&gt;ElementList&lt;/code&gt;, it subclasses &lt
 dictionary.  When we iterate through an instance variable, it iterates through 
 the values of the dictionary and the class acts like a list. The values of 
 the dictionary are the selected element objects. &lt;/p&gt;
-&lt;p&gt;We would think the keys of the dictionary are the ids of selected elements and 
+&lt;p&gt;We would think that keys of the dictionary are the ids of selected elements and 
 the values are the corresponding element objects.  However, the keys are actually 
 &lt;code&gt;xml_path&lt;/code&gt; of selected element. The &lt;code&gt;xml_path&lt;/code&gt; is a property defined in the 
 &lt;code&gt;BaseElement&lt;/code&gt; class and it calls the &lt;code&gt;getpath&lt;/code&gt; method of &lt;code&gt;ElementTree&lt;/code&gt; class. 
@@ -244,9 +244,9 @@ one nested under &lt;code&gt;g&lt;/code&gt; element. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;ElementList&lt;/code&gt; class also defines an &lt;code&gt;ids&lt;/code&gt; instance variable, which is a 
 dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;xml_path&lt;/code&gt;. The class also have a method &lt;code&gt;id_dict&lt;/code&gt; 
 which returns a dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;element&lt;/code&gt;. Why does the class choose 
-to use &lt;code&gt;xml_path&lt;/code&gt; value as the dictionary key? It seems it&amp;#8217;s for the &lt;code&gt;paint_order&lt;/code&gt; 
-method which return a list of selected elements by z-order (bottom to top). &lt;/p&gt;
-&lt;p&gt;The most useful method in the &lt;code&gt;ElementList&lt;/code&gt; class probably is &lt;code&gt;filter&lt;/code&gt;. We can 
+to use &lt;code&gt;xml_path&lt;/code&gt; value as the dictionary key? It is probably for the &lt;code&gt;paint_order&lt;/code&gt; 
+method which returns a list of selected elements by z-order (bottom to top). &lt;/p&gt;
+&lt;p&gt;One very useful method in the &lt;code&gt;ElementList&lt;/code&gt; class is &lt;code&gt;filter&lt;/code&gt;. We can 
 filter out the elements by type. The method return a new &lt;code&gt;ElementList&lt;/code&gt; object 
 containing only the element with certain type. The code below shows an 
 example, and the &lt;code&gt;selected_elems&lt;/code&gt; contains only path elements. &lt;/p&gt;
@@ -255,7 +255,7 @@ select_elems = self.svg.selection.filter(PathElement)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;bounding_box&lt;/code&gt; method returns a &lt;code&gt;BoundingBox&lt;/code&gt; object for selected elements. 
-It&amp;#8217;s very useful when we need to know the size of selected elements such as 
+It&amp;#8217;s useful when we need to know the size of selected elements such as 
 the &lt;code&gt;Dimensions&lt;/code&gt; extension. &lt;/p&gt;
 &lt;p&gt;The Inkscape itself preserves the select order when passing the ids to extension. 
 The first element in the &lt;code&gt;ElementList&lt;/code&gt; is the first selected element in Inkscape. 
@@ -264,7 +264,7 @@ Inkscape, so we can&amp;#8217;t modify selections in an Inkscape extension.&lt;/
 &lt;h2&gt;Selected Nodes&lt;/h2&gt;
 &lt;p&gt;Similar to selected elements, Inkscape also passes selected nodes to extensions. 
 In inkscape we use the node selection tool to select nodes on a path. For example, 
-the drawing below shows that the first two nodes are selected (blue dots).  When 
+the drawing below shows that the first two nodes are selected (blue square dots).  When 
 we click the apply button on an extension interface, the extension receives several 
 &lt;code&gt;--selected-nodes=...&lt;/code&gt; arguments. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
