@@ -7,8 +7,8 @@ note: Selection
 
 ## Selection
 
-One piece of information Inkscape transmits to an extension is selected elements. 
-The extension receives command line arguments which are the ids of selected elements 
+One piece of information which Inkscape sends to an extension is selected elements. 
+The extension receives ids of selected elements as command line arguments 
 from Inkscape. 
 
 For example, we have a drawing with 4 selected elements as shown below. When we click 
@@ -24,8 +24,8 @@ sys argv: ['hello.py', '--id=rect1125', '--id=path1149', '--id=path1253', '--id=
             '--name=inkscape', '/tmp/ink_ext_XXXXXX.svgUBQJ80']
 ```
 
-The id values are the id attributes of selected elements.  The id attribute is unique 
-for each element, so the extension knows which elements are selected. 
+The id values are the id attributes of selected elements.  Because the id attribute is unique 
+for each element, the extension knows which elements are selected. 
 
 The `inkex` uses `argparse` Python standard library module to parse arguments. The 
 code is in the `__init__` method of `SvgInputMixin` class (inkex/base.py module). 
@@ -66,7 +66,7 @@ dictionary.  When we iterate through an instance variable, it iterates through
 the values of the dictionary and the class acts like a list. The values of 
 the dictionary are the selected element objects. 
 
-We would think the keys of the dictionary are the ids of selected elements and 
+We would think that keys of the dictionary are the ids of selected elements and 
 the values are the corresponding element objects.  However, the keys are actually 
 `xml_path` of selected element. The `xml_path` is a property defined in the 
 `BaseElement` class and it calls the `getpath` method of `ElementTree` class. 
@@ -92,11 +92,11 @@ one nested under `g` element.
 The `ElementList` class also defines an `ids` instance variable, which is a 
 dictionary mapping `id` to `xml_path`. The class also have a method `id_dict` 
 which returns a dictionary mapping `id` to `element`. Why does the class choose 
-to use `xml_path` value as the dictionary key? It seems it's for the `paint_order` 
-method which return a list of selected elements by z-order (bottom to top). 
+to use `xml_path` value as the dictionary key? It is probably for the `paint_order` 
+method which returns a list of selected elements by z-order (bottom to top). 
 
 
-The most useful method in the `ElementList` class probably is `filter`. We can 
+One very useful method in the `ElementList` class is `filter`. We can 
 filter out the elements by type. The method return a new `ElementList` object 
 containing only the element with certain type. The code below shows an 
 example, and the `selected_elems` contains only path elements. 
@@ -107,7 +107,7 @@ select_elems = self.svg.selection.filter(PathElement)
 ```
 
 The `bounding_box` method returns a `BoundingBox` object for selected elements. 
-It's very useful when we need to know the size of selected elements such as 
+It's useful when we need to know the size of selected elements such as 
 the `Dimensions` extension. 
 
 The Inkscape itself preserves the select order when passing the ids to extension. 
@@ -119,7 +119,7 @@ Inkscape, so we can't modify selections in an Inkscape extension.
 
 Similar to selected elements, Inkscape also passes selected nodes to extensions. 
 In inkscape we use the node selection tool to select nodes on a path. For example, 
-the drawing below shows that the first two nodes are selected (blue dots).  When 
+the drawing below shows that the first two nodes are selected (blue square dots).  When 
 we click the apply button on an extension interface, the extension receives several 
 `--selected-nodes=...` arguments. 
 
