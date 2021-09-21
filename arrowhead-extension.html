@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="Problem The Dimensions system extension discussed in Chapter 14 adds markers as arrowheads. The markers have a stroke width which causes the arrowheads to extrude beyond leading lines. When we …" />
+<meta name="description" content="Problem The Dimensions system extension discussed in Chapter 14 adds markers as arrowheads. Marker element is an SVG concept and it has a stroke width which causes the arrowhead to …" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250215946274932"
      crossorigin="anonymous"></script>
     <title>Arrowhead Extension - Inkscape Tutorial</title>
@@ -81,21 +81,22 @@
 
       <h2>Problem</h2>
 <p>The <code>Dimensions</code> system extension discussed in Chapter 14 adds markers as 
-arrowheads. The markers have a stroke width which 
-causes the arrowheads to extrude beyond leading lines. When we zoom in to 
+arrowheads. <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker">Marker element</a> 
+is an <span class="caps">SVG</span> concept and it has a stroke width which 
+causes the arrowhead to extend beyond leading line. When we zoom in to 
 the arrowheads, they look like this. </p>
 <div style="max-width:500px">
   <img class="img-fluid pb-2" src="/images/ext16/arrowheads.png" alt="arrowheads"> 
 </div>
 
-<p>If we manually set the marker stroke width to zero, we will have another 
-problem. The tip of the arrowhead is on top of the dimension line, and 
-the arrowhead doesn&#8217;t look good as shown below. </p>
+<p>If we manually set the marker stroke width to zero, we would have another 
+problem. The tip of the arrowhead is on the top of dimension line, and 
+the arrowhead doesn&#8217;t look good (shown below). </p>
 <div style="max-width:300px">
   <img class="img-fluid pb-2" src="/images/ext16/arrowhead2.png" alt="arrowhead2"> 
 </div>
 
-<p>What is the right way to draw the arrowhead? We should offset the start point 
+<p>What is the right way to draw an arrowhead? We should offset the start point 
 of the dimension line by a distance <code>d</code>, so the arrowhead itself will cover the 
 dimension line. Marker 
 elements are often difficult to manipulate in Inkscape, so we will draw 
@@ -104,10 +105,10 @@ a filled path as arrowhead.  </p>
   <img class="img-fluid pb-2" src="/images/ext16/distance.png" alt="distance"> 
 </div>
 
-<p>This sounds like something which an Inkscape extension can do. Let&#8217;s create 
-such an extension. </p>
+<p>This sounds like something that an Inkscape extension can do. Let&#8217;s create the 
+arrowhead extension. </p>
 <h2>Arrowheads</h2>
-<p>A simple arrowhead can be determined by two variables angle (A) and 
+<p>A simple arrowhead can be determined by two variables&mdash;angle (A) and 
 length (L). The angle is between two side lines (red) and the length is from 
 the tip to the back of arrowhead (blue).  The extension will support 
 two shapes <code>sharp</code> and <code>normal</code> as shown below. </p>
@@ -116,7 +117,7 @@ two shapes <code>sharp</code> and <code>normal</code> as shown below. </p>
 </div>
 
 <p>Sometimes we need an arrowhead at one end of a 
-path and sometimes we need it at both ends. The extension will support 
+path and other times we need it at both ends. The extension will support 
 adding arrowhead at the begin, at the end, or at both ends. When we draw a 
 straight line in Inkscape with the <code>Bezier</code> tool, the <code>d</code> attribute could 
 have values like the values shown below.  The begin point is the coordinate after the <code>M</code> 
@@ -128,7 +129,7 @@ M 173.74472,28.097683 H 204.0094
 M 183.58612,45.030754 V 74.30451
 </code></pre></div>
 
-<p>The dialog shown below is the extension user interface. When we use the 
+<p>The dialog box below shows the extension user interface. When we use the 
 extension, we need to draw a line on the canvas, have the line selected, 
 and click the <code>Custom -&gt; Draw Arrowhead</code> menu, choose the values on the 
 dialog and click apply.  The extension Python code will add an arrowhead 
@@ -141,9 +142,9 @@ Python file. </p>
 
 <h2>Optimum Arrowhead Angles</h2>
 <p>What are the optimum arrowhead angles? The experiment drawing below shows all 
-arrowheads with angles between 15 and 50 degrees with 2.5 degree increment. 
+arrowheads with angles between 15 and 50 degrees with a 2.5 degree increment. 
 Arrowheads with angle 25 or 30 look
-nice to me and most arrowheads on my drawings have either 25 or 30 degree angles. The 
+nice and most arrowheads on my drawings have either 25 or 30 degree angles. The 
 Python file <code>arrowhead_angle.py</code> is used to generate this drawing.  </p>
 <div style="max-width:800px">
   <img class="img-fluid pb-2" src="/images/ext16/anglesharp.svg" alt="sharp angle"> 
@@ -171,7 +172,7 @@ on a drawing, we often need to add arrowhead to such path. </p>
 
 <p>The current arrowhead program is still simple and straightforward. It could become 
 complicated. The current program does not handle curves, and adding curve support 
-will be challenging. The code makes changes to the path, and we could save the 
+will become challenging. The code makes changes to the path, and we could save the 
 original path information in the arrowhead element and retrieve it when we need 
 it later.  </p>
 

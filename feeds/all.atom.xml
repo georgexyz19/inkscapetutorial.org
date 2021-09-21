@@ -74,24 +74,26 @@ other Windows programs.&lt;/p&gt;
   &lt;img class="img-fluid pb-2" src="/images/floating.png" alt="floating"&gt; 
 &lt;/div&gt;</content><category term="posts"></category><category term="inkscape"></category><category term="ubuntu"></category></entry><entry><title>Arrowhead Extension</title><link href="https://www.inkscapetutorial.org/arrowhead-extension.html" rel="alternate"></link><published>2021-08-30T13:13:00-04:00</published><updated>2021-08-30T13:13:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-30:/arrowhead-extension.html</id><summary type="html">&lt;h2&gt;Problem&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;Dimensions&lt;/code&gt; system extension discussed in Chapter 14 adds markers as 
-arrowheads. The markers have a stroke width which 
-causes the arrowheads to extrude beyond leading lines. When we …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Problem&lt;/h2&gt;
+arrowheads. &lt;a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"&gt;Marker element&lt;/a&gt; 
+is an &lt;span class="caps"&gt;SVG&lt;/span&gt; concept and it has a stroke width which 
+causes the arrowhead to …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Problem&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;Dimensions&lt;/code&gt; system extension discussed in Chapter 14 adds markers as 
-arrowheads. The markers have a stroke width which 
-causes the arrowheads to extrude beyond leading lines. When we zoom in to 
+arrowheads. &lt;a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"&gt;Marker element&lt;/a&gt; 
+is an &lt;span class="caps"&gt;SVG&lt;/span&gt; concept and it has a stroke width which 
+causes the arrowhead to extend beyond leading line. When we zoom in to 
 the arrowheads, they look like this. &lt;/p&gt;
 &lt;div style="max-width:500px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/arrowheads.png" alt="arrowheads"&gt; 
 &lt;/div&gt;
 
-&lt;p&gt;If we manually set the marker stroke width to zero, we will have another 
-problem. The tip of the arrowhead is on top of the dimension line, and 
-the arrowhead doesn&amp;#8217;t look good as shown below. &lt;/p&gt;
+&lt;p&gt;If we manually set the marker stroke width to zero, we would have another 
+problem. The tip of the arrowhead is on the top of dimension line, and 
+the arrowhead doesn&amp;#8217;t look good (shown below). &lt;/p&gt;
 &lt;div style="max-width:300px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/arrowhead2.png" alt="arrowhead2"&gt; 
 &lt;/div&gt;
 
-&lt;p&gt;What is the right way to draw the arrowhead? We should offset the start point 
+&lt;p&gt;What is the right way to draw an arrowhead? We should offset the start point 
 of the dimension line by a distance &lt;code&gt;d&lt;/code&gt;, so the arrowhead itself will cover the 
 dimension line. Marker 
 elements are often difficult to manipulate in Inkscape, so we will draw 
@@ -100,10 +102,10 @@ a filled path as arrowhead.  &lt;/p&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/distance.png" alt="distance"&gt; 
 &lt;/div&gt;
 
-&lt;p&gt;This sounds like something which an Inkscape extension can do. Let&amp;#8217;s create 
-such an extension. &lt;/p&gt;
+&lt;p&gt;This sounds like something that an Inkscape extension can do. Let&amp;#8217;s create the 
+arrowhead extension. &lt;/p&gt;
 &lt;h2&gt;Arrowheads&lt;/h2&gt;
-&lt;p&gt;A simple arrowhead can be determined by two variables angle (A) and 
+&lt;p&gt;A simple arrowhead can be determined by two variables&amp;mdash;angle (A) and 
 length (L). The angle is between two side lines (red) and the length is from 
 the tip to the back of arrowhead (blue).  The extension will support 
 two shapes &lt;code&gt;sharp&lt;/code&gt; and &lt;code&gt;normal&lt;/code&gt; as shown below. &lt;/p&gt;
@@ -112,7 +114,7 @@ two shapes &lt;code&gt;sharp&lt;/code&gt; and &lt;code&gt;normal&lt;/code&gt; as
 &lt;/div&gt;
 
 &lt;p&gt;Sometimes we need an arrowhead at one end of a 
-path and sometimes we need it at both ends. The extension will support 
+path and other times we need it at both ends. The extension will support 
 adding arrowhead at the begin, at the end, or at both ends. When we draw a 
 straight line in Inkscape with the &lt;code&gt;Bezier&lt;/code&gt; tool, the &lt;code&gt;d&lt;/code&gt; attribute could 
 have values like the values shown below.  The begin point is the coordinate after the &lt;code&gt;M&lt;/code&gt; 
@@ -124,7 +126,7 @@ M 173.74472,28.097683 H 204.0094
 M 183.58612,45.030754 V 74.30451
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The dialog shown below is the extension user interface. When we use the 
+&lt;p&gt;The dialog box below shows the extension user interface. When we use the 
 extension, we need to draw a line on the canvas, have the line selected, 
 and click the &lt;code&gt;Custom -&amp;gt; Draw Arrowhead&lt;/code&gt; menu, choose the values on the 
 dialog and click apply.  The extension Python code will add an arrowhead 
@@ -137,9 +139,9 @@ Python file. &lt;/p&gt;
 
 &lt;h2&gt;Optimum Arrowhead Angles&lt;/h2&gt;
 &lt;p&gt;What are the optimum arrowhead angles? The experiment drawing below shows all 
-arrowheads with angles between 15 and 50 degrees with 2.5 degree increment. 
+arrowheads with angles between 15 and 50 degrees with a 2.5 degree increment. 
 Arrowheads with angle 25 or 30 look
-nice to me and most arrowheads on my drawings have either 25 or 30 degree angles. The 
+nice and most arrowheads on my drawings have either 25 or 30 degree angles. The 
 Python file &lt;code&gt;arrowhead_angle.py&lt;/code&gt; is used to generate this drawing.  &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext16/anglesharp.svg" alt="sharp angle"&gt; 
@@ -167,7 +169,7 @@ on a drawing, we often need to add arrowhead to such path. &lt;/p&gt;
 
 &lt;p&gt;The current arrowhead program is still simple and straightforward. It could become 
 complicated. The current program does not handle curves, and adding curve support 
-will be challenging. The code makes changes to the path, and we could save the 
+will become challenging. The code makes changes to the path, and we could save the 
 original path information in the arrowhead element and retrieve it when we need 
 it later.  &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Selection</title><link href="https://www.inkscapetutorial.org/selection.html" rel="alternate"></link><published>2021-08-28T00:18:00-04:00</published><updated>2021-08-28T00:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-28:/selection.html</id><summary type="html">&lt;h2&gt;Selection&lt;/h2&gt;
 &lt;p&gt;One piece of information which Inkscape sends to an extension is selected elements. 
