@@ -7,9 +7,9 @@ note: Triangle Extension
 
 ## Extension Structure
 
-In this tutorial, we will take a ook at the `Triangle` extension code.
+In this tutorial, we will take a look at the `Triangle` extension code.
 Usually an Inkscape extension consists of two files, one `.inx` file and 
-one `.py` file. The `.inx` file contains xml code describing the interface 
+one `.py` file. The `.inx` file contains xml code describing the user interface 
 and the `.py` file is the 
 Python file. The `.py` file usually imports other modules so an extension 
 could involve multiple Python modules. 
@@ -85,7 +85,10 @@ The `param` tags represent input controls on the dialog. This `Triangle` extensi
 includes two types of param element `float` and `optiongroup`. There are many other 
 types we can use.  This 
 [Inkscape wiki page](https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters) 
-has a complete list. 
+has a complete list. We don't need to remember the user interface 
+controls.  When we are working on a user interface dialog, we use 
+the wiki page as a reference and grep the system extension directory 
+to find some examples. 
 
 The `command` tag under the `script` element indicates that the extension 
 code is a Python program in `triangle.py` file. When we click the `apply` 
@@ -175,13 +178,13 @@ The `Triangle` class
 itself only defines two methods `add_argument` and `effect`, so the `run` method 
 must be inherited from other classes. 
 
-The `Triangle` class is inherited from `EffectExtension` class of `inkex` module.
+The `Triangle` class inherits `EffectExtension` class of `inkex` module.
 The Python modules are in the `inkex` directory. The `inkex` is 
 the most basic module of Inkscape extension system. It acts like a framework upon 
 which we build user extensions. 
 
 Here are directory names and file names under the `inkex` directory. The first 
-column shows that it is a directory or the python file line number. 
+column shows that it is a directory (dir) or number of lines for a Python file. 
 
 <pre>
  (dir) deprecated-simple 
@@ -255,7 +258,7 @@ def run(self, args=None, output=stdout):
 ## Logging Experiment
 
 Let's add some logging code to this file and check logging output. If you are not 
-familiar with Python logging module, take a look at the 
+familiar with Python logging module, check out the 
 [Python Logging Howto Page](https://docs.python.org/3/howto/logging.html). This 
 15 minutes [youtube video](https://youtu.be/-ARI4Cz-awo) 
 explains the basics of logging very well. 
