@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="Extension Structure In this tutorial, we will take a ook at the Triangle extension code. Usually an Inkscape extension consists of two files, one .inx file and one .py file …" />
+<meta name="description" content="Extension Structure In this tutorial, we will take a look at the Triangle extension code. Usually an Inkscape extension consists of two files, one .inx file and one .py file …" />
     <title>Triangle Extension Code - Inkscape Tutorial</title>
   </head>
   <body>
@@ -76,9 +76,9 @@
       </div>
 
       <h2>Extension Structure</h2>
-<p>In this tutorial, we will take a ook at the <code>Triangle</code> extension code.
+<p>In this tutorial, we will take a look at the <code>Triangle</code> extension code.
 Usually an Inkscape extension consists of two files, one <code>.inx</code> file and 
-one <code>.py</code> file. The <code>.inx</code> file contains xml code describing the interface 
+one <code>.py</code> file. The <code>.inx</code> file contains xml code describing the user interface 
 and the <code>.py</code> file is the 
 Python file. The <code>.py</code> file usually imports other modules so an extension 
 could involve multiple Python modules. </p>
@@ -146,7 +146,10 @@ a namespace such as <code>math.</code> before the <code>triangle</code> to make 
 includes two types of param element <code>float</code> and <code>optiongroup</code>. There are many other 
 types we can use.  This 
 <a href="https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters">Inkscape wiki page</a> 
-has a complete list. </p>
+has a complete list. We don&#8217;t need to remember the user interface 
+controls.  When we are working on a user interface dialog, we use 
+the wiki page as a reference and grep the system extension directory 
+to find some examples. </p>
 <p>The <code>command</code> tag under the <code>script</code> element indicates that the extension 
 code is a Python program in <code>triangle.py</code> file. When we click the <code>apply</code> 
 button on the dialog, the <code>triangle.py</code> Python program will start running. </p>
@@ -229,12 +232,12 @@ initializes an instance of <code>Triangle</code> class and calls the <code>run</
 The <code>Triangle</code> class 
 itself only defines two methods <code>add_argument</code> and <code>effect</code>, so the <code>run</code> method 
 must be inherited from other classes. </p>
-<p>The <code>Triangle</code> class is inherited from <code>EffectExtension</code> class of <code>inkex</code> module.
+<p>The <code>Triangle</code> class inherits <code>EffectExtension</code> class of <code>inkex</code> module.
 The Python modules are in the <code>inkex</code> directory. The <code>inkex</code> is 
 the most basic module of Inkscape extension system. It acts like a framework upon 
 which we build user extensions. </p>
 <p>Here are directory names and file names under the <code>inkex</code> directory. The first 
-column shows that it is a directory or the python file line number. </p>
+column shows that it is a directory (dir) or number of lines for a Python file. </p>
 <pre>
  (dir) deprecated-simple 
  (dir) elements  
@@ -301,7 +304,7 @@ below. </p>
 
 <h2>Logging Experiment</h2>
 <p>Let&#8217;s add some logging code to this file and check logging output. If you are not 
-familiar with Python logging module, take a look at the 
+familiar with Python logging module, check out the 
 <a href="https://docs.python.org/3/howto/logging.html">Python Logging Howto Page</a>. This 
 15 minutes <a href="https://youtu.be/-ARI4Cz-awo">youtube video</a> 
 explains the basics of logging very well. </p>

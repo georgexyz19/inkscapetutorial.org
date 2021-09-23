@@ -2659,12 +2659,12 @@ variables we can access (&lt;code&gt;self.options.s_a&lt;/code&gt;) in the progr
 &lt;a href="https://docs.python.org/3/howto/argparse.html"&gt;official argparse module tutorial&lt;/a&gt;. 
 The &lt;code&gt;argparse&lt;/code&gt; module was introduced in Python 3.4, which supersedes the &lt;code&gt;optparse&lt;/code&gt; 
 in Python2. The old Inkscape extensions before Inkscape 1.0 use &lt;code&gt;optparse&lt;/code&gt; module. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Triangle Extension Code</title><link href="https://www.inkscapetutorial.org/triangle-extension-code.html" rel="alternate"></link><published>2021-07-27T08:42:00-04:00</published><updated>2021-07-27T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-27:/triangle-extension-code.html</id><summary type="html">&lt;h2&gt;Extension Structure&lt;/h2&gt;
-&lt;p&gt;In this tutorial, we will take a ook at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
+&lt;p&gt;In this tutorial, we will take a look at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
 Usually an Inkscape extension consists of two files, one &lt;code&gt;.inx&lt;/code&gt; file and 
 one &lt;code&gt;.py&lt;/code&gt; file …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Extension Structure&lt;/h2&gt;
-&lt;p&gt;In this tutorial, we will take a ook at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
+&lt;p&gt;In this tutorial, we will take a look at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
 Usually an Inkscape extension consists of two files, one &lt;code&gt;.inx&lt;/code&gt; file and 
-one &lt;code&gt;.py&lt;/code&gt; file. The &lt;code&gt;.inx&lt;/code&gt; file contains xml code describing the interface 
+one &lt;code&gt;.py&lt;/code&gt; file. The &lt;code&gt;.inx&lt;/code&gt; file contains xml code describing the user interface 
 and the &lt;code&gt;.py&lt;/code&gt; file is the 
 Python file. The &lt;code&gt;.py&lt;/code&gt; file usually imports other modules so an extension 
 could involve multiple Python modules. &lt;/p&gt;
@@ -2732,7 +2732,10 @@ a namespace such as &lt;code&gt;math.&lt;/code&gt; before the &lt;code&gt;triang
 includes two types of param element &lt;code&gt;float&lt;/code&gt; and &lt;code&gt;optiongroup&lt;/code&gt;. There are many other 
 types we can use.  This 
 &lt;a href="https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters"&gt;Inkscape wiki page&lt;/a&gt; 
-has a complete list. &lt;/p&gt;
+has a complete list. We don&amp;#8217;t need to remember the user interface 
+controls.  When we are working on a user interface dialog, we use 
+the wiki page as a reference and grep the system extension directory 
+to find some examples. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;command&lt;/code&gt; tag under the &lt;code&gt;script&lt;/code&gt; element indicates that the extension 
 code is a Python program in &lt;code&gt;triangle.py&lt;/code&gt; file. When we click the &lt;code&gt;apply&lt;/code&gt; 
 button on the dialog, the &lt;code&gt;triangle.py&lt;/code&gt; Python program will start running. &lt;/p&gt;
@@ -2815,12 +2818,12 @@ initializes an instance of &lt;code&gt;Triangle&lt;/code&gt; class and calls the
 The &lt;code&gt;Triangle&lt;/code&gt; class 
 itself only defines two methods &lt;code&gt;add_argument&lt;/code&gt; and &lt;code&gt;effect&lt;/code&gt;, so the &lt;code&gt;run&lt;/code&gt; method 
 must be inherited from other classes. &lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; class is inherited from &lt;code&gt;EffectExtension&lt;/code&gt; class of &lt;code&gt;inkex&lt;/code&gt; module.
+&lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; class inherits &lt;code&gt;EffectExtension&lt;/code&gt; class of &lt;code&gt;inkex&lt;/code&gt; module.
 The Python modules are in the &lt;code&gt;inkex&lt;/code&gt; directory. The &lt;code&gt;inkex&lt;/code&gt; is 
 the most basic module of Inkscape extension system. It acts like a framework upon 
 which we build user extensions. &lt;/p&gt;
 &lt;p&gt;Here are directory names and file names under the &lt;code&gt;inkex&lt;/code&gt; directory. The first 
-column shows that it is a directory or the python file line number. &lt;/p&gt;
+column shows that it is a directory (dir) or number of lines for a Python file. &lt;/p&gt;
 &lt;pre&gt;
  (dir) deprecated-simple 
  (dir) elements  
@@ -2887,7 +2890,7 @@ below. &lt;/p&gt;
 
 &lt;h2&gt;Logging Experiment&lt;/h2&gt;
 &lt;p&gt;Let&amp;#8217;s add some logging code to this file and check logging output. If you are not 
-familiar with Python logging module, take a look at the 
+familiar with Python logging module, check out the 
 &lt;a href="https://docs.python.org/3/howto/logging.html"&gt;Python Logging Howto Page&lt;/a&gt;. This 
 15 minutes &lt;a href="https://youtu.be/-ARI4Cz-awo"&gt;youtube video&lt;/a&gt; 
 explains the basics of logging very well. &lt;/p&gt;
