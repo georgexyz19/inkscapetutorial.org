@@ -4,6 +4,10 @@
 
 ## Recent update
 
+09/25/2021
+  Setup the environment in Windows.  All tools seem to work just 
+  fine. 
+
 09/03/2021
   The site becomes live on 9/1/2021.  I am fixing obvious errors
   yesterday and today. 

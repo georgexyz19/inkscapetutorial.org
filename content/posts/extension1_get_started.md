@@ -48,11 +48,10 @@ Some of the extensions are intuitive to use such as `Gear`, `Grid`, and `Calenda
 
 The real power of the Inkscape extension system is that we can treat it as an API. 
 It provides many classes and functions 
-on which programmers can build user extensions. This section will describe some impressive 
-results of Inkscape extensions. 
+on which programmers can build user extensions. 
 
 [WriteTeX](https://github.com/wanglongqi/WriteTeX) is an extension serving as a 
-LaTeX/TeX editor for Inkscape.  We can insert equations onto Inkscape drawing. 
+LaTeX/TeX editor for Inkscape.  We can insert equations onto an Inkscape drawing. 
 Here is an example drawing with equations on the right hand side. 
 
 <div style="max-width:800px">
@@ -91,7 +90,13 @@ extensions` directory.
 My computer runs Ubuntu 21.04 OS, and Inkscape 1.1 is installed through 
 `apt` commands as suggested on 
 [this webpage](https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features). If you are running 
-Inkscape under other OS, the directories will be different. 
+Inkscape under other OS, the directories will be different. In Windows, the two 
+directories may look like these two lines shown below. 
+
+```
+C:\Users\<User Name>\AppData\Roaming\inkscape\extensions
+D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
+```
 
 The `user extensions` refers to extensions created by you as an Inkscape user. The 
 `inkscape extensions` or `system extensions` refers to the programs that come with 
@@ -99,8 +104,8 @@ the Inkscape installation. We could put our extensions in the `inkscape extensio
 directory, and they will run just fine. But it is better to separate them in two 
 directories. 
 
-We can add two alias to the `~/.bashrc` file to have easier access to those two 
-directories. 
+We can add two aliases to the `~/.bashrc` file to have easier access to those two 
+directories when we are developing extensions in Ubuntu. 
 
 ```
 alias cdsysdir='cd /usr/share/inkscape/extensions'
@@ -109,7 +114,7 @@ alias cduserdir='cd ~/.config/inkscape/extensions'
 
 ## System Extensions
 
-Let's take a look at the `system extensions` directory and see what is in there. 
+Let's check the `system extensions` directory and see what is in there. 
 The Linux commands below show that the directory has a total of 554 files and 
 226 Python files. The fourth command below indicates that the Python files have 
 a total of 43,979 lines of code for Inkscape 1.1. 
@@ -121,11 +126,11 @@ find . -name '*.py' | wc -l   # 226
 find . -name '*.py' -exec wc -l '{}' +    #43,979
 ```
 
-The system extensions have lots of code, and it's almost impossible for 
+The system extensions have lots of code, and it has become almost impossible for 
 one person to read and understand all of them.  This extension tutorial series
-will try to explain a small subset of those files.  
+will try to discuss and explain a small subset of those files.  
 
-If you want to take part in developing or improving those system extensions, 
+If you want to take part in developing or improving system extensions, 
 this gitlab source code repository is the place to get started.  
 
 [https://gitlab.com/inkscape/extensions/](https://gitlab.com/inkscape/extensions/)
@@ -141,16 +146,20 @@ and it requires some serious work to convert them to Python 3. Note Python
 3 is not compatible with Python 2. 
 
 Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
-The Inkscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
-old Inkscape extension which does not work in version 1.1, try to load it 
-with Inkscape 0.92.5 and it may work well. 
+The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
+new extensions for Inkscape 1.0 & 1.1 are incompatible with older Inkscape, 
+and old extensions are also incompatible with new Inkscape. 
+
+If you somehow get an 
+old Inkscape extension which does not work in Inkscape 1.1, try to load it 
+in Inkscape 0.92.X and it may work well. 
 
 ## Objectives
 
-This tutorial series will not cover everything in Inkscape extension development. 
-The articles are developed from my notes.  It is not as formal 
-as a typical book or software manual, but it is in a much better shape than 
-my notes. I am only trying to point the right direction for beginners. 
+This tutorial series is developed from my notes.  It's not as formal 
+as a typical book or software manual, but it's in a much better shape than 
+my notes. I am trying to point the right direction for people who are 
+interested to learn more about Inkscape extension development.  
 
 
 
