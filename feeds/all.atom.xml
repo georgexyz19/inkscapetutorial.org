@@ -3016,10 +3016,9 @@ The program will generate this error message. &lt;/p&gt;
 Some of the extensions are intuitive to use such as &lt;code&gt;Gear&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, and &lt;code&gt;Calendar&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;The real power of the Inkscape extension system is that we can treat it as an &lt;span class="caps"&gt;API&lt;/span&gt;. 
 It provides many classes and functions 
-on which programmers can build user extensions. This section will describe some impressive 
-results of Inkscape extensions. &lt;/p&gt;
+on which programmers can build user extensions. &lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/wanglongqi/WriteTeX"&gt;WriteTeX&lt;/a&gt; is an extension serving as a 
-LaTeX/TeX editor for Inkscape.  We can insert equations onto Inkscape drawing. 
+LaTeX/TeX editor for Inkscape.  We can insert equations onto an Inkscape drawing. 
 Here is an example drawing with equations on the right hand side. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext1/ext1-hcurve.svg" alt="H Curve"&gt; 
@@ -3050,20 +3049,25 @@ extensions&lt;/code&gt; directory. &lt;/p&gt;
 &lt;p&gt;My computer runs Ubuntu 21.04 &lt;span class="caps"&gt;OS&lt;/span&gt;, and Inkscape 1.1 is installed through 
 &lt;code&gt;apt&lt;/code&gt; commands as suggested on 
 &lt;a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features"&gt;this webpage&lt;/a&gt;. If you are running 
-Inkscape under other &lt;span class="caps"&gt;OS&lt;/span&gt;, the directories will be different. &lt;/p&gt;
+Inkscape under other &lt;span class="caps"&gt;OS&lt;/span&gt;, the directories will be different. In Windows, the two 
+directories may look like these two lines shown below. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;C:\Users\&amp;lt;User Name&amp;gt;\AppData\Roaming\inkscape\extensions
+D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;p&gt;The &lt;code&gt;user extensions&lt;/code&gt; refers to extensions created by you as an Inkscape user. The 
 &lt;code&gt;inkscape extensions&lt;/code&gt; or &lt;code&gt;system extensions&lt;/code&gt; refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the &lt;code&gt;inkscape extensions&lt;/code&gt; 
 directory, and they will run just fine. But it is better to separate them in two 
 directories. &lt;/p&gt;
-&lt;p&gt;We can add two alias to the &lt;code&gt;~/.bashrc&lt;/code&gt; file to have easier access to those two 
-directories. &lt;/p&gt;
+&lt;p&gt;We can add two aliases to the &lt;code&gt;~/.bashrc&lt;/code&gt; file to have easier access to those two 
+directories when we are developing extensions in Ubuntu. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;alias cdsysdir=&amp;#39;cd /usr/share/inkscape/extensions&amp;#39;
 alias cduserdir=&amp;#39;cd ~/.config/inkscape/extensions&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;System Extensions&lt;/h2&gt;
-&lt;p&gt;Let&amp;#8217;s take a look at the &lt;code&gt;system extensions&lt;/code&gt; directory and see what is in there. 
+&lt;p&gt;Let&amp;#8217;s check the &lt;code&gt;system extensions&lt;/code&gt; directory and see what is in there. 
 The Linux commands below show that the directory has a total of 554 files and 
 226 Python files. The fourth command below indicates that the Python files have 
 a total of 43,979 lines of code for Inkscape 1.1. &lt;/p&gt;
@@ -3073,10 +3077,10 @@ find . -name &lt;span class="s1"&gt;&amp;#39;*.py&amp;#39;&lt;/span&gt; &lt;span
 find . -name &lt;span class="s1"&gt;&amp;#39;*.py&amp;#39;&lt;/span&gt; -exec wc -l &lt;span class="s1"&gt;&amp;#39;{}&amp;#39;&lt;/span&gt; +    &lt;span class="c1"&gt;#43,979&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The system extensions have lots of code, and it&amp;#8217;s almost impossible for 
+&lt;p&gt;The system extensions have lots of code, and it has become almost impossible for 
 one person to read and understand all of them.  This extension tutorial series
-will try to explain a small subset of those files.  &lt;/p&gt;
-&lt;p&gt;If you want to take part in developing or improving those system extensions, 
+will try to discuss and explain a small subset of those files.  &lt;/p&gt;
+&lt;p&gt;If you want to take part in developing or improving system extensions, 
 this gitlab source code repository is the place to get started.  &lt;/p&gt;
 &lt;p&gt;&lt;a href="https://gitlab.com/inkscape/extensions/"&gt;https://gitlab.com/inkscape/extensions/&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Inkscape Version and Extension&lt;/h2&gt;
@@ -3088,11 +3092,14 @@ reason is that most system extensions were created by various developers over ti
 and it requires some serious work to convert them to Python 3. Note Python 
 3 is not compatible with Python 2. &lt;/p&gt;
 &lt;p&gt;Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
-The Inkscape 1.1 extensions require Python 3.6 and above. If you somehow get an 
-old Inkscape extension which does not work in version 1.1, try to load it 
-with Inkscape 0.92.5 and it may work well. &lt;/p&gt;
+The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
+new extensions for Inkscape 1.0 &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; 1.1 are incompatible with older Inkscape, 
+and old extensions are also incompatible with new Inkscape. &lt;/p&gt;
+&lt;p&gt;If you somehow get an 
+old Inkscape extension which does not work in Inkscape 1.1, try to load it 
+in Inkscape 0.92.X and it may work well. &lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
-&lt;p&gt;This tutorial series will not cover everything in Inkscape extension development. 
-The articles are developed from my notes.  It is not as formal 
-as a typical book or software manual, but it is in a much better shape than 
-my notes. I am only trying to point the right direction for beginners. &lt;/p&gt;</content><category term="extension"></category></entry></feed>
+&lt;p&gt;This tutorial series is developed from my notes.  It&amp;#8217;s not as formal 
+as a typical book or software manual, but it&amp;#8217;s in a much better shape than 
+my notes. I am trying to point the right direction for people who are 
+interested to learn more about Inkscape extension development.  &lt;/p&gt;</content><category term="extension"></category></entry></feed>
