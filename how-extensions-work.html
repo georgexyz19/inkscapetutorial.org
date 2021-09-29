@@ -146,11 +146,11 @@ method in <code>object</code> because <code>super</code> refers to <code>object<
 for <em>Namespace Specific String</em>. </p>
 <p>The <code>__init__</code> method initializes four instance variables <code>file_io</code>, <code>options</code>, 
 <code>document</code>, and <code>arg_parser</code>. It calls the <code>add_argument</code> methods of <code>ArgumentParser</code> 
-class twice, and then it calls the <code>add_arguments</code> class method.  The <code>add_argument</code> method 
-is overridden in <code>Triangle</code> class, so the <code>add_argument</code> method in the <code>Triangle</code> class 
+class twice, and then it calls the <code>add_arguments</code> class method.  The <code>add_arguments</code> method 
+is overridden in <code>Triangle</code> class, so the <code>add_arguments</code> method in the <code>Triangle</code> class 
 will be called. The method calls <code>add_argument</code> of <code>ArgumentParser</code> class seven times. 
-Note the method name is <code>add_argument</code> in <code>ArgumentParser</code> class and it is <code>add_arguments</code>
-in <code>Triangle</code> class. </p>
+Note the method name is <code>add_argument</code> in <code>ArgumentParser</code> class and it is <code>add_arguments</code> 
+(notice the plural) in <code>Triangle</code> class. </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># add_argument method in Triangle class</span>
 <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pars</span><span class="p">):</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Triangle add_arguments method starts&#39;</span><span class="p">)</span>  <span class="c1">##</span>
@@ -218,7 +218,7 @@ the code of <code>run</code> method in <code>InkscapeExtension</code> class. </p
 
 <p>Let&#8217;s take a close look at the code between <code>try</code> and <code>except...</code> lines. 
 From last chapter, we know that the <code>sys.argv</code> value is a list of arguments. 
-The <code>args</code> value is a list start from the second item. </p>
+The <code>args</code> value is a list starting from the second item. </p>
 <div class="highlight"><pre><span></span><code>[&#39;triangle.py&#39;, &#39;--s_a=100&#39;, &#39;--s_b=100&#39;, 
    &#39;--s_c=100&#39;, &#39;--a_a=60&#39;, &#39;--a_b=30&#39;, &#39;--a_c=90&#39;, 
    &#39;--mode=3_sides&#39;, &#39;/tmp/ink_ext_XXXXXX.svgVYXM70&#39;]
@@ -257,7 +257,7 @@ We will examine those method calls in the next chapter. </p>
 </code></pre></div>
 
 <h2>Python ArgParse Module</h2>
-<p>From the above discussion, we should have a basic idea how Inkscape extensions 
+<p>From the above discussion, we should have a basic understanding on how Inkscape extensions 
 work. When we launch Inkcape, it will check files under user extension 
 and system extension directories, and create menu items under the <code>Extensions</code> 
 top level menu.  </p>

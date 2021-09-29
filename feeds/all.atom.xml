@@ -2522,11 +2522,11 @@ method in &lt;code&gt;object&lt;/code&gt; because &lt;code&gt;super&lt;/code&gt;
 for &lt;em&gt;Namespace Specific String&lt;/em&gt;. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;__init__&lt;/code&gt; method initializes four instance variables &lt;code&gt;file_io&lt;/code&gt;, &lt;code&gt;options&lt;/code&gt;, 
 &lt;code&gt;document&lt;/code&gt;, and &lt;code&gt;arg_parser&lt;/code&gt;. It calls the &lt;code&gt;add_argument&lt;/code&gt; methods of &lt;code&gt;ArgumentParser&lt;/code&gt; 
-class twice, and then it calls the &lt;code&gt;add_arguments&lt;/code&gt; class method.  The &lt;code&gt;add_argument&lt;/code&gt; method 
-is overridden in &lt;code&gt;Triangle&lt;/code&gt; class, so the &lt;code&gt;add_argument&lt;/code&gt; method in the &lt;code&gt;Triangle&lt;/code&gt; class 
+class twice, and then it calls the &lt;code&gt;add_arguments&lt;/code&gt; class method.  The &lt;code&gt;add_arguments&lt;/code&gt; method 
+is overridden in &lt;code&gt;Triangle&lt;/code&gt; class, so the &lt;code&gt;add_arguments&lt;/code&gt; method in the &lt;code&gt;Triangle&lt;/code&gt; class 
 will be called. The method calls &lt;code&gt;add_argument&lt;/code&gt; of &lt;code&gt;ArgumentParser&lt;/code&gt; class seven times. 
-Note the method name is &lt;code&gt;add_argument&lt;/code&gt; in &lt;code&gt;ArgumentParser&lt;/code&gt; class and it is &lt;code&gt;add_arguments&lt;/code&gt;
-in &lt;code&gt;Triangle&lt;/code&gt; class. &lt;/p&gt;
+Note the method name is &lt;code&gt;add_argument&lt;/code&gt; in &lt;code&gt;ArgumentParser&lt;/code&gt; class and it is &lt;code&gt;add_arguments&lt;/code&gt; 
+(notice the plural) in &lt;code&gt;Triangle&lt;/code&gt; class. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# add_argument method in Triangle class&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_arguments&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pars&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Triangle add_arguments method starts&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;##&lt;/span&gt;
@@ -2594,7 +2594,7 @@ the code of &lt;code&gt;run&lt;/code&gt; method in &lt;code&gt;InkscapeExtension
 
 &lt;p&gt;Let&amp;#8217;s take a close look at the code between &lt;code&gt;try&lt;/code&gt; and &lt;code&gt;except...&lt;/code&gt; lines. 
 From last chapter, we know that the &lt;code&gt;sys.argv&lt;/code&gt; value is a list of arguments. 
-The &lt;code&gt;args&lt;/code&gt; value is a list start from the second item. &lt;/p&gt;
+The &lt;code&gt;args&lt;/code&gt; value is a list starting from the second item. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[&amp;#39;triangle.py&amp;#39;, &amp;#39;--s_a=100&amp;#39;, &amp;#39;--s_b=100&amp;#39;, 
    &amp;#39;--s_c=100&amp;#39;, &amp;#39;--a_a=60&amp;#39;, &amp;#39;--a_b=30&amp;#39;, &amp;#39;--a_c=90&amp;#39;, 
    &amp;#39;--mode=3_sides&amp;#39;, &amp;#39;/tmp/ink_ext_XXXXXX.svgVYXM70&amp;#39;]
@@ -2633,7 +2633,7 @@ We will examine those method calls in the next chapter. &lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;Python ArgParse Module&lt;/h2&gt;
-&lt;p&gt;From the above discussion, we should have a basic idea how Inkscape extensions 
+&lt;p&gt;From the above discussion, we should have a basic understanding on how Inkscape extensions 
 work. When we launch Inkcape, it will check files under user extension 
 and system extension directories, and create menu items under the &lt;code&gt;Extensions&lt;/code&gt; 
 top level menu.  &lt;/p&gt;
