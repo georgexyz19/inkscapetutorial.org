@@ -90,11 +90,11 @@ for *Namespace Specific String*.
 
 The `__init__` method initializes four instance variables `file_io`, `options`, 
 `document`, and `arg_parser`. It calls the `add_argument` methods of `ArgumentParser` 
-class twice, and then it calls the `add_arguments` class method.  The `add_argument` method 
-is overridden in `Triangle` class, so the `add_argument` method in the `Triangle` class 
+class twice, and then it calls the `add_arguments` class method.  The `add_arguments` method 
+is overridden in `Triangle` class, so the `add_arguments` method in the `Triangle` class 
 will be called. The method calls `add_argument` of `ArgumentParser` class seven times. 
-Note the method name is `add_argument` in `ArgumentParser` class and it is `add_arguments`
-in `Triangle` class. 
+Note the method name is `add_argument` in `ArgumentParser` class and it is `add_arguments` 
+(notice the plural) in `Triangle` class. 
 
 ```python
 # add_argument method in Triangle class
@@ -171,7 +171,7 @@ def run(self, args=None, output=stdout):
 
 Let's take a close look at the code between `try` and `except...` lines. 
 From last chapter, we know that the `sys.argv` value is a list of arguments. 
-The `args` value is a list start from the second item. 
+The `args` value is a list starting from the second item. 
 
 ```
 ['triangle.py', '--s_a=100', '--s_b=100', 
@@ -221,7 +221,7 @@ self.save_raw(e)
 
 ## Python ArgParse Module
 
-From the above discussion, we should have a basic idea how Inkscape extensions 
+From the above discussion, we should have a basic understanding on how Inkscape extensions 
 work. When we launch Inkcape, it will check files under user extension 
 and system extension directories, and create menu items under the `Extensions` 
 top level menu.  
