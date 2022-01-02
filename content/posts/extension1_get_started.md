@@ -46,12 +46,14 @@ The program will generate this error message.
 The Inkscape itself comes with many extensions which are listed under the `Extensions` menu. 
 Some of the extensions are intuitive to use such as `Gear`, `Grid`, and `Calendar`. 
 
-The real power of the Inkscape extension system is that we can treat it as an API. 
+The real power of the Inkscape extension system is that we can treat it as an API (Application 
+Programming Interface). 
 It provides many classes and functions 
 on which programmers can build user extensions. 
 
 [WriteTeX](https://github.com/wanglongqi/WriteTeX) is an extension serving as a 
-LaTeX/TeX editor for Inkscape.  We can insert equations onto an Inkscape drawing. 
+LaTeX/TeX editor for Inkscape.  We can insert math equations onto an Inkscape drawing
+with this tool. 
 Here is an example drawing with equations on the right hand side. 
 
 <div style="max-width:800px">
@@ -91,21 +93,21 @@ My computer runs Ubuntu 21.04 OS, and Inkscape 1.1 is installed through
 `apt` commands as suggested on 
 [this webpage](https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features). If you are running 
 Inkscape under other OS, the directories will be different. In Windows, the two 
-directories may look like these two lines shown below. 
+directory paths look like the two lines shown below. 
 
 ```
 C:\Users\<User Name>\AppData\Roaming\inkscape\extensions
 D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
 ```
 
-The `user extensions` refers to extensions created by you as an Inkscape user. The 
+The `user extensions` refers to extensions created by you as an Inkscape user (or programmer). The 
 `inkscape extensions` or `system extensions` refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the `inkscape extensions` 
-directory, and they will run just fine. But it is better to separate them in two 
+directory and vice versa.  They will run just fine. But it is better to separate them in two 
 directories. 
 
 We can add two aliases to the `~/.bashrc` file to have easier access to those two 
-directories when we are developing extensions in Ubuntu. 
+directories when we are developing extensions in Ubuntu.  This is for Linux users. 
 
 ```
 alias cdsysdir='cd /usr/share/inkscape/extensions'
@@ -138,17 +140,17 @@ this gitlab source code repository is the place to get started.
 ## Inkscape Version and Extension
 
 Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
-mostly written in Python 2. Even though Python 3.4 was released back in 2014 and 
-many people were writing 
-in Python 3, Inkscape extensions were still in Python 2 for many years. The 
-reason is that most system extensions were created by various developers over time
-and it requires some serious work to convert them to Python 3. Note Python 
-3 is not compatible with Python 2. 
+mostly written in Python 2. Even though Python 3.4 is released back in 2014 and 
+many people have been writing program in Python 3. Inkscape extensions are in 
+Python 2 for many years. The 
+reason is that most system extensions are created by various developers over time
+and it requires some serious work to convert them to Python 3. The root problem is 
+that Python 3 is not compatible with Python 2. 
 
 Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
 The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
 new extensions for Inkscape 1.0 & 1.1 are incompatible with older Inkscape, 
-and old extensions are also incompatible with new Inkscape. 
+and old extensions are incompatible with new Inkscape. 
 
 If you somehow get an 
 old Inkscape extension which does not work in Inkscape 1.1, try to load it 

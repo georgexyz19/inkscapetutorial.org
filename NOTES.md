@@ -4,6 +4,9 @@
 
 ## Recent update
 
+1/1/2022
+  Read Chapter 1 & revise some sentences. 
+
 09/25/2021
   Setup the environment in Windows.  All tools seem to work just 
   fine. 
