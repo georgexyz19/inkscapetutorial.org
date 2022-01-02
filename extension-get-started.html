@@ -108,11 +108,13 @@ The program will generate this error message. </p>
 <h2>What Extensions Can Do?</h2>
 <p>The Inkscape itself comes with many extensions which are listed under the <code>Extensions</code> menu. 
 Some of the extensions are intuitive to use such as <code>Gear</code>, <code>Grid</code>, and <code>Calendar</code>. </p>
-<p>The real power of the Inkscape extension system is that we can treat it as an <span class="caps">API</span>. 
+<p>The real power of the Inkscape extension system is that we can treat it as an <span class="caps">API</span> (Application 
+Programming Interface). 
 It provides many classes and functions 
 on which programmers can build user extensions. </p>
 <p><a href="https://github.com/wanglongqi/WriteTeX">WriteTeX</a> is an extension serving as a 
-LaTeX/TeX editor for Inkscape.  We can insert equations onto an Inkscape drawing. 
+LaTeX/TeX editor for Inkscape.  We can insert math equations onto an Inkscape drawing
+with this tool. 
 Here is an example drawing with equations on the right hand side. </p>
 <div style="max-width:800px">
   <img class="img-fluid pb-2" src="/images/ext1/ext1-hcurve.svg" alt="H Curve"> 
@@ -144,18 +146,18 @@ extensions</code> directory. </p>
 <code>apt</code> commands as suggested on 
 <a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features">this webpage</a>. If you are running 
 Inkscape under other <span class="caps">OS</span>, the directories will be different. In Windows, the two 
-directories may look like these two lines shown below. </p>
+directory paths look like the two lines shown below. </p>
 <div class="highlight"><pre><span></span><code>C:\Users\&lt;User Name&gt;\AppData\Roaming\inkscape\extensions
 D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
 </code></pre></div>
 
-<p>The <code>user extensions</code> refers to extensions created by you as an Inkscape user. The 
+<p>The <code>user extensions</code> refers to extensions created by you as an Inkscape user (or programmer). The 
 <code>inkscape extensions</code> or <code>system extensions</code> refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the <code>inkscape extensions</code> 
-directory, and they will run just fine. But it is better to separate them in two 
+directory and vice versa.  They will run just fine. But it is better to separate them in two 
 directories. </p>
 <p>We can add two aliases to the <code>~/.bashrc</code> file to have easier access to those two 
-directories when we are developing extensions in Ubuntu. </p>
+directories when we are developing extensions in Ubuntu.  This is for Linux users. </p>
 <div class="highlight"><pre><span></span><code>alias cdsysdir=&#39;cd /usr/share/inkscape/extensions&#39;
 alias cduserdir=&#39;cd ~/.config/inkscape/extensions&#39;
 </code></pre></div>
@@ -179,16 +181,16 @@ this gitlab source code repository is the place to get started.  </p>
 <p><a href="https://gitlab.com/inkscape/extensions/">https://gitlab.com/inkscape/extensions/</a></p>
 <h2>Inkscape Version and Extension</h2>
 <p>Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
-mostly written in Python 2. Even though Python 3.4 was released back in 2014 and 
-many people were writing 
-in Python 3, Inkscape extensions were still in Python 2 for many years. The 
-reason is that most system extensions were created by various developers over time
-and it requires some serious work to convert them to Python 3. Note Python 
-3 is not compatible with Python 2. </p>
+mostly written in Python 2. Even though Python 3.4 is released back in 2014 and 
+many people have been writing program in Python 3. Inkscape extensions are in 
+Python 2 for many years. The 
+reason is that most system extensions are created by various developers over time
+and it requires some serious work to convert them to Python 3. The root problem is 
+that Python 3 is not compatible with Python 2. </p>
 <p>Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
 The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
 new extensions for Inkscape 1.0 <span class="amp">&amp;</span> 1.1 are incompatible with older Inkscape, 
-and old extensions are also incompatible with new Inkscape. </p>
+and old extensions are incompatible with new Inkscape. </p>
 <p>If you somehow get an 
 old Inkscape extension which does not work in Inkscape 1.1, try to load it 
 in Inkscape 0.92.X and it may work well. </p>
