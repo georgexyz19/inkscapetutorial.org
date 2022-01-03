@@ -8,10 +8,10 @@ note: Triangle Extension
 ## Extension Structure
 
 In this tutorial, we will take a look at the `Triangle` extension code.
-Usually an Inkscape extension consists of two files, one `.inx` file and 
+Usually an Inkscape extension consists of two files—one `.inx` file and 
 one `.py` file. The `.inx` file contains xml code describing the user interface 
 and the `.py` file is the 
-Python file. The `.py` file usually imports other modules so an extension 
+Python file. The `.py` file can import other modules so an extension 
 could involve multiple Python modules. 
 
 The `Triangle` extension code is in the `triangle.inx` and `triangle.py` 
@@ -59,14 +59,14 @@ The `triangle.inx` file has 27 lines. The content of the file is shown below.
     </script>
 </inkscape-extension>
 ```
-Here is a list of descriptions for the numbered lines. 
+Here is a list of descriptions for above numbered lines. 
 
 1. this line indicates it is an xml file
 2. name tag, specifies the name on submenu (Render -> Triangle)
 3. id tag, unique id of the extension
-4. param tag, specifies an input control on the dialog box
+4. param tag, specifies an input control on dialog box
 5. param tag, specifies a select control 
-6. submenu tag, shows up as a submenu (Extensions -> Render)
+6. submenu tag, shows up as a submenu under Extension menu (Extensions -> Render)
 7. command tag, the name of the Python file to invoke
 
 
@@ -74,9 +74,9 @@ The first line and `inkscape-extension` tag are boilerplate code. Every
 extension has those lines.  Inside the `inkscape-extension` tag, there 
 are `name`, `id`, `param`, `effect`, and `script` tags. 
 
-The `name` tag value `Triangle` shows up on the menu. The second 
-level menu `Render` under `Extensions` is specified in the `submenu` tag 
-under `effect > effects-menu`.  
+The `name` tag value `Triangle` shows up on the submenu `Render`. The second 
+level menu `Render` (under `Extensions` main menu) is specified in the `submenu` tag 
+under `effect -> effects-menu`. 
 
 The `id` value must be unique for each extension. We can add 
 a namespace such as `math.` before the `triangle` to make it distinctive. 
@@ -85,8 +85,8 @@ The `param` tags represent input controls on the dialog. This `Triangle` extensi
 includes two types of param element `float` and `optiongroup`. There are many other 
 types we can use.  This 
 [Inkscape wiki page](https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters) 
-has a complete list. We don't need to remember the user interface 
-controls.  When we are working on a user interface dialog, we use 
+has a complete list. We don't have to memorize the user interface 
+controls.  We use 
 the wiki page as a reference and grep the system extension directory 
 to find some examples. 
 
@@ -96,8 +96,8 @@ button on the dialog, the `triangle.py` Python program will start running.
 
 The `.inx` file is in XML format. 
 XML stands for *extensible markup language*, which is a popular file format 
-in early 2000s. I remember attending a seminar in college and the 
-speaker says something like every one should learn XML and write in XML. The 
+in early 2000s. I still remember attending a seminar in college and the 
+speaker says something like every one should learn XML and use XML. The 
 format becomes less popular over time. The default Inkscape file format 
 SVG is also in XML format. 
 
@@ -179,7 +179,8 @@ itself only defines two methods `add_argument` and `effect`, so the `run` method
 must be inherited from other classes. 
 
 The `Triangle` class inherits `EffectExtension` class of `inkex` module.
-The Python modules are in the `inkex` directory. The `inkex` is 
+The Python modules are in the `inkex` subdirectory of system extension directory. 
+The `inkex` is 
 the most basic module of Inkscape extension system. It acts like a framework upon 
 which we build user extensions. 
 
@@ -261,7 +262,7 @@ Let's add some logging code to this file and check logging output. If you are no
 familiar with Python logging module, check out the 
 [Python Logging Howto Page](https://docs.python.org/3/howto/logging.html). This 
 15 minutes [youtube video](https://youtu.be/-ARI4Cz-awo) 
-explains the basics of logging very well. 
+explains the basics of logging module very well. 
 
 In order to 
 modify files in the system extension directory, we need to change the directory and 
@@ -275,8 +276,9 @@ $ sudo chmod -R 777 ../extensions/
 
 If you install inkscape via `snap`, you will have a difficult time modifying any 
 files under `/snap` directory.  This is a security feature of snap apps. How do 
-I know it? I waste a few hours trying 
-various methods but fail to modify permissions. 
+I know it? I waste several hours trying 
+various methods but fail to modify permissions. In the end I simply uninstall 
+the snap app and reinstall it through apt command. 
 
 Add those lines at the top of `base.py` to setup logging module.
 
@@ -347,18 +349,18 @@ The `InkscapeExtension` class defines a `debug` method. We can invoke this metho
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
 module is more flexible to use. The `debug` method is designed to 
-show a message to the extension user. 
+deliver a message to extension user. 
 
 ## What's Next
 
 You may feel overwhelmed or even frustrated by now if you are not familiar 
-with Python. Most Python introductory books do not even discuss classes. But keep 
-reading and experimenting, and the code will gradually start making sense to you. 
+with Python. Most Python introductory books do not even cover classes. But keep 
+reading and experimenting, and the code will gradually make sense to you. 
 
 Like most things in the programming world, it's better to learn a little and 
 start working on something. There may be things that you don't understand, 
 but you shouldn't 
 wait to start because you probably will never understand everything. 
 The extension Python code is all open source and available to you. You are free 
-to experiment and modify as you like. 
+to experiment and modify it as you like. 
 
