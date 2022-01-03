@@ -2660,13 +2660,13 @@ variables we can access (&lt;code&gt;self.options.s_a&lt;/code&gt;) in the progr
 The &lt;code&gt;argparse&lt;/code&gt; module was introduced in Python 3.4, which supersedes the &lt;code&gt;optparse&lt;/code&gt; 
 in Python2. The old Inkscape extensions before Inkscape 1.0 use &lt;code&gt;optparse&lt;/code&gt; module. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Triangle Extension Code</title><link href="https://www.inkscapetutorial.org/triangle-extension-code.html" rel="alternate"></link><published>2021-07-27T08:42:00-04:00</published><updated>2021-07-27T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-27:/triangle-extension-code.html</id><summary type="html">&lt;h2&gt;Extension Structure&lt;/h2&gt;
 &lt;p&gt;In this tutorial, we will take a look at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
-Usually an Inkscape extension consists of two files, one &lt;code&gt;.inx&lt;/code&gt; file and 
+Usually an Inkscape extension consists of two files—one &lt;code&gt;.inx&lt;/code&gt; file and 
 one &lt;code&gt;.py&lt;/code&gt; file …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Extension Structure&lt;/h2&gt;
 &lt;p&gt;In this tutorial, we will take a look at the &lt;code&gt;Triangle&lt;/code&gt; extension code.
-Usually an Inkscape extension consists of two files, one &lt;code&gt;.inx&lt;/code&gt; file and 
+Usually an Inkscape extension consists of two files—one &lt;code&gt;.inx&lt;/code&gt; file and 
 one &lt;code&gt;.py&lt;/code&gt; file. The &lt;code&gt;.inx&lt;/code&gt; file contains xml code describing the user interface 
 and the &lt;code&gt;.py&lt;/code&gt; file is the 
-Python file. The &lt;code&gt;.py&lt;/code&gt; file usually imports other modules so an extension 
+Python file. The &lt;code&gt;.py&lt;/code&gt; file can import other modules so an extension 
 could involve multiple Python modules. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; extension code is in the &lt;code&gt;triangle.inx&lt;/code&gt; and &lt;code&gt;triangle.py&lt;/code&gt; 
 files. Both are in the system extension directory. &lt;/p&gt;
@@ -2710,30 +2710,30 @@ files. Both are in the system extension directory. &lt;/p&gt;
 &lt;span class="nt"&gt;&amp;lt;/inkscape-extension&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Here is a list of descriptions for the numbered lines. &lt;/p&gt;
+&lt;p&gt;Here is a list of descriptions for above numbered lines. &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;this line indicates it is an xml file&lt;/li&gt;
 &lt;li&gt;name tag, specifies the name on submenu (Render -&amp;gt; Triangle)&lt;/li&gt;
 &lt;li&gt;id tag, unique id of the extension&lt;/li&gt;
-&lt;li&gt;param tag, specifies an input control on the dialog box&lt;/li&gt;
+&lt;li&gt;param tag, specifies an input control on dialog box&lt;/li&gt;
 &lt;li&gt;param tag, specifies a select control &lt;/li&gt;
-&lt;li&gt;submenu tag, shows up as a submenu (Extensions -&amp;gt; Render)&lt;/li&gt;
+&lt;li&gt;submenu tag, shows up as a submenu under Extension menu (Extensions -&amp;gt; Render)&lt;/li&gt;
 &lt;li&gt;command tag, the name of the Python file to invoke&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The first line and &lt;code&gt;inkscape-extension&lt;/code&gt; tag are boilerplate code. Every 
 extension has those lines.  Inside the &lt;code&gt;inkscape-extension&lt;/code&gt; tag, there 
 are &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;param&lt;/code&gt;, &lt;code&gt;effect&lt;/code&gt;, and &lt;code&gt;script&lt;/code&gt; tags. &lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;name&lt;/code&gt; tag value &lt;code&gt;Triangle&lt;/code&gt; shows up on the menu. The second 
-level menu &lt;code&gt;Render&lt;/code&gt; under &lt;code&gt;Extensions&lt;/code&gt; is specified in the &lt;code&gt;submenu&lt;/code&gt; tag 
-under &lt;code&gt;effect &amp;gt; effects-menu&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;name&lt;/code&gt; tag value &lt;code&gt;Triangle&lt;/code&gt; shows up on the submenu &lt;code&gt;Render&lt;/code&gt;. The second 
+level menu &lt;code&gt;Render&lt;/code&gt; (under &lt;code&gt;Extensions&lt;/code&gt; main menu) is specified in the &lt;code&gt;submenu&lt;/code&gt; tag 
+under &lt;code&gt;effect -&amp;gt; effects-menu&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;id&lt;/code&gt; value must be unique for each extension. We can add 
 a namespace such as &lt;code&gt;math.&lt;/code&gt; before the &lt;code&gt;triangle&lt;/code&gt; to make it distinctive. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;param&lt;/code&gt; tags represent input controls on the dialog. This &lt;code&gt;Triangle&lt;/code&gt; extension 
 includes two types of param element &lt;code&gt;float&lt;/code&gt; and &lt;code&gt;optiongroup&lt;/code&gt;. There are many other 
 types we can use.  This 
 &lt;a href="https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters"&gt;Inkscape wiki page&lt;/a&gt; 
-has a complete list. We don&amp;#8217;t need to remember the user interface 
-controls.  When we are working on a user interface dialog, we use 
+has a complete list. We don&amp;#8217;t have to memorize the user interface 
+controls.  We use 
 the wiki page as a reference and grep the system extension directory 
 to find some examples. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;command&lt;/code&gt; tag under the &lt;code&gt;script&lt;/code&gt; element indicates that the extension 
@@ -2741,8 +2741,8 @@ code is a Python program in &lt;code&gt;triangle.py&lt;/code&gt; file. When we c
 button on the dialog, the &lt;code&gt;triangle.py&lt;/code&gt; Python program will start running. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;.inx&lt;/code&gt; file is in &lt;span class="caps"&gt;XML&lt;/span&gt; format. 
 &lt;span class="caps"&gt;XML&lt;/span&gt; stands for &lt;em&gt;extensible markup language&lt;/em&gt;, which is a popular file format 
-in early 2000s. I remember attending a seminar in college and the 
-speaker says something like every one should learn &lt;span class="caps"&gt;XML&lt;/span&gt; and write in &lt;span class="caps"&gt;XML&lt;/span&gt;. The 
+in early 2000s. I still remember attending a seminar in college and the 
+speaker says something like every one should learn &lt;span class="caps"&gt;XML&lt;/span&gt; and use &lt;span class="caps"&gt;XML&lt;/span&gt;. The 
 format becomes less popular over time. The default Inkscape file format 
 &lt;span class="caps"&gt;SVG&lt;/span&gt; is also in &lt;span class="caps"&gt;XML&lt;/span&gt; format. &lt;/p&gt;
 &lt;h2&gt;Python File&lt;/h2&gt;
@@ -2819,7 +2819,8 @@ The &lt;code&gt;Triangle&lt;/code&gt; class
 itself only defines two methods &lt;code&gt;add_argument&lt;/code&gt; and &lt;code&gt;effect&lt;/code&gt;, so the &lt;code&gt;run&lt;/code&gt; method 
 must be inherited from other classes. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; class inherits &lt;code&gt;EffectExtension&lt;/code&gt; class of &lt;code&gt;inkex&lt;/code&gt; module.
-The Python modules are in the &lt;code&gt;inkex&lt;/code&gt; directory. The &lt;code&gt;inkex&lt;/code&gt; is 
+The Python modules are in the &lt;code&gt;inkex&lt;/code&gt; subdirectory of system extension directory. 
+The &lt;code&gt;inkex&lt;/code&gt; is 
 the most basic module of Inkscape extension system. It acts like a framework upon 
 which we build user extensions. &lt;/p&gt;
 &lt;p&gt;Here are directory names and file names under the &lt;code&gt;inkex&lt;/code&gt; directory. The first 
@@ -2893,7 +2894,7 @@ below. &lt;/p&gt;
 familiar with Python logging module, check out the 
 &lt;a href="https://docs.python.org/3/howto/logging.html"&gt;Python Logging Howto Page&lt;/a&gt;. This 
 15 minutes &lt;a href="https://youtu.be/-ARI4Cz-awo"&gt;youtube video&lt;/a&gt; 
-explains the basics of logging very well. &lt;/p&gt;
+explains the basics of logging module very well. &lt;/p&gt;
 &lt;p&gt;In order to 
 modify files in the system extension directory, we need to change the directory and 
 file permissions.  Run those bash commands when you are in the &lt;code&gt;system extension&lt;/code&gt; 
@@ -2904,8 +2905,9 @@ $ sudo chmod -R 777 ../extensions/
 
 &lt;p&gt;If you install inkscape via &lt;code&gt;snap&lt;/code&gt;, you will have a difficult time modifying any 
 files under &lt;code&gt;/snap&lt;/code&gt; directory.  This is a security feature of snap apps. How do 
-I know it? I waste a few hours trying 
-various methods but fail to modify permissions. &lt;/p&gt;
+I know it? I waste several hours trying 
+various methods but fail to modify permissions. In the end I simply uninstall 
+the snap app and reinstall it through apt command. &lt;/p&gt;
 &lt;p&gt;Add those lines at the top of &lt;code&gt;base.py&lt;/code&gt; to setup logging module.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.localization&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;localize&lt;/span&gt;
 
@@ -2968,17 +2970,17 @@ The &lt;code&gt;effect&lt;/code&gt; method in &lt;code&gt;Triangle&lt;/code&gt; 
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
 module is more flexible to use. The &lt;code&gt;debug&lt;/code&gt; method is designed to 
-show a message to the extension user. &lt;/p&gt;
+deliver a message to extension user. &lt;/p&gt;
 &lt;h2&gt;What&amp;#8217;s Next&lt;/h2&gt;
 &lt;p&gt;You may feel overwhelmed or even frustrated by now if you are not familiar 
-with Python. Most Python introductory books do not even discuss classes. But keep 
-reading and experimenting, and the code will gradually start making sense to you. &lt;/p&gt;
+with Python. Most Python introductory books do not even cover classes. But keep 
+reading and experimenting, and the code will gradually make sense to you. &lt;/p&gt;
 &lt;p&gt;Like most things in the programming world, it&amp;#8217;s better to learn a little and 
 start working on something. There may be things that you don&amp;#8217;t understand, 
 but you shouldn&amp;#8217;t 
 wait to start because you probably will never understand everything. 
 The extension Python code is all open source and available to you. You are free 
-to experiment and modify as you like. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Get Started With Inkscape Extension</title><link href="https://www.inkscapetutorial.org/extension-get-started.html" rel="alternate"></link><published>2021-07-26T12:51:00-04:00</published><updated>2021-07-26T12:51:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-26:/extension-get-started.html</id><summary type="html">&lt;h2&gt;What Is Inkscape Extension?&lt;/h2&gt;
+to experiment and modify it as you like. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Get Started With Inkscape Extension</title><link href="https://www.inkscapetutorial.org/extension-get-started.html" rel="alternate"></link><published>2021-07-26T12:51:00-04:00</published><updated>2021-07-26T12:51:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-26:/extension-get-started.html</id><summary type="html">&lt;h2&gt;What Is Inkscape Extension?&lt;/h2&gt;
 &lt;p&gt;Before we start developing Inkscape extensions (or plugins), let&amp;#8217;s look at one simple 
 built-in extension and understand what&amp;#8217;s an Inkscape extension. &lt;/p&gt;
 &lt;p&gt;After we launch …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;What Is Inkscape Extension?&lt;/h2&gt;
