@@ -325,8 +325,10 @@ the snap app and reinstall it through apt command. </p>
 <p>Add those lines at the top of <code>base.py</code> to setup logging module.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.localization</span> <span class="kn">import</span> <span class="n">localize</span>
 
- <span class="c1"># setup logging</span>
+<span class="c1"># setup logging</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># change filename path</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/home/george/Desktop/new-logging.txt&#39;</span><span class="p">,</span> 
     <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </code></pre></div>
@@ -378,8 +380,7 @@ DEBUG: run ends
 
 <p>Between the <code>load_raw</code> and <code>save_raw</code> method calls, there is an <code>effect</code> method call. 
 The <code>effect</code> method is defined in the <code>InkscapeExtension</code> class, but it raises an 
-<code>NotImplementedError</code> exception.  The method is a placeholder for subclasses to override. 
-The <code>effect</code> method in <code>Triangle</code> class overrides it. </p>
+<code>NotImplementedError</code> exception.  The method is a placeholder for subclasses to override. The <code>effect</code> method in <code>Triangle</code> class overrides it. </p>
 <p>The <code>InkscapeExtension</code> class defines a <code>debug</code> method. We can invoke this method 
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 

@@ -2911,8 +2911,10 @@ the snap app and reinstall it through apt command. &lt;/p&gt;
 &lt;p&gt;Add those lines at the top of &lt;code&gt;base.py&lt;/code&gt; to setup logging module.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.localization&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;localize&lt;/span&gt;
 
- &lt;span class="c1"&gt;# setup logging&lt;/span&gt;
+&lt;span class="c1"&gt;# setup logging&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;logging&lt;/span&gt;
+
+&lt;span class="c1"&gt;# change filename path&lt;/span&gt;
 &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;basicConfig&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/george/Desktop/new-logging.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
     &lt;span class="n"&gt;filemode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;format&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%(levelname)s&lt;/span&gt;&lt;span class="s1"&gt;: &lt;/span&gt;&lt;span class="si"&gt;%(message)s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;level&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DEBUG&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -2964,8 +2966,7 @@ DEBUG: run ends
 
 &lt;p&gt;Between the &lt;code&gt;load_raw&lt;/code&gt; and &lt;code&gt;save_raw&lt;/code&gt; method calls, there is an &lt;code&gt;effect&lt;/code&gt; method call. 
 The &lt;code&gt;effect&lt;/code&gt; method is defined in the &lt;code&gt;InkscapeExtension&lt;/code&gt; class, but it raises an 
-&lt;code&gt;NotImplementedError&lt;/code&gt; exception.  The method is a placeholder for subclasses to override. 
-The &lt;code&gt;effect&lt;/code&gt; method in &lt;code&gt;Triangle&lt;/code&gt; class overrides it. &lt;/p&gt;
+&lt;code&gt;NotImplementedError&lt;/code&gt; exception.  The method is a placeholder for subclasses to override. The &lt;code&gt;effect&lt;/code&gt; method in &lt;code&gt;Triangle&lt;/code&gt; class overrides it. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;InkscapeExtension&lt;/code&gt; class defines a &lt;code&gt;debug&lt;/code&gt; method. We can invoke this method 
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
