@@ -285,8 +285,10 @@ Add those lines at the top of `base.py` to setup logging module.
 ```python
 from .localization import localize
  
- # setup logging
+# setup logging
 import logging
+
+# change filename path
 logging.basicConfig(filename='/home/george/Desktop/new-logging.txt', 
     filemode='w', format='%(levelname)s: %(message)s', level=logging.DEBUG)
 ```
@@ -342,8 +344,7 @@ DEBUG: run ends
 
 Between the `load_raw` and `save_raw` method calls, there is an `effect` method call. 
 The `effect` method is defined in the `InkscapeExtension` class, but it raises an 
-`NotImplementedError` exception.  The method is a placeholder for subclasses to override. 
-The `effect` method in `Triangle` class overrides it. 
+`NotImplementedError` exception.  The method is a placeholder for subclasses to override. The `effect` method in `Triangle` class overrides it. 
 
 The `InkscapeExtension` class defines a `debug` method. We can invoke this method 
 to output messages. The method redirects a message to the standard error stream, 
