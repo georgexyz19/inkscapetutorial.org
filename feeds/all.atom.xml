@@ -2454,7 +2454,7 @@ has lots of useful information. We will also discuss this module in later chapte
 boilerplate code. If we run this module on terminal, the Python interpreter will …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Class Initialization&lt;/h2&gt;
 &lt;p&gt;The last two lines of &lt;code&gt;triangle.py&lt;/code&gt; files are shown below. The first line is 
 boilerplate code. If we run this module on terminal, the Python interpreter will set the 
-&lt;code&gt;__name__&lt;/code&gt; to &lt;code&gt;__main__&lt;/code&gt; and the code &lt;code&gt;Triangle().run()&lt;/code&gt; will start. &lt;/p&gt;
+&lt;code&gt;__name__&lt;/code&gt; to &lt;code&gt;__main__&lt;/code&gt; and the code &lt;code&gt;Triangle().run()&lt;/code&gt; will execute. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;Triangle&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -2564,7 +2564,9 @@ it can&amp;#8217;t find the definition.  It suspends this &lt;code&gt;__init__&l
 invoking &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. The &lt;code&gt;add_arguments&lt;/code&gt; method 
 starts and ends as expected because it is called within the &lt;code&gt;__init__&lt;/code&gt; method of 
 &lt;code&gt;InkscapeExtension&lt;/code&gt;.  The &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class returns first, 
-and then the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;SvgInputMixin&lt;/code&gt; class returns. &lt;/p&gt;
+and then the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;SvgInputMixin&lt;/code&gt; class returns.  This is something in 
+Python I don&amp;#8217;t know until I work on this example.  There are always new things to 
+learn in Python.  &lt;/p&gt;
 &lt;h2&gt;Run Method&lt;/h2&gt;
 &lt;p&gt;After the initialization, the &lt;code&gt;run&lt;/code&gt; method is where everything happens. Here is 
 the code of &lt;code&gt;run&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. &lt;/p&gt;
@@ -2592,7 +2594,7 @@ the code of &lt;code&gt;run&lt;/code&gt; method in &lt;code&gt;InkscapeExtension
         &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;clean_up&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Let&amp;#8217;s take a close look at the code between &lt;code&gt;try&lt;/code&gt; and &lt;code&gt;except...&lt;/code&gt; lines. 
+&lt;p&gt;Let&amp;#8217;s take a close look at the code between &lt;code&gt;try&lt;/code&gt; and &lt;code&gt;except&lt;/code&gt; lines. 
 From last chapter, we know that the &lt;code&gt;sys.argv&lt;/code&gt; value is a list of arguments. 
 The &lt;code&gt;args&lt;/code&gt; value is a list starting from the second item. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[&amp;#39;triangle.py&amp;#39;, &amp;#39;--s_a=100&amp;#39;, &amp;#39;--s_b=100&amp;#39;, 
@@ -2612,7 +2614,8 @@ to the &lt;code&gt;options&lt;/code&gt; instance variable, which is a &lt;code&g
 &lt;p&gt;After the &lt;code&gt;parse_arguments&lt;/code&gt; method call, the &lt;code&gt;self.options&lt;/code&gt; value is 
 the &lt;code&gt;Namespace&lt;/code&gt; object shown below. We can access variables in the object like 
 a property (e.g., &lt;code&gt;self.options.input_file&lt;/code&gt;). Notice the &lt;code&gt;ids&lt;/code&gt; and &lt;code&gt;selected_nodes&lt;/code&gt; 
-instance varaibles in &lt;code&gt;Namespace&lt;/code&gt;. &lt;/p&gt;
+instance variables in &lt;code&gt;Namespace&lt;/code&gt;.  Those are the values Inkscape passes to the 
+extension.   &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Namespace(input_file=&amp;#39;/tmp/ink_ext_XXXXXX.svgVJUG70&amp;#39;, 
           output=None, s_a=100.0, s_b=100.0, s_c=100.0, 
           a_a=60.0, a_b=30.0, a_c=90.0, mode=&amp;#39;3_sides&amp;#39;, 
@@ -2620,8 +2623,9 @@ instance varaibles in &lt;code&gt;Namespace&lt;/code&gt;. &lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The next four statements changes the &lt;code&gt;self.options.output&lt;/code&gt; and &lt;code&gt;self.options.input_file&lt;/code&gt; 
-values if they are &lt;code&gt;None&lt;/code&gt;. The 
-&lt;code&gt;self.options.input_file&lt;/code&gt; does not change in the &lt;code&gt;Triangle&lt;/code&gt; example. &lt;/p&gt;
+values if they are &lt;code&gt;None&lt;/code&gt;. The &lt;code&gt;self.options.input_file&lt;/code&gt; does not change in 
+the &lt;code&gt;Triangle&lt;/code&gt; example.  The value &lt;code&gt;/tmp/ink_ext_XXXXXX.svgVJUG70&lt;/code&gt; is a 
+temporary file Inkscape creates and passes to the extension. &lt;/p&gt;
 &lt;p&gt;We can think of the last two lines as the three lines shown below. 
 Upon this point, the program is working on initialization and setting up 
 variables. These three lines of code is doing the actually work, loading 
