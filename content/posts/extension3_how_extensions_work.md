@@ -208,7 +208,7 @@ Namespace(input_file='/tmp/ink_ext_XXXXXX.svgVJUG70',
 
 The next four statements changes the `self.options.output` and `self.options.input_file` 
 values if they are `None`. The `self.options.input_file` does not change in 
-the `Triangle` example.  The value `/tmp/ink_ext_XXXXXX.svgVJUG70` is a 
+the `Triangle` example.  The value `/tmp/ink_ext_XXXXXX.svgVJUG70` refers to a 
 temporary file Inkscape creates and passes to the extension. 
 
 We can think of the last two lines as the three lines shown below. 
