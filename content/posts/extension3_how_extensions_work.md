@@ -9,7 +9,7 @@ note: How Extensions Work
 
 The last two lines of `triangle.py` files are shown below. The first line is 
 boilerplate code. If we run this module on terminal, the Python interpreter will set the 
-`__name__` to `__main__` and the code `Triangle().run()` will start. 
+`__name__` to `__main__` and the code `Triangle().run()` will execute. 
 
 ```python
 if __name__ == '__main__':
@@ -136,7 +136,9 @@ it can't find the definition.  It suspends this `__init__` method call and start
 invoking `__init__` method in `InkscapeExtension` class. The `add_arguments` method 
 starts and ends as expected because it is called within the `__init__` method of 
 `InkscapeExtension`.  The `__init__` method in `InkscapeExtension` class returns first, 
-and then the `__init__` method in `SvgInputMixin` class returns. 
+and then the `__init__` method in `SvgInputMixin` class returns.  This is something in 
+Python I don't know until I work on this example.  There are always new things to 
+learn in Python.  
 
 ## Run Method
 
@@ -169,7 +171,7 @@ def run(self, args=None, output=stdout):
 
 ```
 
-Let's take a close look at the code between `try` and `except...` lines. 
+Let's take a close look at the code between `try` and `except` lines. 
 From last chapter, we know that the `sys.argv` value is a list of arguments. 
 The `args` value is a list starting from the second item. 
 
@@ -194,7 +196,8 @@ def parse_arguments(self, args):
 After the `parse_arguments` method call, the `self.options` value is 
 the `Namespace` object shown below. We can access variables in the object like 
 a property (e.g., `self.options.input_file`). Notice the `ids` and `selected_nodes` 
-instance varaibles in `Namespace`. 
+instance variables in `Namespace`.  Those are the values Inkscape passes to the 
+extension.   
 
 ```
 Namespace(input_file='/tmp/ink_ext_XXXXXX.svgVJUG70', 
@@ -204,8 +207,9 @@ Namespace(input_file='/tmp/ink_ext_XXXXXX.svgVJUG70',
 ```
 
 The next four statements changes the `self.options.output` and `self.options.input_file` 
-values if they are `None`. The 
-`self.options.input_file` does not change in the `Triangle` example. 
+values if they are `None`. The `self.options.input_file` does not change in 
+the `Triangle` example.  The value `/tmp/ink_ext_XXXXXX.svgVJUG70` is a 
+temporary file Inkscape creates and passes to the extension. 
 
 We can think of the last two lines as the three lines shown below. 
 Upon this point, the program is working on initialization and setting up 
