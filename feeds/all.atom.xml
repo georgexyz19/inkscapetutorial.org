@@ -2624,7 +2624,7 @@ extension.   &lt;/p&gt;
 
 &lt;p&gt;The next four statements changes the &lt;code&gt;self.options.output&lt;/code&gt; and &lt;code&gt;self.options.input_file&lt;/code&gt; 
 values if they are &lt;code&gt;None&lt;/code&gt;. The &lt;code&gt;self.options.input_file&lt;/code&gt; does not change in 
-the &lt;code&gt;Triangle&lt;/code&gt; example.  The value &lt;code&gt;/tmp/ink_ext_XXXXXX.svgVJUG70&lt;/code&gt; is a 
+the &lt;code&gt;Triangle&lt;/code&gt; example.  The value &lt;code&gt;/tmp/ink_ext_XXXXXX.svgVJUG70&lt;/code&gt; refers to a 
 temporary file Inkscape creates and passes to the extension. &lt;/p&gt;
 &lt;p&gt;We can think of the last two lines as the three lines shown below. 
 Upon this point, the program is working on initialization and setting up 
