@@ -262,6 +262,36 @@ of output stream to transmit the modified <span class="caps">SVG</span> back to 
         <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> <span class="c1"># type: ignore</span>
 </code></pre></div>
 
+<h3>Effect Method</h3>
+<p>Let&#8217;s go back to the two lines of code at the beginning of this chapter.  </p>
+<div class="highlight"><pre><span></span><code>self.load_raw()
+self.save_raw(self.effect())
+</code></pre></div>
+
+<p>The <code>load_raw</code> and <code>save_raw</code> methods are already defined in the <code>inkex</code> module, so 
+we do not need to worry about them when we inherit from <code>inkex.EffectExtension</code> class. 
+We only need to override the <code>effect</code> method. The second line of code 
+above implies that the <code>effect</code> method has a return value which is then passed to 
+the <code>save_raw</code> method.  </p>
+<p>The <code>effect</code> method of <code>Triangle</code> class does not have a return statement, so 
+a <code>None</code> value is passed to the <code>save_raw</code> method.  The argument <code>ret</code> of 
+<code>save_raw</code> method is passed as an argument to <code>has_changed</code> method. 
+Here the <code>has_changed</code> method in <code>SvgThroughMixin</code> class is called.  The 
+<code>SvgThroughMixin</code> class code is listed below.  The value <code>ret</code> is not 
+used here, so we don&#8217;t have to return a value in the <code>effect</code> method. </p>
+<div class="highlight"><pre><span></span><code>class SvgThroughMixin(SvgInputMixin, SvgOutputMixin):
+    &quot;&quot;&quot;
+    Combine the input and output svg document handling (usually for effects).
+    &quot;&quot;&quot;
+
+    def has_changed(self, ret): # pylint: disable=unused-argument
+        # type: (Any) -&gt; bool
+        &quot;&quot;&quot;Return true if the svg document has changed&quot;&quot;&quot;
+        original = etree.tostring(self.original_document)
+        result = etree.tostring(self.document)
+        return original != result
+</code></pre></div>
+
 <h2>Python Module lxml</h2>
 <p>When we develop an Inkscape extension, we don&#8217;t need to care too much about 
 load and save processes. The <code>inkex</code> module already has code to handle

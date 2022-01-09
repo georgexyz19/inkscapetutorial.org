@@ -2443,6 +2443,36 @@ of output stream to transmit the modified &lt;span class="caps"&gt;SVG&lt;/span&
         &lt;span class="n"&gt;stream&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;# type: ignore&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
+&lt;h3&gt;Effect Method&lt;/h3&gt;
+&lt;p&gt;Let&amp;#8217;s go back to the two lines of code at the beginning of this chapter.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.load_raw()
+self.save_raw(self.effect())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;load_raw&lt;/code&gt; and &lt;code&gt;save_raw&lt;/code&gt; methods are already defined in the &lt;code&gt;inkex&lt;/code&gt; module, so 
+we do not need to worry about them when we inherit from &lt;code&gt;inkex.EffectExtension&lt;/code&gt; class. 
+We only need to override the &lt;code&gt;effect&lt;/code&gt; method. The second line of code 
+above implies that the &lt;code&gt;effect&lt;/code&gt; method has a return value which is then passed to 
+the &lt;code&gt;save_raw&lt;/code&gt; method.  &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;effect&lt;/code&gt; method of &lt;code&gt;Triangle&lt;/code&gt; class does not have a return statement, so 
+a &lt;code&gt;None&lt;/code&gt; value is passed to the &lt;code&gt;save_raw&lt;/code&gt; method.  The argument &lt;code&gt;ret&lt;/code&gt; of 
+&lt;code&gt;save_raw&lt;/code&gt; method is passed as an argument to &lt;code&gt;has_changed&lt;/code&gt; method. 
+Here the &lt;code&gt;has_changed&lt;/code&gt; method in &lt;code&gt;SvgThroughMixin&lt;/code&gt; class is called.  The 
+&lt;code&gt;SvgThroughMixin&lt;/code&gt; class code is listed below.  The value &lt;code&gt;ret&lt;/code&gt; is not 
+used here, so we don&amp;#8217;t have to return a value in the &lt;code&gt;effect&lt;/code&gt; method. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;class SvgThroughMixin(SvgInputMixin, SvgOutputMixin):
+    &amp;quot;&amp;quot;&amp;quot;
+    Combine the input and output svg document handling (usually for effects).
+    &amp;quot;&amp;quot;&amp;quot;
+
+    def has_changed(self, ret): # pylint: disable=unused-argument
+        # type: (Any) -&amp;gt; bool
+        &amp;quot;&amp;quot;&amp;quot;Return true if the svg document has changed&amp;quot;&amp;quot;&amp;quot;
+        original = etree.tostring(self.original_document)
+        result = etree.tostring(self.document)
+        return original != result
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;h2&gt;Python Module lxml&lt;/h2&gt;
 &lt;p&gt;When we develop an Inkscape extension, we don&amp;#8217;t need to care too much about 
 load and save processes. The &lt;code&gt;inkex&lt;/code&gt; module already has code to handle
