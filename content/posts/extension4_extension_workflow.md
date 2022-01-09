@@ -218,6 +218,43 @@ def save(self, stream):
         stream.write(document.encode('utf-8')) # type: ignore
 ```
 
+### Effect Method
+
+Let's go back to the two lines of code at the beginning of this chapter.  
+
+```
+self.load_raw()
+self.save_raw(self.effect())
+```
+
+The `load_raw` and `save_raw` methods are already defined in the `inkex` module, so 
+we do not need to worry about them when we inherit from `inkex.EffectExtension` class. 
+We only need to override the `effect` method. The second line of code 
+above implies that the `effect` method has a return value which is then passed to 
+the `save_raw` method.  
+
+The `effect` method of `Triangle` class does not have a return statement, so 
+a `None` value is passed to the `save_raw` method.  The argument `ret` of 
+`save_raw` method is passed as an argument to `has_changed` method. 
+Here the `has_changed` method in `SvgThroughMixin` class is called.  The 
+`SvgThroughMixin` class code is listed below.  The value `ret` is not 
+used here, so we don't have to return a value in the `effect` method. 
+
+```
+class SvgThroughMixin(SvgInputMixin, SvgOutputMixin):
+    """
+    Combine the input and output svg document handling (usually for effects).
+    """
+
+    def has_changed(self, ret): # pylint: disable=unused-argument
+        # type: (Any) -> bool
+        """Return true if the svg document has changed"""
+        original = etree.tostring(self.original_document)
+        result = etree.tostring(self.document)
+        return original != result
+```
+
+
 ## Python Module lxml
 
 When we develop an Inkscape extension, we don't need to care too much about 
