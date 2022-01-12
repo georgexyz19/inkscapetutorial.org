@@ -128,24 +128,25 @@ Open the file with a text editor (such as gedit in Ubuntu). Below is the code in
 <p>The first line and second line are Inkscape <span class="caps">SVG</span> boilerplate code. The first line 
 inidcates this is an <span class="caps">XML</span> file.  The second line is an <span class="caps">XML</span> comment. </p>
 <p>The contents of the file is wrapped inside the <code>svg</code> tag ➋. The opening <code>svg</code> tag 
-has many attributes. The attribute <code>xmlns:inkscape="www.inkscape..."</code> means that <code>inkscape</code> 
+has many attributes. The attribute <code>xmlns:inkscape="http://www.inkscape..."</code> means that <code>inkscape</code> 
 is an xml namespace.  So the attribute <code>inkscape:version="1.1..."</code> is an abbreviation for 
-<code>www.inkscape...:version=....</code>. Inkscape is forked from another software <code>sodipodi</code>, and 
+<code>http://www.inkscape...:version=....</code>. Inkscape is forked from another software <code>sodipodi</code>, and 
 <code>sodipodi</code> is still a namespace. </p>
-<p>The <code>sodipodi:namedview</code> ➌ is an inkscape specific tag, and it will read and understand 
+<p>The <code>sodipodi:namedview</code> ➌ is an inkscape specific tag. Inkscape will read and interpret 
 the tag and its attributes.  Other software does not have to recognize this tag. Notice 
-it has an attribute named <code>current-layer</code> with value <code>layer1</code>. The current layer infomation 
-is saved in the <span class="caps">SVG</span> file.  The <code>self.svg.namedview.center</code> value in <code>triangle.py</code> is 
-also derived from this tag.  The <code>defs</code> is an abbreviation for <code>definitions</code> ➍. 
-We can store some information in a <code>defs</code> tag, and other 
-tags can reference the <code>defs</code> tag.   </p>
+it has an attribute named <code>current-layer</code> with value <code>layer1</code>. The current layer information 
+is saved in the <span class="caps">SVG</span> file.  The <code>layer1</code> value refers to the id of a <code>g</code> tag. 
+The <code>self.svg.namedview.center</code> value in <code>triangle.py</code> (discussed in 
+previous chapters) is also derived from this tag.  The <code>defs</code> is an abbreviation 
+for <code>definitions</code> ➍. We can store some information in a <code>defs</code> tag, and other 
+tags of the same document can reference the <code>defs</code> tag.   </p>
 <p>The <code>g</code> tag is a shorthand for group.  <span class="caps">SVG</span> itself does not have layer element. Inkscape uses 
 group tag with additional attribute <code>groupmode</code> to represent layers ➎. </p>
 <h2>Shapes</h2>
 <p>There are <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes">six basic element shapes</a> 
 in <span class="caps">SVG</span> specs: line, rect, circle, ellipse, polyline, and polygon. When we are working 
-on a drawing in Inkscape, we can create three types rect, circle, and ellipse. Inkscape 
-uses paths for other types. The example drawing below is created in Inkscape, 
+on a drawing in Inkscape, we can create three types rect, circle, and ellipse directly. 
+Inkscape uses paths for other types. The example drawing below is created in Inkscape, 
 and the <span class="caps">SVG</span> code is shown below. </p>
 <div style="max-width:800px">
   <img class="img-fluid pb-2" src="/images/ext6/shapes.svg" alt="shapes"> 
@@ -167,14 +168,14 @@ and the <span class="caps">SVG</span> code is shown below. </p>
       <span class="na">cy=</span><span class="s">&quot;25&quot;</span>
       <span class="na">rx=</span><span class="s">&quot;20&quot;</span>
       <span class="na">ry=</span><span class="s">&quot;15&quot;</span> <span class="nt">/&gt;</span>
-   <span class="nt">&lt;path</span>
-      <span class="na">d=</span><span class="s">&quot;m 11.386056,53.443756 35.2468,23.203125&quot;</span>
-      <span class="na">id=</span><span class="s">&quot;path568&quot;</span> <span class="nt">/&gt;</span>
    <span class="nt">&lt;circle</span>
       <span class="na">id=</span><span class="s">&quot;path1280&quot;</span>
       <span class="na">cx=</span><span class="s">&quot;123.56148&quot;</span>
       <span class="na">cy=</span><span class="s">&quot;25.414518&quot;</span>
       <span class="na">r=</span><span class="s">&quot;14.997319&quot;</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;path</span>
+      <span class="na">d=</span><span class="s">&quot;m 11.386056,53.443756 35.2468,23.203125&quot;</span>
+      <span class="na">id=</span><span class="s">&quot;path568&quot;</span> <span class="nt">/&gt;</span>
    <span class="nt">&lt;path</span>
       <span class="na">sodipodi:type=</span><span class="s">&quot;star&quot;</span>
       <span class="na">id=</span><span class="s">&quot;path1777&quot;</span>
@@ -204,7 +205,7 @@ and the <span class="caps">SVG</span> code is shown below. </p>
 <p>The star shape is an Inkscape specific element. When we open the 
 drawing in another program, the star shape may be treated as a path element. </p>
 <h2>Paths</h2>
-<p>Path element is more powerful than basic shapes. It has a <code>d</code> attribute 
+<p>Path element is more complicated than basic shapes. It has a <code>d</code> attribute 
 which consists of commands and values. The command is a single letter followed by 
 a value or a coordinate. The uppercase command indicates parameters are absolute 
 values, and lowercase command indicates relative values. 
@@ -241,7 +242,7 @@ element change from <code>rect</code> to <code>path</code> with correct <code>d<
 There are many online resources to learn more about <span class="caps">SVG</span> format.  The Inkscape 
 itself is a good tool to learn <span class="caps">SVG</span>.  We can select an element and open the <span class="caps">XML</span> Editor 
 to see the code or save the <span class="caps">SVG</span> file and open it in a text editor.   </p>
-<p>The <span class="caps">SVG</span> is an open standard by <span class="caps">W3C</span>. The Inkscape produced <span class="caps">SVG</span> follows version 1.1. 
+<p>The <span class="caps">SVG</span> is an open standard by <span class="caps">W3C</span>. The Inkscape <span class="caps">SVG</span> follows version 1.1. 
 The 1.1 version spec is at this link 
 <a href="https://www.w3.org/TR/SVG11/">https://www.w3.org/<span class="caps">TR</span>/<span class="caps">SVG11</span>/</a>. 
 The 2.0 version is at this link 

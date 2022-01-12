@@ -2044,24 +2044,25 @@ Open the file with a text editor (such as gedit in Ubuntu). Below is the code in
 &lt;p&gt;The first line and second line are Inkscape &lt;span class="caps"&gt;SVG&lt;/span&gt; boilerplate code. The first line 
 inidcates this is an &lt;span class="caps"&gt;XML&lt;/span&gt; file.  The second line is an &lt;span class="caps"&gt;XML&lt;/span&gt; comment. &lt;/p&gt;
 &lt;p&gt;The contents of the file is wrapped inside the &lt;code&gt;svg&lt;/code&gt; tag ➋. The opening &lt;code&gt;svg&lt;/code&gt; tag 
-has many attributes. The attribute &lt;code&gt;xmlns:inkscape="www.inkscape..."&lt;/code&gt; means that &lt;code&gt;inkscape&lt;/code&gt; 
+has many attributes. The attribute &lt;code&gt;xmlns:inkscape="http://www.inkscape..."&lt;/code&gt; means that &lt;code&gt;inkscape&lt;/code&gt; 
 is an xml namespace.  So the attribute &lt;code&gt;inkscape:version="1.1..."&lt;/code&gt; is an abbreviation for 
-&lt;code&gt;www.inkscape...:version=....&lt;/code&gt;. Inkscape is forked from another software &lt;code&gt;sodipodi&lt;/code&gt;, and 
+&lt;code&gt;http://www.inkscape...:version=....&lt;/code&gt;. Inkscape is forked from another software &lt;code&gt;sodipodi&lt;/code&gt;, and 
 &lt;code&gt;sodipodi&lt;/code&gt; is still a namespace. &lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;sodipodi:namedview&lt;/code&gt; ➌ is an inkscape specific tag, and it will read and understand 
+&lt;p&gt;The &lt;code&gt;sodipodi:namedview&lt;/code&gt; ➌ is an inkscape specific tag. Inkscape will read and interpret 
 the tag and its attributes.  Other software does not have to recognize this tag. Notice 
-it has an attribute named &lt;code&gt;current-layer&lt;/code&gt; with value &lt;code&gt;layer1&lt;/code&gt;. The current layer infomation 
-is saved in the &lt;span class="caps"&gt;SVG&lt;/span&gt; file.  The &lt;code&gt;self.svg.namedview.center&lt;/code&gt; value in &lt;code&gt;triangle.py&lt;/code&gt; is 
-also derived from this tag.  The &lt;code&gt;defs&lt;/code&gt; is an abbreviation for &lt;code&gt;definitions&lt;/code&gt; ➍. 
-We can store some information in a &lt;code&gt;defs&lt;/code&gt; tag, and other 
-tags can reference the &lt;code&gt;defs&lt;/code&gt; tag.   &lt;/p&gt;
+it has an attribute named &lt;code&gt;current-layer&lt;/code&gt; with value &lt;code&gt;layer1&lt;/code&gt;. The current layer information 
+is saved in the &lt;span class="caps"&gt;SVG&lt;/span&gt; file.  The &lt;code&gt;layer1&lt;/code&gt; value refers to the id of a &lt;code&gt;g&lt;/code&gt; tag. 
+The &lt;code&gt;self.svg.namedview.center&lt;/code&gt; value in &lt;code&gt;triangle.py&lt;/code&gt; (discussed in 
+previous chapters) is also derived from this tag.  The &lt;code&gt;defs&lt;/code&gt; is an abbreviation 
+for &lt;code&gt;definitions&lt;/code&gt; ➍. We can store some information in a &lt;code&gt;defs&lt;/code&gt; tag, and other 
+tags of the same document can reference the &lt;code&gt;defs&lt;/code&gt; tag.   &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;g&lt;/code&gt; tag is a shorthand for group.  &lt;span class="caps"&gt;SVG&lt;/span&gt; itself does not have layer element. Inkscape uses 
 group tag with additional attribute &lt;code&gt;groupmode&lt;/code&gt; to represent layers ➎. &lt;/p&gt;
 &lt;h2&gt;Shapes&lt;/h2&gt;
 &lt;p&gt;There are &lt;a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes"&gt;six basic element shapes&lt;/a&gt; 
 in &lt;span class="caps"&gt;SVG&lt;/span&gt; specs: line, rect, circle, ellipse, polyline, and polygon. When we are working 
-on a drawing in Inkscape, we can create three types rect, circle, and ellipse. Inkscape 
-uses paths for other types. The example drawing below is created in Inkscape, 
+on a drawing in Inkscape, we can create three types rect, circle, and ellipse directly. 
+Inkscape uses paths for other types. The example drawing below is created in Inkscape, 
 and the &lt;span class="caps"&gt;SVG&lt;/span&gt; code is shown below. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext6/shapes.svg" alt="shapes"&gt; 
@@ -2083,14 +2084,14 @@ and the &lt;span class="caps"&gt;SVG&lt;/span&gt; code is shown below. &lt;/p&gt
       &lt;span class="na"&gt;cy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;25&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;20&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;ry=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;15&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
-   &lt;span class="nt"&gt;&amp;lt;path&lt;/span&gt;
-      &lt;span class="na"&gt;d=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;m 11.386056,53.443756 35.2468,23.203125&amp;quot;&lt;/span&gt;
-      &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path568&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
    &lt;span class="nt"&gt;&amp;lt;circle&lt;/span&gt;
       &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path1280&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;cx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;123.56148&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;cy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;25.414518&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;r=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;14.997319&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;path&lt;/span&gt;
+      &lt;span class="na"&gt;d=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;m 11.386056,53.443756 35.2468,23.203125&amp;quot;&lt;/span&gt;
+      &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path568&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
    &lt;span class="nt"&gt;&amp;lt;path&lt;/span&gt;
       &lt;span class="na"&gt;sodipodi:type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;star&amp;quot;&lt;/span&gt;
       &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path1777&amp;quot;&lt;/span&gt;
@@ -2120,7 +2121,7 @@ and the &lt;span class="caps"&gt;SVG&lt;/span&gt; code is shown below. &lt;/p&gt
 &lt;p&gt;The star shape is an Inkscape specific element. When we open the 
 drawing in another program, the star shape may be treated as a path element. &lt;/p&gt;
 &lt;h2&gt;Paths&lt;/h2&gt;
-&lt;p&gt;Path element is more powerful than basic shapes. It has a &lt;code&gt;d&lt;/code&gt; attribute 
+&lt;p&gt;Path element is more complicated than basic shapes. It has a &lt;code&gt;d&lt;/code&gt; attribute 
 which consists of commands and values. The command is a single letter followed by 
 a value or a coordinate. The uppercase command indicates parameters are absolute 
 values, and lowercase command indicates relative values. 
@@ -2157,7 +2158,7 @@ element change from &lt;code&gt;rect&lt;/code&gt; to &lt;code&gt;path&lt;/code&g
 There are many online resources to learn more about &lt;span class="caps"&gt;SVG&lt;/span&gt; format.  The Inkscape 
 itself is a good tool to learn &lt;span class="caps"&gt;SVG&lt;/span&gt;.  We can select an element and open the &lt;span class="caps"&gt;XML&lt;/span&gt; Editor 
 to see the code or save the &lt;span class="caps"&gt;SVG&lt;/span&gt; file and open it in a text editor.   &lt;/p&gt;
-&lt;p&gt;The &lt;span class="caps"&gt;SVG&lt;/span&gt; is an open standard by &lt;span class="caps"&gt;W3C&lt;/span&gt;. The Inkscape produced &lt;span class="caps"&gt;SVG&lt;/span&gt; follows version 1.1. 
+&lt;p&gt;The &lt;span class="caps"&gt;SVG&lt;/span&gt; is an open standard by &lt;span class="caps"&gt;W3C&lt;/span&gt;. The Inkscape &lt;span class="caps"&gt;SVG&lt;/span&gt; follows version 1.1. 
 The 1.1 version spec is at this link 
 &lt;a href="https://www.w3.org/TR/SVG11/"&gt;https://www.w3.org/&lt;span class="caps"&gt;TR&lt;/span&gt;/&lt;span class="caps"&gt;SVG11&lt;/span&gt;/&lt;/a&gt;. 
 The 2.0 version is at this link 
