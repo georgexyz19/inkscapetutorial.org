@@ -18,8 +18,8 @@ common transforms in Inkscape.
 
 The translate transform is simply moving an object.  The coordinate of a point on 
 the object (x, y) will change to (x', y'). The `a` and `b` values in the equations 
-shown below represent the distances along X and Y axles the object has moved. If 
-we write two equations below in a matrix form, we have the third 
+shown below represent the distances along X and Y axes the object has moved. If 
+we write two equations below in matrix form, we have the third 
 equation. 
 
 
@@ -28,14 +28,14 @@ equation.
 </div>
 
 The two equations below are for rotation and scale. The rotation angle (alpha) is 
-clockwise because the y axle increases from top to bottom. The `a` and `b` of 
+clockwise because the y axis increases from top to bottom. The `a` and `b` of 
 the scale equation represent the scale factor along X and Y. 
 
 <div style="max-width:800px;" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"> 
 </div>
 
-The above rotation equation is for rotating around origin (0, 0).  If we rotate an element 
+The above rotation equation is for rotating around the origin (0, 0).  If we rotate an element 
 around a coordinate (a, b), the equation becomes like this.
 
 <div style="max-width:800px;" class="text-center">
@@ -67,7 +67,7 @@ for this example.
 ```
 
 We will use the transform dialog (Menu `Object -> Transform` or shortcut Ctrl + Shift + M) 
-to see how Inkscape handles transform. When we move the rectangle 10mm horizontally and 10mm 
+to see how Inkscape handles a transform. When we move the rectangle 10mm horizontally and 10mm 
 vertically (with Relative move selected), the SVG element coordinates will change. 
 
 ```xml
@@ -79,11 +79,11 @@ vertically (with Relative move selected), the SVG element coordinates will chang
 ```
 
 Next let's rotate the object 30 degrees clockwise. The element code becomes like this. 
-It will has a new `transform` attribute with `rotate(30)` as its value. The x and y 
+It will have a new `transform` attribute with `rotate(30)` as its value. The x and y 
 coordinate values change from (20, 20) to (33.3012, -10.3589). The reason is that 
 the rotation is not around the origin (0, 0), instead it is around the center of the 
-rectangle which is (50, 40). How does the Inkscape calculate the new coordinates 
-of the top left corner of rectangle? It is a little complicated, and this 
+rectangle which is (50, 40). How does Inkscape calculate the new coordinates 
+of the top left corner of the rectangle? It is a little complicated, and this 
 [numpy python script](/files/coordinate_calc.py.txt) shows the calculation. 
 
 ```xml
@@ -107,7 +107,7 @@ arguments as the rotation center. The xml code shown below represents the same r
     transform="rotate(30, 50, 30)" />
 ```
 
-The SVG specs defines other transform functions `translate`, `scale`, `skewX`, `skewY`, and `matrix`. 
+The SVG specs define other transform functions `translate`, `scale`, `skewX`, `skewY`, and `matrix`. 
 We can also add a transform attribute to a group or a layer. 
 
 ## Transform in Extension Code
@@ -116,7 +116,7 @@ The `transform.py` module in the `inkex` directory has over 1,000 lines of code.
 system extensions do not use this function very often.  Only a few system extensions 
 set the `transform` attribute. 
 
-Here is an simple extension to test `transform` attribute of rectangle element. 
+Here is a simple extension to test the `transform` attribute of the rectangle element. 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
