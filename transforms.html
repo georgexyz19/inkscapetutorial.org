@@ -86,21 +86,21 @@ common transforms in Inkscape. </p>
 
 <p>The translate transform is simply moving an object.  The coordinate of a point on 
 the object (x, y) will change to (x&#8217;, y&#8217;). The <code>a</code> and <code>b</code> values in the equations 
-shown below represent the distances along X and Y axles the object has moved. If 
-we write two equations below in a matrix form, we have the third 
+shown below represent the distances along X and Y axes the object has moved. If 
+we write two equations below in matrix form, we have the third 
 equation. </p>
 <div style="max-width:800px" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations.svg" alt="equation 1"> 
 </div>
 
 <p>The two equations below are for rotation and scale. The rotation angle (alpha) is 
-clockwise because the y axle increases from top to bottom. The <code>a</code> and <code>b</code> of 
+clockwise because the y axis increases from top to bottom. The <code>a</code> and <code>b</code> of 
 the scale equation represent the scale factor along X and Y. </p>
 <div style="max-width:800px;" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations2.svg" alt="equation 2"> 
 </div>
 
-<p>The above rotation equation is for rotating around origin (0, 0).  If we rotate an element 
+<p>The above rotation equation is for rotating around the origin (0, 0).  If we rotate an element 
 around a coordinate (a, b), the equation becomes like this.</p>
 <div style="max-width:800px;" class="text-center">
   <img class="img-fluid pb-2" src="/images/ext11/equations2a.svg" alt="equation 2a"> 
@@ -127,7 +127,7 @@ for this example. </p>
 </code></pre></div>
 
 <p>We will use the transform dialog (Menu <code>Object -&gt; Transform</code> or shortcut Ctrl + Shift + M) 
-to see how Inkscape handles transform. When we move the rectangle 10mm horizontally and 10mm 
+to see how Inkscape handles a transform. When we move the rectangle 10mm horizontally and 10mm 
 vertically (with Relative move selected), the <span class="caps">SVG</span> element coordinates will change. </p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;rect</span>
     <span class="na">width=</span><span class="s">&quot;60&quot;</span>
@@ -137,11 +137,11 @@ vertically (with Relative move selected), the <span class="caps">SVG</span> elem
 </code></pre></div>
 
 <p>Next let&#8217;s rotate the object 30 degrees clockwise. The element code becomes like this. 
-It will has a new <code>transform</code> attribute with <code>rotate(30)</code> as its value. The x and y 
+It will have a new <code>transform</code> attribute with <code>rotate(30)</code> as its value. The x and y 
 coordinate values change from (20, 20) to (33.3012, -10.3589). The reason is that 
 the rotation is not around the origin (0, 0), instead it is around the center of the 
-rectangle which is (50, 40). How does the Inkscape calculate the new coordinates 
-of the top left corner of rectangle? It is a little complicated, and this 
+rectangle which is (50, 40). How does Inkscape calculate the new coordinates 
+of the top left corner of the rectangle? It is a little complicated, and this 
 <a href="/files/coordinate_calc.py.txt">numpy python script</a> shows the calculation. </p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;rect</span>
     <span class="na">width=</span><span class="s">&quot;60&quot;</span>
@@ -161,13 +161,13 @@ arguments as the rotation center. The xml code shown below represents the same r
     <span class="na">transform=</span><span class="s">&quot;rotate(30, 50, 30)&quot;</span> <span class="nt">/&gt;</span>
 </code></pre></div>
 
-<p>The <span class="caps">SVG</span> specs defines other transform functions <code>translate</code>, <code>scale</code>, <code>skewX</code>, <code>skewY</code>, and <code>matrix</code>. 
+<p>The <span class="caps">SVG</span> specs define other transform functions <code>translate</code>, <code>scale</code>, <code>skewX</code>, <code>skewY</code>, and <code>matrix</code>. 
 We can also add a transform attribute to a group or a layer. </p>
 <h2>Transform in Extension Code</h2>
 <p>The <code>transform.py</code> module in the <code>inkex</code> directory has over 1,000 lines of code. But the 
 system extensions do not use this function very often.  Only a few system extensions 
 set the <code>transform</code> attribute. </p>
-<p>Here is an simple extension to test <code>transform</code> attribute of rectangle element. </p>
+<p>Here is a simple extension to test the <code>transform</code> attribute of the rectangle element. </p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;inkscape-extension</span> 
     <span class="na">xmlns=</span><span class="s">&quot;http://www.inkscape.org/namespace/inkscape/extension&quot;</span><span class="nt">&gt;</span>
