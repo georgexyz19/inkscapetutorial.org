@@ -353,7 +353,7 @@ Other classes derived from &lt;code&gt;ShapeElement&lt;/code&gt; also have this 
 &lt;p&gt;The &lt;code&gt;Path&lt;/code&gt; class is defined in &lt;code&gt;inkex/paths.py&lt;/code&gt; module. The &lt;code&gt;Path&lt;/code&gt; object is 
 interesting, and it is a list of other class objects. The &lt;code&gt;inkex/paths.py&lt;/code&gt; module 
 defines many other classes such as &lt;code&gt;Move&lt;/code&gt;, &lt;code&gt;move&lt;/code&gt;, &lt;code&gt;Horz&lt;/code&gt;, &lt;code&gt;horz&lt;/code&gt;, &lt;code&gt;Curve&lt;/code&gt;, 
-&lt;code&gt;curve&lt;/code&gt; etc.&lt;/p&gt;
+&lt;code&gt;curve&lt;/code&gt;, etc.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; p = pel.path
 &amp;gt;&amp;gt;&amp;gt; p
 [Move(80.3412, 87.9089), Curve(99.575, 67.2665, 
