@@ -82,7 +82,7 @@ Other classes derived from `ShapeElement` also have this `path` property.
 The `Path` class is defined in `inkex/paths.py` module. The `Path` object is 
 interesting, and it is a list of other class objects. The `inkex/paths.py` module 
 defines many other classes such as `Move`, `move`, `Horz`, `horz`, `Curve`, 
-`curve` etc.
+`curve`, etc.
 
 ```
 >>> p = pel.path
