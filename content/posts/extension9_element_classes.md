@@ -6,7 +6,7 @@ chapter: 9
 note: Element Classes
 
 All element classes like `Polyline` and `TextElement` are directly or indirectly derived from 
-`BaseElement` class, which is define in the `inkex/elements/_base.py` module. The 
+`BaseElement` class, which is defined in the `inkex/elements/_base.py` module. The 
 `BaseElement` class is subclassed from `etree.ElementBase` class.  The `etree.ElementBase` 
 class is described as "public Element class" in its 
 [documentation page](https://lxml.de/api/lxml.etree.ElementBase-class.html). 
@@ -14,8 +14,8 @@ class is described as "public Element class" in its
 The `BaseElement` defines an `__init_subclass__` magic method which will register all 
 its subclasses and add them to a `lookup_table` defined in `NodeBasedLookup` class. When 
 the XML parser starts parsing a document, it will use this `lookup_table` 
-to find appropriate custom element class for each element. It probably can be implemented 
-as a class decorator in Python, but every `BaseElement` subclasses need to be decorated 
+to find the appropriate custom element class for each element. It probably can be implemented 
+as a class decorator in Python, but every `BaseElement` subclass needs to be decorated 
 with the decorator.  
 
 ```
@@ -46,7 +46,7 @@ function invokes `etree.parse` method to load the SVG file. The return value is
 an `ElementTree` object. As discussed in the last chapter, we can call the 
 `getroot` method to get a top level `Element` object, which is the `svg` tag 
 element. The `svg` tag element is actually of type `SvgDocumentElement`, which 
-is subclass of `etree._Element` class. 
+is a subclass of `etree._Element` class. 
 
 ```
 george@Inspiron-5515:~$ /usr/bin/python3
@@ -82,7 +82,7 @@ we can print out child tag names. The four shape elements are nested inside
 the `g` layer object, and we can loop through the layer object to print 4 
 element tag names. 
 
-The interesting part of the results shown below is that all element nested 
+The interesting part of the results shown below is that each element nested 
 inside the `svg` tag has an `svg` namespace unless it is specified with an explicit 
 namespace such as `sodipodi:namedview`. 
 
@@ -178,7 +178,7 @@ different types of elements. The class defines a `WRAPPED_ATTRS` class variable,
 ```
 
 The `BaseElement` class defines `__setattr__` and `__getattr__` magic methods. They 
-add supports for three nested attribute `transform`, `style`, and `class`. For example, 
+add support for three nested attributes: `transform`, `style`, and `class`. For example, 
 we can assign a string value to the transform property. The `__setattr__` method 
 will convert it to an `Transform` class object and assign it to the property. 
 
@@ -197,9 +197,9 @@ Transform(((2, 0, 0), (0, 2, 0)))
 The `BaseElement` class also defines `set` and `get` methods.  Both methods add 
 namespace support. When we set an attribute with a namespace like `inkscape:label`, 
 the `set` method will convert the namespace `inkscape` to a long string `{http...}`. 
-The `update` method calls `set` method to set attributes, and the `new` method 
-calls `update` method. So both `new` and `update` methods supports nested attribute and 
-namespace. The `pop` method deletes an existing attribute. 
+The `update` method calls the `set` method to set attributes, and the `new` method 
+calls the `update` method. So both `new` and `update` methods support nested attributes and 
+namespaces. The `pop` method deletes an existing attribute. 
 
 ```
 >>> rel.set('inkscape:label', 'rectangle')
