@@ -74,9 +74,9 @@ The [lxml documentation](https://lxml.de/api/lxml.etree._ElementTree-class.html#
 describes that "[getpath method] returns a structural, absolute XPath expression to find the 
 element".  
 
-`ElementList` key is a string value. It's the value before colon as shown below. 
+`ElementList` key is a string value. It's the value before the colon as shown below. 
 The first part `/*` refers 
-to the `svg` element.  The second part `/*[3]` refer to `g` layer element nested inside `svg`. 
+to the `svg` element.  The second part `/*[3]` refers to `g` layer element nested inside `svg`. 
 The `g` element is listed after `sodipodi:namedview` and `defs` elements. 
 The third part `/*[1]` refers to the rect element, which is the first 
 one nested under `g` element. 
@@ -90,7 +90,7 @@ one nested under `g` element.
 ```
 
 The `ElementList` class also defines an `ids` instance variable, which is a 
-dictionary mapping `id` to `xml_path`. The class also have a method `id_dict` 
+dictionary mapping `id` to `xml_path`. The class also has a method `id_dict` 
 which returns a dictionary mapping `id` to `element`. Why does the class choose 
 to use `xml_path` value as the dictionary key? It is probably for the `paint_order` 
 method which returns a list of selected elements by z-order (bottom to top). 
@@ -110,7 +110,7 @@ The `bounding_box` method returns a `BoundingBox` object for selected elements.
 It's useful when we need to know the size of selected elements such as 
 the `Dimensions` extension. 
 
-The Inkscape itself preserves the select order when passing the ids to extension. 
+Inkscape itself preserves the selection order when passing the ids to an extension. 
 The first element in the `ElementList` is the first selected element in Inkscape. 
 The extension system doesn't provide a way to transmit selected elements back to 
 Inkscape, so we can't modify selections in an Inkscape extension.
