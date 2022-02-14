@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="All element classes like Polyline and TextElement are directly or indirectly derived from BaseElement class, which is define in the inkex/elements/_base.py module. The BaseElement class is subclassed …" />
+<meta name="description" content="All element classes like Polyline and TextElement are directly or indirectly derived from BaseElement class, which is defined in the inkex/elements/_base.py module. The BaseElement class is subclassed …" />
     <title>Inkex Element Classes - Inkscape Tutorial</title>
   </head>
   <body>
@@ -76,15 +76,15 @@
       </div>
 
       <p>All element classes like <code>Polyline</code> and <code>TextElement</code> are directly or indirectly derived from 
-<code>BaseElement</code> class, which is define in the <code>inkex/elements/_base.py</code> module. The 
+<code>BaseElement</code> class, which is defined in the <code>inkex/elements/_base.py</code> module. The 
 <code>BaseElement</code> class is subclassed from <code>etree.ElementBase</code> class.  The <code>etree.ElementBase</code> 
 class is described as &#8220;public Element class&#8221; in its 
 <a href="https://lxml.de/api/lxml.etree.ElementBase-class.html">documentation page</a>. </p>
 <p>The <code>BaseElement</code> defines an <code>__init_subclass__</code> magic method which will register all 
 its subclasses and add them to a <code>lookup_table</code> defined in <code>NodeBasedLookup</code> class. When 
 the <span class="caps">XML</span> parser starts parsing a document, it will use this <code>lookup_table</code> 
-to find appropriate custom element class for each element. It probably can be implemented 
-as a class decorator in Python, but every <code>BaseElement</code> subclasses need to be decorated 
+to find the appropriate custom element class for each element. It probably can be implemented 
+as a class decorator in Python, but every <code>BaseElement</code> subclass needs to be decorated 
 with the decorator.  </p>
 <div class="highlight"><pre><span></span><code>class BaseElement(etree.ElementBase):
     &quot;&quot;&quot;Provide automatic namespaces to all calls&quot;&quot;&quot;
@@ -111,7 +111,7 @@ function invokes <code>etree.parse</code> method to load the <span class="caps">
 an <code>ElementTree</code> object. As discussed in the last chapter, we can call the 
 <code>getroot</code> method to get a top level <code>Element</code> object, which is the <code>svg</code> tag 
 element. The <code>svg</code> tag element is actually of type <code>SvgDocumentElement</code>, which 
-is subclass of <code>etree._Element</code> class. </p>
+is a subclass of <code>etree._Element</code> class. </p>
 <div class="highlight"><pre><span></span><code>george@Inspiron-5515:~$ /usr/bin/python3
 Python 3.9.5 (default, May 11 2021, 08:20:37) 
 [GCC 10.3.0] on linux
@@ -144,7 +144,7 @@ True
 we can print out child tag names. The four shape elements are nested inside 
 the <code>g</code> layer object, and we can loop through the layer object to print 4 
 element tag names. </p>
-<p>The interesting part of the results shown below is that all element nested 
+<p>The interesting part of the results shown below is that each element nested 
 inside the <code>svg</code> tag has an <code>svg</code> namespace unless it is specified with an explicit 
 namespace such as <code>sodipodi:namedview</code>. </p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; len(svg)
@@ -231,7 +231,7 @@ different types of elements. The class defines a <code>WRAPPED_ATTRS</code> clas
 </code></pre></div>
 
 <p>The <code>BaseElement</code> class defines <code>__setattr__</code> and <code>__getattr__</code> magic methods. They 
-add supports for three nested attribute <code>transform</code>, <code>style</code>, and <code>class</code>. For example, 
+add support for three nested attributes: <code>transform</code>, <code>style</code>, and <code>class</code>. For example, 
 we can assign a string value to the transform property. The <code>__setattr__</code> method 
 will convert it to an <code>Transform</code> class object and assign it to the property. </p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; rel = gel[0]
@@ -248,9 +248,9 @@ Transform(((2, 0, 0), (0, 2, 0)))
 <p>The <code>BaseElement</code> class also defines <code>set</code> and <code>get</code> methods.  Both methods add 
 namespace support. When we set an attribute with a namespace like <code>inkscape:label</code>, 
 the <code>set</code> method will convert the namespace <code>inkscape</code> to a long string <code>{http...}</code>. 
-The <code>update</code> method calls <code>set</code> method to set attributes, and the <code>new</code> method 
-calls <code>update</code> method. So both <code>new</code> and <code>update</code> methods supports nested attribute and 
-namespace. The <code>pop</code> method deletes an existing attribute. </p>
+The <code>update</code> method calls the <code>set</code> method to set attributes, and the <code>new</code> method 
+calls the <code>update</code> method. So both <code>new</code> and <code>update</code> methods support nested attributes and 
+namespaces. The <code>pop</code> method deletes an existing attribute. </p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; rel.set(&#39;inkscape:label&#39;, &#39;rectangle&#39;)
 &gt;&gt;&gt; rel.attrib
 {&#39;id&#39;: &#39;rect31&#39;, &#39;width&#39;: &#39;43.4631&#39;, ...

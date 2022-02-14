@@ -230,9 +230,9 @@ the values are the corresponding element objects.  However, the keys are actuall
 The &lt;a href="https://lxml.de/api/lxml.etree._ElementTree-class.html#getpath"&gt;lxml documentation&lt;/a&gt; 
 describes that &amp;#8220;[getpath method] returns a structural, absolute XPath expression to find the 
 element&amp;#8221;.  &lt;/p&gt;
-&lt;p&gt;&lt;code&gt;ElementList&lt;/code&gt; key is a string value. It&amp;#8217;s the value before colon as shown below. 
+&lt;p&gt;&lt;code&gt;ElementList&lt;/code&gt; key is a string value. It&amp;#8217;s the value before the colon as shown below. 
 The first part &lt;code&gt;/*&lt;/code&gt; refers 
-to the &lt;code&gt;svg&lt;/code&gt; element.  The second part &lt;code&gt;/*[3]&lt;/code&gt; refer to &lt;code&gt;g&lt;/code&gt; layer element nested inside &lt;code&gt;svg&lt;/code&gt;. 
+to the &lt;code&gt;svg&lt;/code&gt; element.  The second part &lt;code&gt;/*[3]&lt;/code&gt; refers to &lt;code&gt;g&lt;/code&gt; layer element nested inside &lt;code&gt;svg&lt;/code&gt;. 
 The &lt;code&gt;g&lt;/code&gt; element is listed after &lt;code&gt;sodipodi:namedview&lt;/code&gt; and &lt;code&gt;defs&lt;/code&gt; elements. 
 The third part &lt;code&gt;/*[1]&lt;/code&gt; refers to the rect element, which is the first 
 one nested under &lt;code&gt;g&lt;/code&gt; element. &lt;/p&gt;
@@ -244,7 +244,7 @@ one nested under &lt;code&gt;g&lt;/code&gt; element. &lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;ElementList&lt;/code&gt; class also defines an &lt;code&gt;ids&lt;/code&gt; instance variable, which is a 
-dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;xml_path&lt;/code&gt;. The class also have a method &lt;code&gt;id_dict&lt;/code&gt; 
+dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;xml_path&lt;/code&gt;. The class also has a method &lt;code&gt;id_dict&lt;/code&gt; 
 which returns a dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;element&lt;/code&gt;. Why does the class choose 
 to use &lt;code&gt;xml_path&lt;/code&gt; value as the dictionary key? It is probably for the &lt;code&gt;paint_order&lt;/code&gt; 
 method which returns a list of selected elements by z-order (bottom to top). &lt;/p&gt;
@@ -259,7 +259,7 @@ select_elems = self.svg.selection.filter(PathElement)
 &lt;p&gt;The &lt;code&gt;bounding_box&lt;/code&gt; method returns a &lt;code&gt;BoundingBox&lt;/code&gt; object for selected elements. 
 It&amp;#8217;s useful when we need to know the size of selected elements such as 
 the &lt;code&gt;Dimensions&lt;/code&gt; extension. &lt;/p&gt;
-&lt;p&gt;The Inkscape itself preserves the select order when passing the ids to extension. 
+&lt;p&gt;Inkscape itself preserves the selection order when passing the ids to an extension. 
 The first element in the &lt;code&gt;ElementList&lt;/code&gt; is the first selected element in Inkscape. 
 The extension system doesn&amp;#8217;t provide a way to transmit selected elements back to 
 Inkscape, so we can&amp;#8217;t modify selections in an Inkscape extension.&lt;/p&gt;
@@ -491,17 +491,17 @@ lists the &lt;span class="caps"&gt;US&lt;/span&gt; Flag Specifications. Write an
 &lt;div style="max-width:600px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext13/flag.svg" alt="american flag"&gt; 
 &lt;/div&gt;</content><category term="extension"></category></entry><entry><title>Inkex Element Classes</title><link href="https://www.inkscapetutorial.org/inkex-element-classes.html" rel="alternate"></link><published>2021-08-24T10:54:00-04:00</published><updated>2021-08-24T10:54:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-24:/inkex-element-classes.html</id><summary type="html">&lt;p&gt;All element classes like &lt;code&gt;Polyline&lt;/code&gt; and &lt;code&gt;TextElement&lt;/code&gt; are directly or indirectly derived from 
-&lt;code&gt;BaseElement&lt;/code&gt; class, which is define in the &lt;code&gt;inkex/elements/_base.py&lt;/code&gt; module. The 
+&lt;code&gt;BaseElement&lt;/code&gt; class, which is defined in the &lt;code&gt;inkex/elements/_base.py&lt;/code&gt; module. The 
 &lt;code&gt;BaseElement&lt;/code&gt; class is subclassed …&lt;/p&gt;</summary><content type="html">&lt;p&gt;All element classes like &lt;code&gt;Polyline&lt;/code&gt; and &lt;code&gt;TextElement&lt;/code&gt; are directly or indirectly derived from 
-&lt;code&gt;BaseElement&lt;/code&gt; class, which is define in the &lt;code&gt;inkex/elements/_base.py&lt;/code&gt; module. The 
+&lt;code&gt;BaseElement&lt;/code&gt; class, which is defined in the &lt;code&gt;inkex/elements/_base.py&lt;/code&gt; module. The 
 &lt;code&gt;BaseElement&lt;/code&gt; class is subclassed from &lt;code&gt;etree.ElementBase&lt;/code&gt; class.  The &lt;code&gt;etree.ElementBase&lt;/code&gt; 
 class is described as &amp;#8220;public Element class&amp;#8221; in its 
 &lt;a href="https://lxml.de/api/lxml.etree.ElementBase-class.html"&gt;documentation page&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;BaseElement&lt;/code&gt; defines an &lt;code&gt;__init_subclass__&lt;/code&gt; magic method which will register all 
 its subclasses and add them to a &lt;code&gt;lookup_table&lt;/code&gt; defined in &lt;code&gt;NodeBasedLookup&lt;/code&gt; class. When 
 the &lt;span class="caps"&gt;XML&lt;/span&gt; parser starts parsing a document, it will use this &lt;code&gt;lookup_table&lt;/code&gt; 
-to find appropriate custom element class for each element. It probably can be implemented 
-as a class decorator in Python, but every &lt;code&gt;BaseElement&lt;/code&gt; subclasses need to be decorated 
+to find the appropriate custom element class for each element. It probably can be implemented 
+as a class decorator in Python, but every &lt;code&gt;BaseElement&lt;/code&gt; subclass needs to be decorated 
 with the decorator.  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;class BaseElement(etree.ElementBase):
     &amp;quot;&amp;quot;&amp;quot;Provide automatic namespaces to all calls&amp;quot;&amp;quot;&amp;quot;
@@ -528,7 +528,7 @@ function invokes &lt;code&gt;etree.parse&lt;/code&gt; method to load the &lt;spa
 an &lt;code&gt;ElementTree&lt;/code&gt; object. As discussed in the last chapter, we can call the 
 &lt;code&gt;getroot&lt;/code&gt; method to get a top level &lt;code&gt;Element&lt;/code&gt; object, which is the &lt;code&gt;svg&lt;/code&gt; tag 
 element. The &lt;code&gt;svg&lt;/code&gt; tag element is actually of type &lt;code&gt;SvgDocumentElement&lt;/code&gt;, which 
-is subclass of &lt;code&gt;etree._Element&lt;/code&gt; class. &lt;/p&gt;
+is a subclass of &lt;code&gt;etree._Element&lt;/code&gt; class. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;george@Inspiron-5515:~$ /usr/bin/python3
 Python 3.9.5 (default, May 11 2021, 08:20:37) 
 [GCC 10.3.0] on linux
@@ -561,7 +561,7 @@ True
 we can print out child tag names. The four shape elements are nested inside 
 the &lt;code&gt;g&lt;/code&gt; layer object, and we can loop through the layer object to print 4 
 element tag names. &lt;/p&gt;
-&lt;p&gt;The interesting part of the results shown below is that all element nested 
+&lt;p&gt;The interesting part of the results shown below is that each element nested 
 inside the &lt;code&gt;svg&lt;/code&gt; tag has an &lt;code&gt;svg&lt;/code&gt; namespace unless it is specified with an explicit 
 namespace such as &lt;code&gt;sodipodi:namedview&lt;/code&gt;. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; len(svg)
@@ -648,7 +648,7 @@ different types of elements. The class defines a &lt;code&gt;WRAPPED_ATTRS&lt;/c
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;BaseElement&lt;/code&gt; class defines &lt;code&gt;__setattr__&lt;/code&gt; and &lt;code&gt;__getattr__&lt;/code&gt; magic methods. They 
-add supports for three nested attribute &lt;code&gt;transform&lt;/code&gt;, &lt;code&gt;style&lt;/code&gt;, and &lt;code&gt;class&lt;/code&gt;. For example, 
+add support for three nested attributes: &lt;code&gt;transform&lt;/code&gt;, &lt;code&gt;style&lt;/code&gt;, and &lt;code&gt;class&lt;/code&gt;. For example, 
 we can assign a string value to the transform property. The &lt;code&gt;__setattr__&lt;/code&gt; method 
 will convert it to an &lt;code&gt;Transform&lt;/code&gt; class object and assign it to the property. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; rel = gel[0]
@@ -665,9 +665,9 @@ Transform(((2, 0, 0), (0, 2, 0)))
 &lt;p&gt;The &lt;code&gt;BaseElement&lt;/code&gt; class also defines &lt;code&gt;set&lt;/code&gt; and &lt;code&gt;get&lt;/code&gt; methods.  Both methods add 
 namespace support. When we set an attribute with a namespace like &lt;code&gt;inkscape:label&lt;/code&gt;, 
 the &lt;code&gt;set&lt;/code&gt; method will convert the namespace &lt;code&gt;inkscape&lt;/code&gt; to a long string &lt;code&gt;{http...}&lt;/code&gt;. 
-The &lt;code&gt;update&lt;/code&gt; method calls &lt;code&gt;set&lt;/code&gt; method to set attributes, and the &lt;code&gt;new&lt;/code&gt; method 
-calls &lt;code&gt;update&lt;/code&gt; method. So both &lt;code&gt;new&lt;/code&gt; and &lt;code&gt;update&lt;/code&gt; methods supports nested attribute and 
-namespace. The &lt;code&gt;pop&lt;/code&gt; method deletes an existing attribute. &lt;/p&gt;
+The &lt;code&gt;update&lt;/code&gt; method calls the &lt;code&gt;set&lt;/code&gt; method to set attributes, and the &lt;code&gt;new&lt;/code&gt; method 
+calls the &lt;code&gt;update&lt;/code&gt; method. So both &lt;code&gt;new&lt;/code&gt; and &lt;code&gt;update&lt;/code&gt; methods support nested attributes and 
+namespaces. The &lt;code&gt;pop&lt;/code&gt; method deletes an existing attribute. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; rel.set(&amp;#39;inkscape:label&amp;#39;, &amp;#39;rectangle&amp;#39;)
 &amp;gt;&amp;gt;&amp;gt; rel.attrib
 {&amp;#39;id&amp;#39;: &amp;#39;rect31&amp;#39;, &amp;#39;width&amp;#39;: &amp;#39;43.4631&amp;#39;, ...

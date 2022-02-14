@@ -130,9 +130,9 @@ the values are the corresponding element objects.  However, the keys are actuall
 The <a href="https://lxml.de/api/lxml.etree._ElementTree-class.html#getpath">lxml documentation</a> 
 describes that &#8220;[getpath method] returns a structural, absolute XPath expression to find the 
 element&#8221;.  </p>
-<p><code>ElementList</code> key is a string value. It&#8217;s the value before colon as shown below. 
+<p><code>ElementList</code> key is a string value. It&#8217;s the value before the colon as shown below. 
 The first part <code>/*</code> refers 
-to the <code>svg</code> element.  The second part <code>/*[3]</code> refer to <code>g</code> layer element nested inside <code>svg</code>. 
+to the <code>svg</code> element.  The second part <code>/*[3]</code> refers to <code>g</code> layer element nested inside <code>svg</code>. 
 The <code>g</code> element is listed after <code>sodipodi:namedview</code> and <code>defs</code> elements. 
 The third part <code>/*[1]</code> refers to the rect element, which is the first 
 one nested under <code>g</code> element. </p>
@@ -144,7 +144,7 @@ one nested under <code>g</code> element. </p>
 </code></pre></div>
 
 <p>The <code>ElementList</code> class also defines an <code>ids</code> instance variable, which is a 
-dictionary mapping <code>id</code> to <code>xml_path</code>. The class also have a method <code>id_dict</code> 
+dictionary mapping <code>id</code> to <code>xml_path</code>. The class also has a method <code>id_dict</code> 
 which returns a dictionary mapping <code>id</code> to <code>element</code>. Why does the class choose 
 to use <code>xml_path</code> value as the dictionary key? It is probably for the <code>paint_order</code> 
 method which returns a list of selected elements by z-order (bottom to top). </p>
@@ -159,7 +159,7 @@ select_elems = self.svg.selection.filter(PathElement)
 <p>The <code>bounding_box</code> method returns a <code>BoundingBox</code> object for selected elements. 
 It&#8217;s useful when we need to know the size of selected elements such as 
 the <code>Dimensions</code> extension. </p>
-<p>The Inkscape itself preserves the select order when passing the ids to extension. 
+<p>Inkscape itself preserves the selection order when passing the ids to an extension. 
 The first element in the <code>ElementList</code> is the first selected element in Inkscape. 
 The extension system doesn&#8217;t provide a way to transmit selected elements back to 
 Inkscape, so we can&#8217;t modify selections in an Inkscape extension.</p>
