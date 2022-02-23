@@ -4,24 +4,34 @@ from math import cos, sin, radians
 
 a = np.array([ [20], [20], [1] ])
 
-# rotate around (50, 40)
-b = np.array([[cos(radians(30)), -1 * sin(radians(30)), 50 ], 
-               [sin(radians(30)), cos(radians(30)), 40], 
-               [0, 0, 1] ])
-               
-c = np.array([[ 1, 0, -50 ], 
+# move center to (0, 0)
+b = np.array([[ 1, 0, -50 ], 
                [0, 1, -40], 
+               [0, 0, 1] ])
+    
+# rotate around (0, 0)
+c = np.array([[cos(radians(30)), -1 * sin(radians(30)), 0 ], 
+               [sin(radians(30)), cos(radians(30)), 0], 
+               [0, 0, 1] ])
+
+# move center back to (50, 40)
+d = np.array([[ 1, 0, 50 ], 
+               [0, 1, 40], 
                [0, 0, 1] ])
     
 
 # rotate around (0, 0)                        
-d = np.array([[cos(radians(30)), -1 * sin(radians(30)), 0 ], 
+e = np.array([[cos(radians(30)), -1 * sin(radians(30)), 0 ], 
                [sin(radians(30)), cos(radians(30)), 0], 
                [0, 0, 1] ])
                  
-e = np.linalg.inv(d)
+f = np.linalg.inv(e)
 
-rv =  np.linalg.multi_dot([e, b, c, a])
+
+# e ^ (-1) \cdot (rv) = d \cdot c \cdot b \cdot a 
+# rv = return value 
+
+rv =  np.linalg.multi_dot([f, d, c, b, a])
 
 print(f'result is {rv}')
 
