@@ -62,7 +62,7 @@ Here is an example drawing with equations on the right hand side.
 
 The drawing below shows a small portion of a large sign poster file which is created 
 with an Inkscape extension. The [full size poster file](/files/ext1/signposter.pdf) contains
- over 700 sign drawings. 
+about 700 sign drawings. 
 
 <div style="max-width:800px">
   <img class="img-fluid pb-2" src="/images/ext1/ext1-poster.svg" alt="poster"> 
@@ -103,11 +103,11 @@ D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
 The `user extensions` refers to extensions created by you as an Inkscape user (or programmer). The 
 `inkscape extensions` or `system extensions` refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the `inkscape extensions` 
-directory and vice versa.  They will run just fine. But it is better to separate them in two 
+directory and vice versa.  They will run just fine. But it is better to separate them into two 
 directories. 
 
 We can add two aliases to the `~/.bashrc` file to have easier access to those two 
-directories when we are developing extensions in Ubuntu.  This is for Linux users. 
+directories when we are developing extensions in Ubuntu.  This is for Linux users only. 
 
 ```
 alias cdsysdir='cd /usr/share/inkscape/extensions'
@@ -128,7 +128,7 @@ find . -name '*.py' | wc -l   # 226
 find . -name '*.py' -exec wc -l '{}' +    #43,979
 ```
 
-The system extensions have lots of code, and it has become almost impossible for 
+The system extensions have lots of code, and it's almost impossible for 
 one person to read and understand all of them.  This extension tutorial series
 will try to discuss and explain a small subset of those files.  
 
@@ -141,7 +141,7 @@ this gitlab source code repository is the place to get started.
 
 Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
 mostly written in Python 2. Even though Python 3.4 is released back in 2014 and 
-many people have been writing program in Python 3. Inkscape extensions are in 
+many people have been writing programs in Python 3. Inkscape extensions are in 
 Python 2 for many years. The 
 reason is that most system extensions are created by various developers over time
 and it requires some serious work to convert them to Python 3. The root problem is 
@@ -149,7 +149,7 @@ that Python 3 is not compatible with Python 2.
 
 Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
 The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
-new extensions for Inkscape 1.0 & 1.1 are incompatible with older Inkscape, 
+new extensions (third party) for Inkscape 1.0 & 1.1 are incompatible with older Inkscape, 
 and old extensions are incompatible with new Inkscape. 
 
 If you somehow get an 
@@ -161,7 +161,7 @@ in Inkscape 0.92.X and it may work well.
 This tutorial series is developed from my notes.  It's not as formal 
 as a typical book or software manual, but it's in a much better shape than 
 my notes. I am trying to point the right direction for people who are 
-interested to learn more about Inkscape extension development.  
+interested to learn more about Inkscape extension development. 
 
 
 
