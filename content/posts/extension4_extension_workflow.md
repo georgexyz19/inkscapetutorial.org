@@ -5,7 +5,7 @@ category: extension
 chapter: 4
 note: Extension Workflow
 
-We will discuss those two line of code in `run` method of `InksacpeExtension` 
+We will discuss those two lines of code in `run` method of `InksacpeExtension` 
 class in this chapter. 
 
 ```
@@ -119,7 +119,7 @@ to get an object representing current layer. The current layer information is sa
 the SVG file itself.  The second line get the Inkscape view center coordinates. 
 The next four lines of code convert number unit from pixel to SVG internal default unit 
 millimeter.  For example, the `s_a` value is 100 px before the conversion, and 
-the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
+the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is also 25.4 mm.
 So the conversion is 100/96 in * 25.4 = 26.45 mm.
 
 The `effect` method calls `draw_tri_from_3_sides` function defined earlier in the 
@@ -262,6 +262,6 @@ load and save processes. The `inkex` module already has code to handle
 them. It actually warps around a third party python module `lxml`, which 
 does the XML loading, parsing, and saving.  The 
 [lxml official website](https://lxml.de/) 
-has lots of useful information. We will also discuss this module in later chapters. 
+has lots of useful information. We will also discuss this module in a later chapter. 
 
 
