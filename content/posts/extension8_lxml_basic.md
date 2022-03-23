@@ -10,8 +10,8 @@ note: LXML Basics
 The Inkscape `SVG` files are in xml format. When we write an Inkscape extension, 
 we could write the code to parse the xml, modify the 
 content, and send it back to Inkscape. Or we can use other well 
-designed and tested code for xml parsing and handling. Generally speaking, 
-reusing other people's existing code saves programming time. The 
+designed and tested code for xml parsing and handling. In most cases, 
+reusing existing code is a good thing which saves time. The 
 drawback is that we have to spend time to learn how to use existing code. 
 
 The [lxml](https://lxml.de/) 
@@ -20,7 +20,7 @@ similar to Python standard library module `xml.etree.ElementTree`, but it is fas
 easier to program. 
 The Inkscape extension developers long recognized the value of `lxml` python 
 package. The package `inkex` wraps many functions of `lxml` so extension 
-developers do not have to deal with `lxml` directly.  
+developers do not have to deal with `lxml` directly in most cases.  
 
 It is usually enough for Inkscape developers to only work with `inkex` package. 
 But sometimes we want to use functionality in `lxml` directly, or try to understand 
@@ -70,11 +70,12 @@ Python 3.9.5 (default, May 11 2021, 08:20:37)
 '4.6.3'
 ```
 
-The `etree.ElementTree` is a wrapper class around the `_ElementTree` class. We can 
+The `etree.ElementTree` is a wrapper class around the `_ElementTree` class 
+(which is a C++/C internal class or structure). We can 
 call `etree.ElementTree()` method to create an empty document. If we pass a file name 
 (or file object), the return value is an `ElementTree` instance. If we use the 
 `element` argument, the file argument will be ignored. It returns an `ElementTree` 
-object based on an `Element` object. 
+object based on the `Element` object. 
 
 The `etree.tostring` function converts an `ElementTree` or `Element` object 
 to a string containing the XML content. The `etree.fromstring` function 
@@ -107,7 +108,7 @@ object, and adds it as the
 next child of its parent element. It also returns the newly created element. 
 
 
-Many Inkscape extensions use `SubElement` method to add new elements before 
+Many old Inkscape extensions use `SubElement` method to add new elements before 
 version 1.0. The `SubElement` method has one more argument `parent` than 
 the `Element` constructor. The namespace part of XML is a little annoying to type. 
 Here are a few examples.  
@@ -165,7 +166,7 @@ The `root_node` is the same value returned by the `etree.XML` function. The
 `id_dict` contains id-element pairs. The dictionary keys are the `id` attributes 
 of all elements, and the values are the elements referenced by the `id` attributes. 
 We could design an SVG file and assign an `id` for each element, load the file with 
-`etree.XMLID` function call, and access element via the `id` attribute. 
+`etree.XMLID` function, and access element via the `id` attribute. 
 
 ```python
 etree.XML(text, parser=None, base_url=None)
