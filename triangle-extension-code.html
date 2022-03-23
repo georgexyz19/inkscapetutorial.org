@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="Extension Structure In this tutorial, we will take a look at the Triangle extension code. Usually an Inkscape extension consists of two files—one .inx file and one .py file …" />
+<meta name="description" content="Extension Structure In this tutorial, we will take a look at the Triangle extension source code. Usually an Inkscape extension consists of two files—one .inx file and one .py …" />
     <title>Triangle Extension Code - Inkscape Tutorial</title>
   </head>
   <body>
@@ -76,14 +76,14 @@
       </div>
 
       <h2>Extension Structure</h2>
-<p>In this tutorial, we will take a look at the <code>Triangle</code> extension code.
+<p>In this tutorial, we will take a look at the <code>Triangle</code> extension source code.
 Usually an Inkscape extension consists of two files—one <code>.inx</code> file and 
 one <code>.py</code> file. The <code>.inx</code> file contains xml code describing the user interface 
 and the <code>.py</code> file is the 
-Python file. The <code>.py</code> file can import other modules so an extension 
+Python code doing the actual work. The <code>.py</code> file can import other modules so an extension 
 could involve multiple Python modules. </p>
 <p>The <code>Triangle</code> extension code is in the <code>triangle.inx</code> and <code>triangle.py</code> 
-files. Both are in the system extension directory. </p>
+files. Both files are in the system extension directory. </p>
 <h2>Inx File</h2>
 <p>The <code>triangle.inx</code> file has 27 lines. The content of the file is shown below.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span> ➊
@@ -147,7 +147,7 @@ includes two types of param element <code>float</code> and <code>optiongroup</co
 types we can use.  This 
 <a href="https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters">Inkscape wiki page</a> 
 has a complete list. We don&#8217;t have to memorize the user interface 
-controls.  We use 
+control syntax.  We use 
 the wiki page as a reference and grep the system extension directory 
 to find some examples. </p>
 <p>The <code>command</code> tag under the <code>script</code> element indicates that the extension 
@@ -235,7 +235,7 @@ must be inherited from other classes. </p>
 <p>The <code>Triangle</code> class inherits <code>EffectExtension</code> class of <code>inkex</code> module.
 The Python modules are in the <code>inkex</code> subdirectory of system extension directory. 
 The <code>inkex</code> is 
-the most basic module of Inkscape extension system. It acts like a framework upon 
+the most basic module of Inkscape extension system. It acts like a framework (<span class="caps">API</span>) upon 
 which we build user extensions. </p>
 <p>Here are directory names and file names under the <code>inkex</code> directory. The first 
 column shows that it is a directory (dir) or number of lines for a Python file. </p>
@@ -321,8 +321,9 @@ $ sudo chmod -R 777 ../extensions/
 files under <code>/snap</code> directory.  This is a security feature of snap apps. How do 
 I know it? I waste several hours trying 
 various methods but fail to modify permissions. In the end I simply uninstall 
-the snap app and reinstall it through apt command. </p>
-<p>Add those lines at the top of <code>base.py</code> to setup logging module.</p>
+the snap app and reinstall Inkscape through <a href="https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features">apt commands</a>. </p>
+<p>Add those lines at the top of <code>base.py</code> to setup logging module. You need to 
+change the <code>filename</code> directory if you are following this example.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.localization</span> <span class="kn">import</span> <span class="n">localize</span>
 
 <span class="c1"># setup logging</span>
@@ -385,7 +386,7 @@ The <code>effect</code> method is defined in the <code>InkscapeExtension</code> 
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
 module is more flexible to use. The <code>debug</code> method is designed to 
-deliver a message to extension user. </p>
+deliver a message to an extension user. </p>
 <h2>What&#8217;s Next</h2>
 <p>You may feel overwhelmed or even frustrated by now if you are not familiar 
 with Python. Most Python introductory books do not even cover classes. But keep 
