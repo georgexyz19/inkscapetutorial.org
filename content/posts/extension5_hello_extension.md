@@ -51,10 +51,9 @@ The `add_text` method is modified from another system extension module `path_num
 It creates a TextElement and sets the `text` and `style` attributes. The 
 element is then added onto the current layer via the `layer.add` method. 
 
-The `Triangle` extension discussed in the previous chapters essentially does 
+The `Triangle` extension discussed in previous chapters essentially does 
 the same thing. It creates an `PathElement`, and then the element is added to 
 the current layer. 
-
 
 ```python
 import inkex
