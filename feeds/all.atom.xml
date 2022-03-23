@@ -2524,7 +2524,7 @@ method in &lt;code&gt;object&lt;/code&gt; because &lt;code&gt;super&lt;/code&gt;
         &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;id:subpath:position of selected nodes, if any&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Let&amp;#8217;s look at the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class next. &lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s look at the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# __init__ in InkscapeExtension class &lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="c1"&gt;# type: () -&amp;gt; None&lt;/span&gt;
@@ -2578,8 +2578,8 @@ Note the method name is &lt;code&gt;add_argument&lt;/code&gt; in &lt;code&gt;Arg
     &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Triangle add_arguments method ends&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;##&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;We can add a pair of logging statements at the beginning and end of the method call to 
-find out the call sequence.  The similar statements are added to the two &lt;code&gt;__init__&lt;/code&gt; 
+&lt;p&gt;We can add a pair of logging statements at the beginning and end of the method to 
+find out the call sequence.  Similar logging statements are added to the two &lt;code&gt;__init__&lt;/code&gt; 
 methods, and the result is shown below. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;DEBUG: SvgInputMixin __init__ starts 
 DEBUG: InkscapeExtension __init__ starts
@@ -2592,7 +2592,12 @@ DEBUG: SvgInputMixin __init__ ends
 &lt;p&gt;The interesting part here is that the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;SvgInputMixin&lt;/code&gt; is called 
 first.  When the Python interpreter encounters the &lt;code&gt;self.arg_parser&lt;/code&gt; instance variable, 
 it can&amp;#8217;t find the definition.  It suspends this &lt;code&gt;__init__&lt;/code&gt; method call and starts 
-invoking &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. The &lt;code&gt;add_arguments&lt;/code&gt; method 
+invoking &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. It finds the instance variable 
+definition for &lt;code&gt;self.arg_parser&lt;/code&gt; on this line of code. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.arg_parser = ArgumentParser(description=self.__doc__)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;add_arguments&lt;/code&gt; method 
 starts and ends as expected because it is called within the &lt;code&gt;__init__&lt;/code&gt; method of 
 &lt;code&gt;InkscapeExtension&lt;/code&gt;.  The &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class returns first, 
 and then the &lt;code&gt;__init__&lt;/code&gt; method in &lt;code&gt;SvgInputMixin&lt;/code&gt; class returns.  This is something in 
@@ -2600,7 +2605,7 @@ Python I don&amp;#8217;t know until I work on this example.  There are always ne
 learn in Python.  &lt;/p&gt;
 &lt;h2&gt;Run Method&lt;/h2&gt;
 &lt;p&gt;After the initialization, the &lt;code&gt;run&lt;/code&gt; method is where everything happens. Here is 
-the code of &lt;code&gt;run&lt;/code&gt; method in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. &lt;/p&gt;
+the code of &lt;code&gt;run&lt;/code&gt; method again in &lt;code&gt;InkscapeExtension&lt;/code&gt; class. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="c1"&gt;# type: (Optional[List[str]], Union[str, IO]) -&amp;gt; None&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Main entrypoint for any Inkscape Extension&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -2645,7 +2650,7 @@ to the &lt;code&gt;options&lt;/code&gt; instance variable, which is a &lt;code&g
 &lt;p&gt;After the &lt;code&gt;parse_arguments&lt;/code&gt; method call, the &lt;code&gt;self.options&lt;/code&gt; value is 
 the &lt;code&gt;Namespace&lt;/code&gt; object shown below. We can access variables in the object like 
 a property (e.g., &lt;code&gt;self.options.input_file&lt;/code&gt;). Notice the &lt;code&gt;ids&lt;/code&gt; and &lt;code&gt;selected_nodes&lt;/code&gt; 
-instance variables in &lt;code&gt;Namespace&lt;/code&gt;.  Those are the values Inkscape passes to the 
+instance variables in &lt;code&gt;Namespace&lt;/code&gt;.  Inkscape passes those two values to the 
 extension.   &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Namespace(input_file=&amp;#39;/tmp/ink_ext_XXXXXX.svgVJUG70&amp;#39;, 
           output=None, s_a=100.0, s_b=100.0, s_c=100.0, 
