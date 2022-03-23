@@ -3066,7 +3066,7 @@ Here is an example drawing with equations on the right hand side. &lt;/p&gt;
 
 &lt;p&gt;The drawing below shows a small portion of a large sign poster file which is created 
 with an Inkscape extension. The &lt;a href="/files/ext1/signposter.pdf"&gt;full size poster file&lt;/a&gt; contains
- over 700 sign drawings. &lt;/p&gt;
+about 700 sign drawings. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext1/ext1-poster.svg" alt="poster"&gt; 
 &lt;/div&gt;
@@ -3098,10 +3098,10 @@ D:\app_work\inkscape-1.1-x64\inkscape\share\inkscape\extensions
 &lt;p&gt;The &lt;code&gt;user extensions&lt;/code&gt; refers to extensions created by you as an Inkscape user (or programmer). The 
 &lt;code&gt;inkscape extensions&lt;/code&gt; or &lt;code&gt;system extensions&lt;/code&gt; refers to the programs that come with 
 the Inkscape installation. We could put our extensions in the &lt;code&gt;inkscape extensions&lt;/code&gt; 
-directory and vice versa.  They will run just fine. But it is better to separate them in two 
+directory and vice versa.  They will run just fine. But it is better to separate them into two 
 directories. &lt;/p&gt;
 &lt;p&gt;We can add two aliases to the &lt;code&gt;~/.bashrc&lt;/code&gt; file to have easier access to those two 
-directories when we are developing extensions in Ubuntu.  This is for Linux users. &lt;/p&gt;
+directories when we are developing extensions in Ubuntu.  This is for Linux users only. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;alias cdsysdir=&amp;#39;cd /usr/share/inkscape/extensions&amp;#39;
 alias cduserdir=&amp;#39;cd ~/.config/inkscape/extensions&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -3117,7 +3117,7 @@ find . -name &lt;span class="s1"&gt;&amp;#39;*.py&amp;#39;&lt;/span&gt; &lt;span
 find . -name &lt;span class="s1"&gt;&amp;#39;*.py&amp;#39;&lt;/span&gt; -exec wc -l &lt;span class="s1"&gt;&amp;#39;{}&amp;#39;&lt;/span&gt; +    &lt;span class="c1"&gt;#43,979&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The system extensions have lots of code, and it has become almost impossible for 
+&lt;p&gt;The system extensions have lots of code, and it&amp;#8217;s almost impossible for 
 one person to read and understand all of them.  This extension tutorial series
 will try to discuss and explain a small subset of those files.  &lt;/p&gt;
 &lt;p&gt;If you want to take part in developing or improving system extensions, 
@@ -3126,14 +3126,14 @@ this gitlab source code repository is the place to get started.  &lt;/p&gt;
 &lt;h2&gt;Inkscape Version and Extension&lt;/h2&gt;
 &lt;p&gt;Inkscape versions 0.91 and 0.92 already come with many extensions. However they are 
 mostly written in Python 2. Even though Python 3.4 is released back in 2014 and 
-many people have been writing program in Python 3. Inkscape extensions are in 
+many people have been writing programs in Python 3. Inkscape extensions are in 
 Python 2 for many years. The 
 reason is that most system extensions are created by various developers over time
 and it requires some serious work to convert them to Python 3. The root problem is 
 that Python 3 is not compatible with Python 2. &lt;/p&gt;
 &lt;p&gt;Finally with the Inkscape 1.0 release, the extensions are upgraded to Python 3. 
 The Inkscape 1.1 extensions require Python 3.6 and above. The drawback is that 
-new extensions for Inkscape 1.0 &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; 1.1 are incompatible with older Inkscape, 
+new extensions (third party) for Inkscape 1.0 &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; 1.1 are incompatible with older Inkscape, 
 and old extensions are incompatible with new Inkscape. &lt;/p&gt;
 &lt;p&gt;If you somehow get an 
 old Inkscape extension which does not work in Inkscape 1.1, try to load it 
@@ -3142,4 +3142,4 @@ in Inkscape 0.92.X and it may work well. &lt;/p&gt;
 &lt;p&gt;This tutorial series is developed from my notes.  It&amp;#8217;s not as formal 
 as a typical book or software manual, but it&amp;#8217;s in a much better shape than 
 my notes. I am trying to point the right direction for people who are 
-interested to learn more about Inkscape extension development.  &lt;/p&gt;</content><category term="extension"></category></entry></feed>
+interested to learn more about Inkscape extension development. &lt;/p&gt;</content><category term="extension"></category></entry></feed>
