@@ -1647,8 +1647,8 @@ content, and …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;What is lxml&
 &lt;p&gt;The Inkscape &lt;code&gt;SVG&lt;/code&gt; files are in xml format. When we write an Inkscape extension, 
 we could write the code to parse the xml, modify the 
 content, and send it back to Inkscape. Or we can use other well 
-designed and tested code for xml parsing and handling. Generally speaking, 
-reusing other people&amp;#8217;s existing code saves programming time. The 
+designed and tested code for xml parsing and handling. In most cases, 
+reusing existing code is a good thing which saves time. The 
 drawback is that we have to spend time to learn how to use existing code. &lt;/p&gt;
 &lt;p&gt;The &lt;a href="https://lxml.de/"&gt;lxml&lt;/a&gt; 
 &lt;span class="caps"&gt;XML&lt;/span&gt; toolkit is a Python binding for the C libraries libxml2 and libxslt. It is 
@@ -1656,7 +1656,7 @@ similar to Python standard library module &lt;code&gt;xml.etree.ElementTree&lt;/
 easier to program. 
 The Inkscape extension developers long recognized the value of &lt;code&gt;lxml&lt;/code&gt; python 
 package. The package &lt;code&gt;inkex&lt;/code&gt; wraps many functions of &lt;code&gt;lxml&lt;/code&gt; so extension 
-developers do not have to deal with &lt;code&gt;lxml&lt;/code&gt; directly.  &lt;/p&gt;
+developers do not have to deal with &lt;code&gt;lxml&lt;/code&gt; directly in most cases.  &lt;/p&gt;
 &lt;p&gt;It is usually enough for Inkscape developers to only work with &lt;code&gt;inkex&lt;/code&gt; package. 
 But sometimes we want to use functionality in &lt;code&gt;lxml&lt;/code&gt; directly, or try to understand 
 the code in &lt;code&gt;inkex&lt;/code&gt; package, so it&amp;#8217;s better to know the basics of &lt;code&gt;lxml&lt;/code&gt; package. &lt;/p&gt;
@@ -1698,11 +1698,12 @@ Python 3.9.5 (default, May 11 2021, 08:20:37)
 &amp;#39;4.6.3&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The &lt;code&gt;etree.ElementTree&lt;/code&gt; is a wrapper class around the &lt;code&gt;_ElementTree&lt;/code&gt; class. We can 
+&lt;p&gt;The &lt;code&gt;etree.ElementTree&lt;/code&gt; is a wrapper class around the &lt;code&gt;_ElementTree&lt;/code&gt; class 
+(which is a C++/C internal class or structure). We can 
 call &lt;code&gt;etree.ElementTree()&lt;/code&gt; method to create an empty document. If we pass a file name 
 (or file object), the return value is an &lt;code&gt;ElementTree&lt;/code&gt; instance. If we use the 
 &lt;code&gt;element&lt;/code&gt; argument, the file argument will be ignored. It returns an &lt;code&gt;ElementTree&lt;/code&gt; 
-object based on an &lt;code&gt;Element&lt;/code&gt; object. &lt;/p&gt;
+object based on the &lt;code&gt;Element&lt;/code&gt; object. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;etree.tostring&lt;/code&gt; function converts an &lt;code&gt;ElementTree&lt;/code&gt; or &lt;code&gt;Element&lt;/code&gt; object 
 to a string containing the &lt;span class="caps"&gt;XML&lt;/span&gt; content. The &lt;code&gt;etree.fromstring&lt;/code&gt; function 
 creates an &lt;code&gt;Element&lt;/code&gt; object from a string. &lt;/p&gt;
@@ -1728,7 +1729,7 @@ b&amp;#39;&amp;lt;!-- Created with Inkscape (http://www.inkscape.org/) --&amp;gt
 the Element interface. The &lt;code&gt;SubElement&lt;/code&gt; method creates a new &lt;code&gt;Element&lt;/code&gt; 
 object, and adds it as the 
 next child of its parent element. It also returns the newly created element. &lt;/p&gt;
-&lt;p&gt;Many Inkscape extensions use &lt;code&gt;SubElement&lt;/code&gt; method to add new elements before 
+&lt;p&gt;Many old Inkscape extensions use &lt;code&gt;SubElement&lt;/code&gt; method to add new elements before 
 version 1.0. The &lt;code&gt;SubElement&lt;/code&gt; method has one more argument &lt;code&gt;parent&lt;/code&gt; than 
 the &lt;code&gt;Element&lt;/code&gt; constructor. The namespace part of &lt;span class="caps"&gt;XML&lt;/span&gt; is a little annoying to type. 
 Here are a few examples.  &lt;/p&gt;
@@ -1781,7 +1782,7 @@ The &lt;code&gt;root_node&lt;/code&gt; is the same value returned by the &lt;cod
 &lt;code&gt;id_dict&lt;/code&gt; contains id-element pairs. The dictionary keys are the &lt;code&gt;id&lt;/code&gt; attributes 
 of all elements, and the values are the elements referenced by the &lt;code&gt;id&lt;/code&gt; attributes. 
 We could design an &lt;span class="caps"&gt;SVG&lt;/span&gt; file and assign an &lt;code&gt;id&lt;/code&gt; for each element, load the file with 
-&lt;code&gt;etree.XMLID&lt;/code&gt; function call, and access element via the &lt;code&gt;id&lt;/code&gt; attribute. &lt;/p&gt;
+&lt;code&gt;etree.XMLID&lt;/code&gt; function, and access element via the &lt;code&gt;id&lt;/code&gt; attribute. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;etree&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;XML&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;etree&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;XMLID&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;

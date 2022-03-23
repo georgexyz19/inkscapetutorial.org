@@ -79,8 +79,8 @@
 <p>The Inkscape <code>SVG</code> files are in xml format. When we write an Inkscape extension, 
 we could write the code to parse the xml, modify the 
 content, and send it back to Inkscape. Or we can use other well 
-designed and tested code for xml parsing and handling. Generally speaking, 
-reusing other people&#8217;s existing code saves programming time. The 
+designed and tested code for xml parsing and handling. In most cases, 
+reusing existing code is a good thing which saves time. The 
 drawback is that we have to spend time to learn how to use existing code. </p>
 <p>The <a href="https://lxml.de/">lxml</a> 
 <span class="caps">XML</span> toolkit is a Python binding for the C libraries libxml2 and libxslt. It is 
@@ -88,7 +88,7 @@ similar to Python standard library module <code>xml.etree.ElementTree</code>, bu
 easier to program. 
 The Inkscape extension developers long recognized the value of <code>lxml</code> python 
 package. The package <code>inkex</code> wraps many functions of <code>lxml</code> so extension 
-developers do not have to deal with <code>lxml</code> directly.  </p>
+developers do not have to deal with <code>lxml</code> directly in most cases.  </p>
 <p>It is usually enough for Inkscape developers to only work with <code>inkex</code> package. 
 But sometimes we want to use functionality in <code>lxml</code> directly, or try to understand 
 the code in <code>inkex</code> package, so it&#8217;s better to know the basics of <code>lxml</code> package. </p>
@@ -130,11 +130,12 @@ Python 3.9.5 (default, May 11 2021, 08:20:37)
 &#39;4.6.3&#39;
 </code></pre></div>
 
-<p>The <code>etree.ElementTree</code> is a wrapper class around the <code>_ElementTree</code> class. We can 
+<p>The <code>etree.ElementTree</code> is a wrapper class around the <code>_ElementTree</code> class 
+(which is a C++/C internal class or structure). We can 
 call <code>etree.ElementTree()</code> method to create an empty document. If we pass a file name 
 (or file object), the return value is an <code>ElementTree</code> instance. If we use the 
 <code>element</code> argument, the file argument will be ignored. It returns an <code>ElementTree</code> 
-object based on an <code>Element</code> object. </p>
+object based on the <code>Element</code> object. </p>
 <p>The <code>etree.tostring</code> function converts an <code>ElementTree</code> or <code>Element</code> object 
 to a string containing the <span class="caps">XML</span> content. The <code>etree.fromstring</code> function 
 creates an <code>Element</code> object from a string. </p>
@@ -160,7 +161,7 @@ b&#39;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg ...
 the Element interface. The <code>SubElement</code> method creates a new <code>Element</code> 
 object, and adds it as the 
 next child of its parent element. It also returns the newly created element. </p>
-<p>Many Inkscape extensions use <code>SubElement</code> method to add new elements before 
+<p>Many old Inkscape extensions use <code>SubElement</code> method to add new elements before 
 version 1.0. The <code>SubElement</code> method has one more argument <code>parent</code> than 
 the <code>Element</code> constructor. The namespace part of <span class="caps">XML</span> is a little annoying to type. 
 Here are a few examples.  </p>
@@ -213,7 +214,7 @@ The <code>root_node</code> is the same value returned by the <code>etree.XML</co
 <code>id_dict</code> contains id-element pairs. The dictionary keys are the <code>id</code> attributes 
 of all elements, and the values are the elements referenced by the <code>id</code> attributes. 
 We could design an <span class="caps">SVG</span> file and assign an <code>id</code> for each element, load the file with 
-<code>etree.XMLID</code> function call, and access element via the <code>id</code> attribute. </p>
+<code>etree.XMLID</code> function, and access element via the <code>id</code> attribute. </p>
 <div class="highlight"><pre><span></span><code><span class="n">etree</span><span class="o">.</span><span class="n">XML</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">etree</span><span class="o">.</span><span class="n">XMLID</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
