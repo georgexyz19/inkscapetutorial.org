@@ -272,7 +272,8 @@ elements to the drawing. The source code is in the <code>inkex/extensions.py</co
 inherit from this class, we only need to override the <code>generate</code> method. </p>
 <p>Here is an example of using <code>GenerateExtension</code> to create four lines. We do not need to 
 write any code to deal with layers. The example below creates a new <code>lines</code> layer 
-and adds new elements to the layer. </p>
+and adds new elements to the layer.  This is determined by the two class 
+variables <code>container_label</code> and <code>container_layer</code>. </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inkex</span>
 <span class="kn">from</span> <span class="nn">inkex</span> <span class="kn">import</span> <span class="n">Line</span>
 
@@ -345,7 +346,7 @@ parser.set_element_class_lookup(MyLookup())
 of the <code>lookup</code> method acts like <code>self.document</code> object and the <code>element</code> argument 
 acts like an <code>Element</code> object. The return value <code>MyElementClass</code> is a custom class 
 defined elsewhere which must inherit from <code>etree.ElementBase</code> class. </p>
-<p>The code in the <code>elements/_base.py</code> module follows this model to define the lookup 
+<p>The code in the <code>elements/_base.py</code> module follows this pattern to define the lookup 
 class <code>NodeBasedLookup</code>. It creates a custom parser <code>SVG_PARSER</code> and defines the <code>load_svg</code> 
 method which uses the parser. </p>
 <p>With the parser in place, the return value from <code>etree.parse</code> method will contain <code>Rectangle</code> 

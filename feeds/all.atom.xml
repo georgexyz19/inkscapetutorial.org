@@ -1560,7 +1560,8 @@ elements to the drawing. The source code is in the &lt;code&gt;inkex/extensions.
 inherit from this class, we only need to override the &lt;code&gt;generate&lt;/code&gt; method. &lt;/p&gt;
 &lt;p&gt;Here is an example of using &lt;code&gt;GenerateExtension&lt;/code&gt; to create four lines. We do not need to 
 write any code to deal with layers. The example below creates a new &lt;code&gt;lines&lt;/code&gt; layer 
-and adds new elements to the layer. &lt;/p&gt;
+and adds new elements to the layer.  This is determined by the two class 
+variables &lt;code&gt;container_label&lt;/code&gt; and &lt;code&gt;container_layer&lt;/code&gt;. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;inkex&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;inkex&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Line&lt;/span&gt;
 
@@ -1633,7 +1634,7 @@ parser.set_element_class_lookup(MyLookup())
 of the &lt;code&gt;lookup&lt;/code&gt; method acts like &lt;code&gt;self.document&lt;/code&gt; object and the &lt;code&gt;element&lt;/code&gt; argument 
 acts like an &lt;code&gt;Element&lt;/code&gt; object. The return value &lt;code&gt;MyElementClass&lt;/code&gt; is a custom class 
 defined elsewhere which must inherit from &lt;code&gt;etree.ElementBase&lt;/code&gt; class. &lt;/p&gt;
-&lt;p&gt;The code in the &lt;code&gt;elements/_base.py&lt;/code&gt; module follows this model to define the lookup 
+&lt;p&gt;The code in the &lt;code&gt;elements/_base.py&lt;/code&gt; module follows this pattern to define the lookup 
 class &lt;code&gt;NodeBasedLookup&lt;/code&gt;. It creates a custom parser &lt;code&gt;SVG_PARSER&lt;/code&gt; and defines the &lt;code&gt;load_svg&lt;/code&gt; 
 method which uses the parser. &lt;/p&gt;
 &lt;p&gt;With the parser in place, the return value from &lt;code&gt;etree.parse&lt;/code&gt; method will contain &lt;code&gt;Rectangle&lt;/code&gt; 
