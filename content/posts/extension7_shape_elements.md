@@ -222,7 +222,8 @@ inherit from this class, we only need to override the `generate` method.
 
 Here is an example of using `GenerateExtension` to create four lines. We do not need to 
 write any code to deal with layers. The example below creates a new `lines` layer 
-and adds new elements to the layer. 
+and adds new elements to the layer.  This is determined by the two class 
+variables `container_label` and `container_layer`. 
 
 ```python
 import inkex
@@ -306,7 +307,7 @@ of the `lookup` method acts like `self.document` object and the `element` argume
 acts like an `Element` object. The return value `MyElementClass` is a custom class 
 defined elsewhere which must inherit from `etree.ElementBase` class. 
 
-The code in the `elements/_base.py` module follows this model to define the lookup 
+The code in the `elements/_base.py` module follows this pattern to define the lookup 
 class `NodeBasedLookup`. It creates a custom parser `SVG_PARSER` and defines the `load_svg` 
 method which uses the parser. 
 
