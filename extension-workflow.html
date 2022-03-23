@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
 <link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
 <meta name="author" content="George Zhang" />
-<meta name="description" content="We will discuss those two line of code in run method of InksacpeExtension class in this chapter. self.load_raw() self.save_raw(self.effect()) Load The code of load_raw method of …" />
+<meta name="description" content="We will discuss those two lines of code in run method of InksacpeExtension class in this chapter. self.load_raw() self.save_raw(self.effect()) Load The code of load_raw method of …" />
     <title>Extensions Workflow - Inkscape Tutorial</title>
   </head>
   <body>
@@ -75,7 +75,7 @@
 
       </div>
 
-      <p>We will discuss those two line of code in <code>run</code> method of <code>InksacpeExtension</code> 
+      <p>We will discuss those two lines of code in <code>run</code> method of <code>InksacpeExtension</code> 
 class in this chapter. </p>
 <div class="highlight"><pre><span></span><code>self.load_raw()
 self.save_raw(self.effect())
@@ -173,7 +173,7 @@ to get an object representing current layer. The current layer information is sa
 the <span class="caps">SVG</span> file itself.  The second line get the Inkscape view center coordinates. 
 The next four lines of code convert number unit from pixel to <span class="caps">SVG</span> internal default unit 
 millimeter.  For example, the <code>s_a</code> value is 100 px before the conversion, and 
-the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
+the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is also 25.4 mm.
 So the conversion is 100/96 in * 25.4 = 26.45 mm.</p>
 <p>The <code>effect</code> method calls <code>draw_tri_from_3_sides</code> function defined earlier in the 
 module. The function in turn calls the <code>draw_SVG_tri</code> function to create an 
@@ -298,7 +298,7 @@ load and save processes. The <code>inkex</code> module already has code to handl
 them. It actually warps around a third party python module <code>lxml</code>, which 
 does the <span class="caps">XML</span> loading, parsing, and saving.  The 
 <a href="https://lxml.de/">lxml official website</a> 
-has lots of useful information. We will also discuss this module in later chapters. </p>
+has lots of useful information. We will also discuss this module in a later chapter. </p>
 
     </div>
 

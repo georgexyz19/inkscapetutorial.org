@@ -2250,14 +2250,14 @@ and y value increases from top to bottom.  The text coordinate represents
 set at 18 point.   &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
   &lt;img class="img-fluid pb-2" src="/images/ext5/hello-inkscape.png" alt="screenshot"&gt; 
-&lt;/div&gt;</content><category term="extension"></category></entry><entry><title>Extensions Workflow</title><link href="https://www.inkscapetutorial.org/extension-workflow.html" rel="alternate"></link><published>2021-07-28T08:42:00-04:00</published><updated>2021-07-28T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-28:/extension-workflow.html</id><summary type="html">&lt;p&gt;We will discuss those two line of code in &lt;code&gt;run&lt;/code&gt; method of &lt;code&gt;InksacpeExtension&lt;/code&gt; 
+&lt;/div&gt;</content><category term="extension"></category></entry><entry><title>Extensions Workflow</title><link href="https://www.inkscapetutorial.org/extension-workflow.html" rel="alternate"></link><published>2021-07-28T08:42:00-04:00</published><updated>2021-07-28T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-28:/extension-workflow.html</id><summary type="html">&lt;p&gt;We will discuss those two lines of code in &lt;code&gt;run&lt;/code&gt; method of &lt;code&gt;InksacpeExtension&lt;/code&gt; 
 class in this chapter. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.load_raw()
 self.save_raw(self.effect())
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;Load&lt;/h2&gt;
-&lt;p&gt;The code of &lt;code&gt;load_raw&lt;/code&gt; method of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We will discuss those two line of code in &lt;code&gt;run&lt;/code&gt; method of &lt;code&gt;InksacpeExtension&lt;/code&gt; 
+&lt;p&gt;The code of &lt;code&gt;load_raw&lt;/code&gt; method of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;We will discuss those two lines of code in &lt;code&gt;run&lt;/code&gt; method of &lt;code&gt;InksacpeExtension&lt;/code&gt; 
 class in this chapter. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.load_raw()
 self.save_raw(self.effect())
@@ -2355,7 +2355,7 @@ to get an object representing current layer. The current layer information is sa
 the &lt;span class="caps"&gt;SVG&lt;/span&gt; file itself.  The second line get the Inkscape view center coordinates. 
 The next four lines of code convert number unit from pixel to &lt;span class="caps"&gt;SVG&lt;/span&gt; internal default unit 
 millimeter.  For example, the &lt;code&gt;s_a&lt;/code&gt; value is 100 px before the conversion, and 
-the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is 25.4 mm.
+the value is 26.45 mm after.  In Inkscape 1 inch is 96 pixels, and 1 inch is also 25.4 mm.
 So the conversion is 100/96 in * 25.4 = 26.45 mm.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;effect&lt;/code&gt; method calls &lt;code&gt;draw_tri_from_3_sides&lt;/code&gt; function defined earlier in the 
 module. The function in turn calls the &lt;code&gt;draw_SVG_tri&lt;/code&gt; function to create an 
@@ -2480,7 +2480,7 @@ load and save processes. The &lt;code&gt;inkex&lt;/code&gt; module already has c
 them. It actually warps around a third party python module &lt;code&gt;lxml&lt;/code&gt;, which 
 does the &lt;span class="caps"&gt;XML&lt;/span&gt; loading, parsing, and saving.  The 
 &lt;a href="https://lxml.de/"&gt;lxml official website&lt;/a&gt; 
-has lots of useful information. We will also discuss this module in later chapters. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>How Extensions Work</title><link href="https://www.inkscapetutorial.org/how-extensions-work.html" rel="alternate"></link><published>2021-07-28T08:42:00-04:00</published><updated>2021-07-28T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-28:/how-extensions-work.html</id><summary type="html">&lt;h2&gt;Class Initialization&lt;/h2&gt;
+has lots of useful information. We will also discuss this module in a later chapter. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>How Extensions Work</title><link href="https://www.inkscapetutorial.org/how-extensions-work.html" rel="alternate"></link><published>2021-07-28T08:42:00-04:00</published><updated>2021-07-28T08:42:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-07-28:/how-extensions-work.html</id><summary type="html">&lt;h2&gt;Class Initialization&lt;/h2&gt;
 &lt;p&gt;The last two lines of &lt;code&gt;triangle.py&lt;/code&gt; files are shown below. The first line is 
 boilerplate code. If we run this module on terminal, the Python interpreter will …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Class Initialization&lt;/h2&gt;
 &lt;p&gt;The last two lines of &lt;code&gt;triangle.py&lt;/code&gt; files are shown below. The first line is 
