@@ -58,7 +58,7 @@ def __init__(self):
 ```
 
 
-Let's look at the `__init__` method in `InkscapeExtension` class next. 
+Let's look at the `__init__` method in `InkscapeExtension` class. 
 
 ```python
 # __init__ in InkscapeExtension class 
@@ -117,8 +117,8 @@ def add_arguments(self, pars):
     logging.debug(f'Triangle add_arguments method ends')  ##
 ```
 
-We can add a pair of logging statements at the beginning and end of the method call to 
-find out the call sequence.  The similar statements are added to the two `__init__` 
+We can add a pair of logging statements at the beginning and end of the method to 
+find out the call sequence.  Similar logging statements are added to the two `__init__` 
 methods, and the result is shown below. 
 
 ```
@@ -133,7 +133,14 @@ DEBUG: SvgInputMixin __init__ ends
 The interesting part here is that the `__init__` method in `SvgInputMixin` is called 
 first.  When the Python interpreter encounters the `self.arg_parser` instance variable, 
 it can't find the definition.  It suspends this `__init__` method call and starts 
-invoking `__init__` method in `InkscapeExtension` class. The `add_arguments` method 
+invoking `__init__` method in `InkscapeExtension` class. It finds the instance variable 
+definition for `self.arg_parser` on this line of code. 
+
+```
+self.arg_parser = ArgumentParser(description=self.__doc__)
+```
+
+The `add_arguments` method 
 starts and ends as expected because it is called within the `__init__` method of 
 `InkscapeExtension`.  The `__init__` method in `InkscapeExtension` class returns first, 
 and then the `__init__` method in `SvgInputMixin` class returns.  This is something in 
@@ -143,7 +150,7 @@ learn in Python.
 ## Run Method
 
 After the initialization, the `run` method is where everything happens. Here is 
-the code of `run` method in `InkscapeExtension` class. 
+the code of `run` method again in `InkscapeExtension` class. 
 
 ```python
 def run(self, args=None, output=stdout):
@@ -196,7 +203,7 @@ def parse_arguments(self, args):
 After the `parse_arguments` method call, the `self.options` value is 
 the `Namespace` object shown below. We can access variables in the object like 
 a property (e.g., `self.options.input_file`). Notice the `ids` and `selected_nodes` 
-instance variables in `Namespace`.  Those are the values Inkscape passes to the 
+instance variables in `Namespace`.  Inkscape passes those two values to the 
 extension.   
 
 ```
