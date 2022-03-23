@@ -7,15 +7,15 @@ note: Triangle Extension
 
 ## Extension Structure
 
-In this tutorial, we will take a look at the `Triangle` extension code.
+In this tutorial, we will take a look at the `Triangle` extension source code.
 Usually an Inkscape extension consists of two files—one `.inx` file and 
 one `.py` file. The `.inx` file contains xml code describing the user interface 
 and the `.py` file is the 
-Python file. The `.py` file can import other modules so an extension 
+Python code doing the actual work. The `.py` file can import other modules so an extension 
 could involve multiple Python modules. 
 
 The `Triangle` extension code is in the `triangle.inx` and `triangle.py` 
-files. Both are in the system extension directory. 
+files. Both files are in the system extension directory. 
 
 ## Inx File
 
@@ -86,7 +86,7 @@ includes two types of param element `float` and `optiongroup`. There are many ot
 types we can use.  This 
 [Inkscape wiki page](https://wiki.inkscape.org/wiki/Extensions:_INX_widgets_and_parameters) 
 has a complete list. We don't have to memorize the user interface 
-controls.  We use 
+control syntax.  We use 
 the wiki page as a reference and grep the system extension directory 
 to find some examples. 
 
@@ -181,7 +181,7 @@ must be inherited from other classes.
 The `Triangle` class inherits `EffectExtension` class of `inkex` module.
 The Python modules are in the `inkex` subdirectory of system extension directory. 
 The `inkex` is 
-the most basic module of Inkscape extension system. It acts like a framework upon 
+the most basic module of Inkscape extension system. It acts like a framework (API) upon 
 which we build user extensions. 
 
 Here are directory names and file names under the `inkex` directory. The first 
@@ -278,9 +278,10 @@ If you install inkscape via `snap`, you will have a difficult time modifying any
 files under `/snap` directory.  This is a security feature of snap apps. How do 
 I know it? I waste several hours trying 
 various methods but fail to modify permissions. In the end I simply uninstall 
-the snap app and reinstall it through apt command. 
+the snap app and reinstall Inkscape through [apt commands](https://www.omgubuntu.co.uk/2021/05/inkscape-1-1-released-new-features). 
 
-Add those lines at the top of `base.py` to setup logging module.
+Add those lines at the top of `base.py` to setup logging module. You need to 
+change the `filename` directory if you are following this example.
 
 ```python
 from .localization import localize
@@ -350,7 +351,7 @@ The `InkscapeExtension` class defines a `debug` method. We can invoke this metho
 to output messages. The method redirects a message to the standard error stream, 
 and Inkscape will display the message on a dialog box. However, the logging 
 module is more flexible to use. The `debug` method is designed to 
-deliver a message to extension user. 
+deliver a message to an extension user. 
 
 ## What's Next
 
