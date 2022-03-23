@@ -2204,7 +2204,7 @@ In fact we make a copy of the &lt;code&gt;Triangle.inx&lt;/code&gt; file and mod
 The &lt;code&gt;add_text&lt;/code&gt; method is modified from another system extension module &lt;code&gt;path_number_node.py&lt;/code&gt;. 
 It creates a TextElement and sets the &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;style&lt;/code&gt; attributes. The 
 element is then added onto the current layer via the &lt;code&gt;layer.add&lt;/code&gt; method. &lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; extension discussed in the previous chapters essentially does 
+&lt;p&gt;The &lt;code&gt;Triangle&lt;/code&gt; extension discussed in previous chapters essentially does 
 the same thing. It creates an &lt;code&gt;PathElement&lt;/code&gt;, and then the element is added to 
 the current layer. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;inkex&lt;/span&gt;
