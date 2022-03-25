@@ -20,7 +20,8 @@ values as shown in the `sys.argv` variable below.
 </div>
 
 ```
-sys argv: ['hello.py', '--id=rect1125', '--id=path1149', '--id=path1253', '--id=path1358', 
+sys argv: ['hello.py', '--id=rect1125', '--id=path1149', 
+            '--id=path1253', '--id=path1358', 
             '--name=inkscape', '/tmp/ink_ext_XXXXXX.svgUBQJ80']
 ```
 
@@ -36,7 +37,8 @@ self.arg_parser.add_argument(
     help="id attribute of object to manipulate")
 
 self.arg_parser.add_argument(
-    "--selected-nodes", action="append", type=str, dest="selected_nodes", default=[],
+    "--selected-nodes", action="append", type=str, 
+    dest="selected_nodes", default=[],
     help="id:subpath:position of selected nodes, if any")
 ```
 
@@ -44,9 +46,10 @@ The selected ids will become a list which is accessed as `self.options.ids` in a
 extension.
 
 ```
-self.options : Namespace(input_file='/tmp/ink_ext_XXXXXX.svgUBQJ80', output=None, 
-                name='inkscape', ids=['rect1125', 'path1149', 
-                'path1253', 'path1358'], selected_nodes=[]) 
+self.options : Namespace(input_file='/tmp/ink_ext_XXXXXX.svgUBQJ80', 
+                output=None, name='inkscape', 
+                ids=['rect1125', 'path1149', 
+                  'path1253', 'path1358'], selected_nodes=[]) 
 ```
 
 When `inkex` loads an SVG file, it will set an instance variable `selection` 
@@ -61,7 +64,7 @@ self.svg.selection.set(*self.options.ids)
 ## ElementList Class
 
 The `ElementList` class is defined in the `inkex/elements/_selected.py` module. 
-Even though it is called `ElementList`, it subclasses `OrderedDict` and it's a 
+Even though it is called `ElementList`, it subclasses `OrderedDict` so it's a 
 dictionary.  When we iterate through an instance variable, it iterates through 
 the values of the dictionary and the class acts like a list. The values of 
 the dictionary are the selected element objects. 
@@ -97,9 +100,9 @@ method which returns a list of selected elements by z-order (bottom to top).
 
 
 One very useful method in the `ElementList` class is `filter`. We can 
-filter out the elements by type. The method return a new `ElementList` object 
-containing only the element with certain type. The code below shows an 
-example, and the `selected_elems` contains only path elements. 
+filter out elements by type. The method return a new `ElementList` object 
+containing only elements of certain type. The code below shows an 
+example, and the return value `selected_elems` only contains path elements. 
 
 ```
 from inkex import PathElement
@@ -118,13 +121,13 @@ Inkscape, so we can't modify selections in an Inkscape extension.
 ## Selected Nodes
 
 Similar to selected elements, Inkscape also passes selected nodes to extensions. 
-In inkscape we use the node selection tool to select nodes on a path. For example, 
+In inkscape we use the node selection tool (shortcut: F2) to select nodes on a path. For example, 
 the drawing below shows that the first two nodes are selected (blue square dots).  When 
 we click the apply button on an extension interface, the extension receives several 
 `--selected-nodes=...` arguments. 
 
 <div style="max-width:800px">
-  <img class="img-fluid pb-2" src="/images/ext15/node-sel.png" alt="node selection"> 
+  <img class="img-fluid pt-2 pb-4" src="/images/ext15/node-sel.png" alt="node selection"> 
 </div>
 
 The argument values are in a format shown below. The help message of `add_argument` 
