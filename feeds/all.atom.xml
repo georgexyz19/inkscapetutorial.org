@@ -186,7 +186,8 @@ values as shown in the &lt;code&gt;sys.argv&lt;/code&gt; variable below. &lt;/p&
   &lt;img class="img-fluid pb-2" src="/images/ext15/selection-fig.png" alt="selection"&gt; 
 &lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sys argv: [&amp;#39;hello.py&amp;#39;, &amp;#39;--id=rect1125&amp;#39;, &amp;#39;--id=path1149&amp;#39;, &amp;#39;--id=path1253&amp;#39;, &amp;#39;--id=path1358&amp;#39;, 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sys argv: [&amp;#39;hello.py&amp;#39;, &amp;#39;--id=rect1125&amp;#39;, &amp;#39;--id=path1149&amp;#39;, 
+            &amp;#39;--id=path1253&amp;#39;, &amp;#39;--id=path1358&amp;#39;, 
             &amp;#39;--name=inkscape&amp;#39;, &amp;#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&amp;#39;]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -199,15 +200,17 @@ code is in the &lt;code&gt;__init__&lt;/code&gt; method of &lt;code&gt;SvgInputM
     help=&amp;quot;id attribute of object to manipulate&amp;quot;)
 
 self.arg_parser.add_argument(
-    &amp;quot;--selected-nodes&amp;quot;, action=&amp;quot;append&amp;quot;, type=str, dest=&amp;quot;selected_nodes&amp;quot;, default=[],
+    &amp;quot;--selected-nodes&amp;quot;, action=&amp;quot;append&amp;quot;, type=str, 
+    dest=&amp;quot;selected_nodes&amp;quot;, default=[],
     help=&amp;quot;id:subpath:position of selected nodes, if any&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The selected ids will become a list which is accessed as &lt;code&gt;self.options.ids&lt;/code&gt; in an
 extension.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.options : Namespace(input_file=&amp;#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&amp;#39;, output=None, 
-                name=&amp;#39;inkscape&amp;#39;, ids=[&amp;#39;rect1125&amp;#39;, &amp;#39;path1149&amp;#39;, 
-                &amp;#39;path1253&amp;#39;, &amp;#39;path1358&amp;#39;], selected_nodes=[]) 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;self.options : Namespace(input_file=&amp;#39;/tmp/ink_ext_XXXXXX.svgUBQJ80&amp;#39;, 
+                output=None, name=&amp;#39;inkscape&amp;#39;, 
+                ids=[&amp;#39;rect1125&amp;#39;, &amp;#39;path1149&amp;#39;, 
+                  &amp;#39;path1253&amp;#39;, &amp;#39;path1358&amp;#39;], selected_nodes=[]) 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;When &lt;code&gt;inkex&lt;/code&gt; loads an &lt;span class="caps"&gt;SVG&lt;/span&gt; file, it will set an instance variable &lt;code&gt;selection&lt;/code&gt; 
@@ -219,7 +222,7 @@ self.svg.selection.set(*self.options.ids)
 
 &lt;h2&gt;ElementList Class&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;ElementList&lt;/code&gt; class is defined in the &lt;code&gt;inkex/elements/_selected.py&lt;/code&gt; module. 
-Even though it is called &lt;code&gt;ElementList&lt;/code&gt;, it subclasses &lt;code&gt;OrderedDict&lt;/code&gt; and it&amp;#8217;s a 
+Even though it is called &lt;code&gt;ElementList&lt;/code&gt;, it subclasses &lt;code&gt;OrderedDict&lt;/code&gt; so it&amp;#8217;s a 
 dictionary.  When we iterate through an instance variable, it iterates through 
 the values of the dictionary and the class acts like a list. The values of 
 the dictionary are the selected element objects. &lt;/p&gt;
@@ -249,9 +252,9 @@ which returns a dictionary mapping &lt;code&gt;id&lt;/code&gt; to &lt;code&gt;el
 to use &lt;code&gt;xml_path&lt;/code&gt; value as the dictionary key? It is probably for the &lt;code&gt;paint_order&lt;/code&gt; 
 method which returns a list of selected elements by z-order (bottom to top). &lt;/p&gt;
 &lt;p&gt;One very useful method in the &lt;code&gt;ElementList&lt;/code&gt; class is &lt;code&gt;filter&lt;/code&gt;. We can 
-filter out the elements by type. The method return a new &lt;code&gt;ElementList&lt;/code&gt; object 
-containing only the element with certain type. The code below shows an 
-example, and the &lt;code&gt;selected_elems&lt;/code&gt; contains only path elements. &lt;/p&gt;
+filter out elements by type. The method return a new &lt;code&gt;ElementList&lt;/code&gt; object 
+containing only elements of certain type. The code below shows an 
+example, and the return value &lt;code&gt;selected_elems&lt;/code&gt; only contains path elements. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;from inkex import PathElement
 select_elems = self.svg.selection.filter(PathElement)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -265,12 +268,12 @@ The extension system doesn&amp;#8217;t provide a way to transmit selected elemen
 Inkscape, so we can&amp;#8217;t modify selections in an Inkscape extension.&lt;/p&gt;
 &lt;h2&gt;Selected Nodes&lt;/h2&gt;
 &lt;p&gt;Similar to selected elements, Inkscape also passes selected nodes to extensions. 
-In inkscape we use the node selection tool to select nodes on a path. For example, 
+In inkscape we use the node selection tool (shortcut: F2) to select nodes on a path. For example, 
 the drawing below shows that the first two nodes are selected (blue square dots).  When 
 we click the apply button on an extension interface, the extension receives several 
 &lt;code&gt;--selected-nodes=...&lt;/code&gt; arguments. &lt;/p&gt;
 &lt;div style="max-width:800px"&gt;
-  &lt;img class="img-fluid pb-2" src="/images/ext15/node-sel.png" alt="node selection"&gt; 
+  &lt;img class="img-fluid pt-2 pb-4" src="/images/ext15/node-sel.png" alt="node selection"&gt; 
 &lt;/div&gt;
 
 &lt;p&gt;The argument values are in a format shown below. The help message of &lt;code&gt;add_argument&lt;/code&gt; 
