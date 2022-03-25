@@ -970,7 +970,7 @@ around a coordinate (a, b), the equation becomes like this.&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;h2&gt;Inkscape Transforms&lt;/h2&gt;
-&lt;p&gt;Let&amp;#8217;s look at an example to see how the transform works in Inkscape. First we draw 
+&lt;p&gt;Let&amp;#8217;s look at an example to see how transform works in Inkscape. First we draw 
 a rectangle with top left coordinates (10, 10).  It has a width of 60 and height of 40. 
 The &lt;span class="caps"&gt;SVG&lt;/span&gt; file has these lines for the element. We can ignore the &lt;code&gt;id&lt;/code&gt; and &lt;code&gt;style&lt;/code&gt; attributes 
 for this example. &lt;/p&gt;
@@ -1009,7 +1009,7 @@ of the top left corner of the rectangle? It is a little complicated, and this
     &lt;span class="na"&gt;transform=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rotate(30)&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The rotate function as the value of the &lt;code&gt;transform&lt;/code&gt; attribute can also accept two additional 
+&lt;p&gt;The &lt;code&gt;rotate&lt;/code&gt; function as the value of the &lt;code&gt;transform&lt;/code&gt; attribute can also accept two additional 
 arguments as the rotation center. The xml code shown below represents the same rectangle. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;rect&lt;/span&gt;
     &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;60&amp;quot;&lt;/span&gt;
@@ -1150,14 +1150,14 @@ and functions are not necessarily related to &lt;code&gt;transforms&lt;/code&gt;
 on mathematical drawings. We can apply vector algebra to calculate coordinates 
 of points, and draw them as lines or polygons on the canvas. &lt;/p&gt;
 &lt;h2&gt;References&lt;/h2&gt;
-&lt;p&gt;Anthony J. Pettofrezzo published two books &lt;em&gt;Vectors and Their Applications&lt;/em&gt; and 
+&lt;p&gt;Anthony J. Pettofrezzo published two math books &lt;em&gt;Vectors and Their Applications&lt;/em&gt; and 
 &lt;em&gt;Matrices And Transformations&lt;/em&gt;. Both books are relevant to the transforms module discussed in this chapter. &lt;/p&gt;
 &lt;p&gt;The book &lt;em&gt;Mathematical Illustrations, A Manual Of Geometry and Postscript&lt;/em&gt; by 
 Bill Casselman is an excellent reference for math drawings. Here is the 
 &lt;a href="https://personal.math.ubc.ca/~cass/graphics/manual/"&gt;link&lt;/a&gt; to the book webpage. The pdfs of the book chapters are available on the webpage. &lt;/p&gt;
 &lt;p&gt;The book &lt;em&gt;Introduction To Computer Graphics&lt;/em&gt; by James Foley and others has a Chapter 
-Geometrical Transformations. The transform equations in this book are in the 
-same format as on this page. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Units and Coordinate Systems</title><link href="https://www.inkscapetutorial.org/units-and-coordinate-systems.html" rel="alternate"></link><published>2021-08-07T23:18:00-04:00</published><updated>2021-08-07T23:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-07:/units-and-coordinate-systems.html</id><summary type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
+Geometrical Transformations. The transform equations in the book are in the 
+same format as on this web page. &lt;/p&gt;</content><category term="extension"></category></entry><entry><title>Units and Coordinate Systems</title><link href="https://www.inkscapetutorial.org/units-and-coordinate-systems.html" rel="alternate"></link><published>2021-08-07T23:18:00-04:00</published><updated>2021-08-07T23:18:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-08-07:/units-and-coordinate-systems.html</id><summary type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
 &lt;p&gt;Inkscape extension &lt;a href="https://inkscape.gitlab.io/extensions/documentation/index.html"&gt;documentation page&lt;/a&gt; has a &lt;a href="https://inkscape.gitlab.io/extensions/documentation/units.html"&gt;units&lt;/a&gt; 
 page. Inkscape units themselves are not complicated, and the difficult part is how 
 Inkscape projects units in user coordinate system to …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Extension Units&lt;/h2&gt;
