@@ -50,7 +50,7 @@ The matrix is in this form when those three transforms are combined.
 
 ## Inkscape Transforms
 
-Let's look at an example to see how the transform works in Inkscape. First we draw 
+Let's look at an example to see how transform works in Inkscape. First we draw 
 a rectangle with top left coordinates (10, 10).  It has a width of 60 and height of 40. 
 The SVG file has these lines for the element. We can ignore the `id` and `style` attributes 
 for this example. 
@@ -95,7 +95,7 @@ of the top left corner of the rectangle? It is a little complicated, and this
     transform="rotate(30)" />
 ```
 
-The rotate function as the value of the `transform` attribute can also accept two additional 
+The `rotate` function as the value of the `transform` attribute can also accept two additional 
 arguments as the rotation center. The xml code shown below represents the same rectangle. 
 
 ```xml
@@ -251,7 +251,7 @@ of points, and draw them as lines or polygons on the canvas.
 
 ## References
 
-Anthony J. Pettofrezzo published two books *Vectors and Their Applications* and 
+Anthony J. Pettofrezzo published two math books *Vectors and Their Applications* and 
 *Matrices And Transformations*. Both books are relevant to the transforms module discussed in this chapter. 
 
 The book *Mathematical Illustrations, A Manual Of Geometry and Postscript* by 
@@ -259,5 +259,5 @@ Bill Casselman is an excellent reference for math drawings. Here is the
 [link](https://personal.math.ubc.ca/~cass/graphics/manual/) to the book webpage. The pdfs of the book chapters are available on the webpage. 
 
 The book *Introduction To Computer Graphics* by James Foley and others has a Chapter 
-Geometrical Transformations. The transform equations in this book are in the 
-same format as on this page. 
+Geometrical Transformations. The transform equations in the book are in the 
+same format as on this web page. 
