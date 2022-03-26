@@ -4,6 +4,9 @@
 
 ## Recent update
 
+3/25/2022
+  Read thru all 16 chapters and revise the contents when needed. 
+
 1/1/2022
   Read Chapter 1 & revise some sentences. 
 
@@ -20,4 +23,3 @@
   Added category.html and categories.html. 
   Currently the two TOC pages are from category.html template
  
-  TODO: Make the site look nicer
