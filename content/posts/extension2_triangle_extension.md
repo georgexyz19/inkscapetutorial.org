@@ -343,6 +343,21 @@ DEBUG: output : <_io.BufferedWriter name='<stdout>'>
 DEBUG: run ends
 ```
 
+Notice the `sys.executable` output is `/usr/bin/python3`. Inkscape invokes Python 
+complier at this location to run extension programs. The `inkex` module depends on 
+the `lxml` module, which is already installed for this compiler. You can simply 
+import lxml module (shown below) to confirm that. 
+
+```
+george@NUC:~$ /usr/bin/python3
+Python 3.9.7 (default, Sep 10 2021, 14:59:43) 
+[GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>  
+>>> import lxml
+>>> 
+```
+
 Between the `load_raw` and `save_raw` method calls, there is an `effect` method call. 
 The `effect` method is defined in the `InkscapeExtension` class, but it raises an 
 `NotImplementedError` exception.  The method is a placeholder for subclasses to override. The `effect` method in `Triangle` class overrides it. 
