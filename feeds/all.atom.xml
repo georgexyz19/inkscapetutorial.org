@@ -56,7 +56,8 @@ to &lt;code&gt;self.options&lt;/code&gt; variable. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;run&lt;/code&gt; method derived from &lt;code&gt;EffectExtension&lt;/code&gt; class accepts two optional 
 arguments, &lt;code&gt;args&lt;/code&gt; and &lt;code&gt;output&lt;/code&gt; (see Chapter 3).  The &lt;code&gt;args&lt;/code&gt; argument must have 
 two instance variables &lt;code&gt;input_file&lt;/code&gt; and &lt;code&gt;output&lt;/code&gt;.  The &lt;code&gt;input_file&lt;/code&gt; can be either 
-a stream or a file name.  In the example below, the &lt;code&gt;blank_svg&lt;/code&gt; is a string 
+a stream or a file name. The &lt;code&gt;output&lt;/code&gt; instance variable override the &lt;code&gt;output&lt;/code&gt; 
+argument of &lt;code&gt;run&lt;/code&gt; method. In the example below, the &lt;code&gt;blank_svg&lt;/code&gt; is a string 
 representing a blank &lt;span class="caps"&gt;SVG&lt;/span&gt; file in Inkscape. &lt;/p&gt;
 &lt;p&gt;The script below will create a &lt;code&gt;test.svg&lt;/code&gt; in the same 
 directory of &lt;code&gt;hello_app.py&lt;/code&gt; file. The &lt;code&gt;run&lt;/code&gt; method will invoke the &lt;code&gt;effect&lt;/code&gt; 
@@ -128,9 +129,8 @@ this Python program.  &lt;/p&gt;
     &lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HelloApp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Param&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;input_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;blank_svg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# or file name&lt;/span&gt;
-    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
-    &lt;span class="n"&gt;output_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;test.svg&amp;#39;&lt;/span&gt;
-    &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;test.svg&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;Others&lt;/h2&gt;

@@ -129,7 +129,8 @@ to <code>self.options</code> variable. </p>
 <p>The <code>run</code> method derived from <code>EffectExtension</code> class accepts two optional 
 arguments, <code>args</code> and <code>output</code> (see Chapter 3).  The <code>args</code> argument must have 
 two instance variables <code>input_file</code> and <code>output</code>.  The <code>input_file</code> can be either 
-a stream or a file name.  In the example below, the <code>blank_svg</code> is a string 
+a stream or a file name. The <code>output</code> instance variable override the <code>output</code> 
+argument of <code>run</code> method. In the example below, the <code>blank_svg</code> is a string 
 representing a blank <span class="caps">SVG</span> file in Inkscape. </p>
 <p>The script below will create a <code>test.svg</code> in the same 
 directory of <code>hello_app.py</code> file. The <code>run</code> method will invoke the <code>effect</code> 
@@ -201,9 +202,8 @@ this Python program.  </p>
     <span class="n">h</span> <span class="o">=</span> <span class="n">HelloApp</span><span class="p">()</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">Param</span><span class="p">()</span>
     <span class="n">args</span><span class="o">.</span><span class="n">input_file</span> <span class="o">=</span> <span class="n">blank_svg</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># or file name</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;test.svg&#39;</span>
-    <span class="n">h</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;test.svg&#39;</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 </code></pre></div>
 
 <h2>Others</h2>
