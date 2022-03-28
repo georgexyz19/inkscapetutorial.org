@@ -1,5 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Inkscape Tutorial</title><link href="https://www.inkscapetutorial.org/" rel="alternate"></link><link href="https://www.inkscapetutorial.org/feeds/all.atom.xml" rel="self"></link><id>https://www.inkscapetutorial.org/</id><updated>2021-09-01T20:23:00-04:00</updated><entry><title>Setup Inkscape in Windows and Ubuntu</title><link href="https://www.inkscapetutorial.org/inkscape-setup.html" rel="alternate"></link><published>2021-09-01T20:23:00-04:00</published><updated>2021-09-01T20:23:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-09-01:/inkscape-setup.html</id><summary type="html">&lt;p&gt;Inkscape software is easy to install in both Windows and Ubuntu.  However it is 
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Inkscape Tutorial</title><link href="https://www.inkscapetutorial.org/" rel="alternate"></link><link href="https://www.inkscapetutorial.org/feeds/all.atom.xml" rel="self"></link><id>https://www.inkscapetutorial.org/</id><updated>2022-03-28T09:26:00-04:00</updated><entry><title>Inkex Module As API</title><link href="https://www.inkscapetutorial.org/inkex_module.html" rel="alternate"></link><published>2022-03-28T09:26:00-04:00</published><updated>2022-03-28T09:26:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2022-03-28:/inkex_module.html</id><summary type="html">&lt;h2&gt;Inkex Module&lt;/h2&gt;
+&lt;p&gt;Many Inkscape extensions load an &lt;span class="caps"&gt;SVG&lt;/span&gt; file from Inkscape, add some elements 
+on the drawing, and transmit the modified &lt;span class="caps"&gt;SVG&lt;/span&gt; back to Inkscape. For example, 
+the &lt;code&gt;Hello&lt;/code&gt; extension …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Inkex Module&lt;/h2&gt;
+&lt;p&gt;Many Inkscape extensions load an &lt;span class="caps"&gt;SVG&lt;/span&gt; file from Inkscape, add some elements 
+on the drawing, and transmit the modified &lt;span class="caps"&gt;SVG&lt;/span&gt; back to Inkscape. For example, 
+the &lt;code&gt;Hello&lt;/code&gt; extension discussed in Chapter 5 adds a message on a drawing. 
+Certainly we can load elements from other &lt;span class="caps"&gt;SVG&lt;/span&gt; files or load images from 
+other files, and add them to the drawing. &lt;/p&gt;
+&lt;p&gt;At some point, someone may ask you the question &amp;#8220;Can we run the program without 
+Inkscape? I want to run it as a Python program&amp;#8221;. The answer is &amp;#8220;Yes, 
+definitely&amp;#8221;.  This article discusses how to do that. &lt;/p&gt;
+&lt;p&gt;In Ubuntu, the &lt;em&gt;system extension&lt;/em&gt; directory is,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/usr/share/inkscape/extensions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;inkex&lt;/code&gt; module files are located in the &lt;code&gt;inkex&lt;/code&gt; subdirectory. We can treat 
+the module as an &lt;span class="caps"&gt;API&lt;/span&gt; (Application Programming Interface) or a graphics library. &lt;/p&gt;
+&lt;h2&gt;Load Inkex&lt;/h2&gt;
+&lt;p&gt;As we discussed in Chapter 2, the Inkscape invokes Python complier at this 
+location (see below) to run extension programs. The &lt;code&gt;inkex&lt;/code&gt; module depends on the &lt;code&gt;lxml&lt;/code&gt; 
+module, which is already installed for this compiler. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/usr/bin/python3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We also need to let the compiler know how to find the &lt;code&gt;system extension&lt;/code&gt; directory and 
+&lt;code&gt;user extension&lt;/code&gt; directory. This is handled by modifying the system environment 
+variable &lt;code&gt;PYTHONPATH&lt;/code&gt;. In Bash terminal, type &lt;code&gt;export&lt;/code&gt; command to set the variable. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$export PYTHONPATH=${PYTHONPATH}:/usr/share/inkscape/extensions:\
+&amp;gt; /home/george/.config/inkscape/extensions  
+
+$echo $PYTHONPATH
+:/usr/share/inkscape/extensions:/home/george/......
+
+$/usr/bin/python3
+Python 3.9.7 (default, Sep 10 2021, 14:59:43) 
+[GCC 11.2.0] on linux
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; import inkex
+&amp;gt;&amp;gt;&amp;gt; import hello
+&amp;gt;&amp;gt;&amp;gt; exit()
+
+$/usr/bin/python3 hello_app.py  # see below for hello_app.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also add the export statement to the &lt;code&gt;.bashrc&lt;/code&gt; file under 
+Ubuntu user directory. Or create a short Bash script to setup the &lt;code&gt;PYTHONPATH&lt;/code&gt;
+environment variable and run the Python script. &lt;/p&gt;
+&lt;h2&gt;Python Script&lt;/h2&gt;
+&lt;p&gt;Let&amp;#8217;s create a Python script &lt;code&gt;hello_app.py&lt;/code&gt; to run the code in the &lt;code&gt;Hello&lt;/code&gt; extension 
+discussed in Chapter 5. The &lt;code&gt;Hello&lt;/code&gt; extension program uses the &lt;code&gt;ArgParse&lt;/code&gt; module 
+to parse the arguments.  We create a &lt;code&gt;Param&lt;/code&gt; class to simulate &lt;code&gt;ArgParse&lt;/code&gt; 
+arguments, and override the &lt;code&gt;parse_arguments&lt;/code&gt; method to assign a &lt;code&gt;Param&lt;/code&gt; object 
+to &lt;code&gt;self.options&lt;/code&gt; variable. &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;run&lt;/code&gt; method derived from &lt;code&gt;EffectExtension&lt;/code&gt; class accepts two optional 
+arguments, &lt;code&gt;args&lt;/code&gt; and &lt;code&gt;output&lt;/code&gt; (see Chapter 3).  The &lt;code&gt;args&lt;/code&gt; argument must have 
+two instance variables &lt;code&gt;input_file&lt;/code&gt; and &lt;code&gt;output&lt;/code&gt;.  The &lt;code&gt;input_file&lt;/code&gt; can be either 
+a stream or a file name.  In the example below, the &lt;code&gt;blank_svg&lt;/code&gt; is a string 
+representing a blank &lt;span class="caps"&gt;SVG&lt;/span&gt; file in Inkscape. &lt;/p&gt;
+&lt;p&gt;The script below will create a &lt;code&gt;test.svg&lt;/code&gt; in the same 
+directory of &lt;code&gt;hello_app.py&lt;/code&gt; file. The &lt;code&gt;run&lt;/code&gt; method will invoke the &lt;code&gt;effect&lt;/code&gt; 
+method in &lt;code&gt;Hello&lt;/code&gt; class defined in &lt;code&gt;hello.py&lt;/code&gt;. Notice We are running the program 
+outside of Inkscape. You do not need Inkscape installed to run 
+this Python program.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# hello_app.py&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;hello&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Hello&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HelloApp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;parse_arguments&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ids&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;selected_nodes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Param&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Inkex App&amp;#39;&lt;/span&gt;
+          &lt;span class="c1"&gt;## add other GUI variables here&lt;/span&gt;
+
+
+&lt;span class="n"&gt;blank_svg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&amp;#39;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; standalone=&amp;quot;no&amp;quot;?&amp;gt;&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;lt;!-- Created with Inkscape (http://www.inkscape.org/) --&amp;gt;&lt;/span&gt;
+
+&lt;span class="s1"&gt;&amp;lt;svg&lt;/span&gt;
+&lt;span class="s1"&gt;   width=&amp;quot;210mm&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   height=&amp;quot;297mm&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   viewBox=&amp;quot;0 0 210 297&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   version=&amp;quot;1.1&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   id=&amp;quot;svg5&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   inkscape:version=&amp;quot;1.1.1 (1:1.1+202109281954+c3084ef5ed)&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   sodipodi:docname=&amp;quot;drawing.svg&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   xmlns:inkscape=&amp;quot;http://www.inkscape.org/namespaces/inkscape&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   xmlns:sodipodi=&amp;quot;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;   xmlns:svg=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&amp;gt;&lt;/span&gt;
+&lt;span class="s1"&gt;  &amp;lt;sodipodi:namedview&lt;/span&gt;
+&lt;span class="s1"&gt;     id=&amp;quot;namedview7&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     pagecolor=&amp;quot;#ffffff&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     bordercolor=&amp;quot;#666666&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     borderopacity=&amp;quot;1.0&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:pageshadow=&amp;quot;2&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:pageopacity=&amp;quot;0.0&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:pagecheckerboard=&amp;quot;0&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:document-units=&amp;quot;mm&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     showgrid=&amp;quot;false&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:zoom=&amp;quot;0.64052329&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:cx=&amp;quot;397.33138&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:cy=&amp;quot;561.25984&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:window-width=&amp;quot;2560&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:window-height=&amp;quot;1480&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:window-x=&amp;quot;0&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:window-y=&amp;quot;0&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:window-maximized=&amp;quot;1&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:current-layer=&amp;quot;layer1&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="s1"&gt;  &amp;lt;defs&lt;/span&gt;
+&lt;span class="s1"&gt;     id=&amp;quot;defs2&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="s1"&gt;  &amp;lt;g&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:label=&amp;quot;Layer 1&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     inkscape:groupmode=&amp;quot;layer&amp;quot;&lt;/span&gt;
+&lt;span class="s1"&gt;     id=&amp;quot;layer1&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;lt;/svg&amp;gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HelloApp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Param&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;input_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;blank_svg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# or file name&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+    &lt;span class="n"&gt;output_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;test.svg&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Others&lt;/h2&gt;
+&lt;p&gt;We can also create a virtual environment with system Python compiler, 
+and install &lt;code&gt;lxml&lt;/code&gt; and other modules in the virtual environment.  This is 
+the preferred way to work on this type of project.   &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$python -m venv venv
+$source venv/bin/activate
+$pip install lxml    ## and other modules
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="extension"></category></entry><entry><title>Setup Inkscape in Windows and Ubuntu</title><link href="https://www.inkscapetutorial.org/inkscape-setup.html" rel="alternate"></link><published>2021-09-01T20:23:00-04:00</published><updated>2021-09-01T20:23:00-04:00</updated><author><name>George Zhang</name></author><id>tag:www.inkscapetutorial.org,2021-09-01:/inkscape-setup.html</id><summary type="html">&lt;p&gt;Inkscape software is easy to install in both Windows and Ubuntu.  However it is 
 a little difficult for beginners to figure out how to customize the software. 
 This article discusses …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Inkscape software is easy to install in both Windows and Ubuntu.  However it is 
 a little difficult for beginners to figure out how to customize the software. 
@@ -3008,6 +3149,19 @@ DEBUG: sys argv: [&amp;#39;triangle.py&amp;#39;, &amp;#39;--s_a=100&amp;#39;, &a
 DEBUG: input : /tmp/ink_ext_XXXXXX.svgVYXM70
 DEBUG: output : &amp;lt;_io.BufferedWriter name=&amp;#39;&amp;lt;stdout&amp;gt;&amp;#39;&amp;gt;
 DEBUG: run ends
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice the &lt;code&gt;sys.executable&lt;/code&gt; output is &lt;code&gt;/usr/bin/python3&lt;/code&gt;. Inkscape invokes Python 
+complier at this location to run extension programs. The &lt;code&gt;inkex&lt;/code&gt; module depends on 
+the &lt;code&gt;lxml&lt;/code&gt; module, which is already installed for this compiler. You can simply 
+import lxml module (shown below) to confirm that. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;george@NUC:~$ /usr/bin/python3
+Python 3.9.7 (default, Sep 10 2021, 14:59:43) 
+[GCC 11.2.0] on linux
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt;  
+&amp;gt;&amp;gt;&amp;gt; import lxml
+&amp;gt;&amp;gt;&amp;gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Between the &lt;code&gt;load_raw&lt;/code&gt; and &lt;code&gt;save_raw&lt;/code&gt; method calls, there is an &lt;code&gt;effect&lt;/code&gt; method call. 

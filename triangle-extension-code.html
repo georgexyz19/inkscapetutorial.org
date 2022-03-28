@@ -379,6 +379,19 @@ DEBUG: output : &lt;_io.BufferedWriter name=&#39;&lt;stdout&gt;&#39;&gt;
 DEBUG: run ends
 </code></pre></div>
 
+<p>Notice the <code>sys.executable</code> output is <code>/usr/bin/python3</code>. Inkscape invokes Python 
+complier at this location to run extension programs. The <code>inkex</code> module depends on 
+the <code>lxml</code> module, which is already installed for this compiler. You can simply 
+import lxml module (shown below) to confirm that. </p>
+<div class="highlight"><pre><span></span><code>george@NUC:~$ /usr/bin/python3
+Python 3.9.7 (default, Sep 10 2021, 14:59:43) 
+[GCC 11.2.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;  
+&gt;&gt;&gt; import lxml
+&gt;&gt;&gt; 
+</code></pre></div>
+
 <p>Between the <code>load_raw</code> and <code>save_raw</code> method calls, there is an <code>effect</code> method call. 
 The <code>effect</code> method is defined in the <code>InkscapeExtension</code> class, but it raises an 
 <code>NotImplementedError</code> exception.  The method is a placeholder for subclasses to override. The <code>effect</code> method in <code>Triangle</code> class overrides it. </p>
@@ -453,6 +466,9 @@ to experiment and modify it as you like. </p>
 
 
     <p class="pl-2"><a href="https://www.inkscapetutorial.org/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/inkex_module.html">17. Inkex Module</a></p>
 
    
     </div>

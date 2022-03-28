@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/theme/css/bs4min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/theme/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/theme/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/theme/images/favicon_io/favicon-16x16.png">
+
+<link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/friendly.css">
+<link rel="stylesheet" href="https://www.inkscapetutorial.org/theme/css/custom.css">
+<meta name="author" content="George Zhang" />
+<meta name="description" content="Inkex Module Many Inkscape extensions load an SVG file from Inkscape, add some elements on the drawing, and transmit the modified SVG back to Inkscape. For example, the Hello extension …" />
+    <title>Inkex Module As API - Inkscape Tutorial</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.svg" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link pr-3 "
+                 href="/index.html">Inkscape Tutorial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 " 
+                href="/pages/extension.html">Extension Development</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "
+                   href="/pages/articles.html">Articles</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/search.html">Search</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " 
+                 href="/pages/about.html">About</a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+   
+
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="col-md-12 col-lg-9">
+
+      <h1>Chapter 17.&nbsp;&nbsp;Inkex Module As <span class="caps">API</span></h1>
+
+      <div class="text-muted mb-2">
+        <span>Posted on </span>
+        <time datetime="2022-03-28 09:26:00-04:00">
+          Monday, 03/28/2022 09:26
+        </time>
+
+      </div>
+
+      <h2>Inkex Module</h2>
+<p>Many Inkscape extensions load an <span class="caps">SVG</span> file from Inkscape, add some elements 
+on the drawing, and transmit the modified <span class="caps">SVG</span> back to Inkscape. For example, 
+the <code>Hello</code> extension discussed in Chapter 5 adds a message on a drawing. 
+Certainly we can load elements from other <span class="caps">SVG</span> files or load images from 
+other files, and add them to the drawing. </p>
+<p>At some point, someone may ask you the question &#8220;Can we run the program without 
+Inkscape? I want to run it as a Python program&#8221;. The answer is &#8220;Yes, 
+definitely&#8221;.  This article discusses how to do that. </p>
+<p>In Ubuntu, the <em>system extension</em> directory is,</p>
+<div class="highlight"><pre><span></span><code>/usr/share/inkscape/extensions
+</code></pre></div>
+
+<p>The <code>inkex</code> module files are located in the <code>inkex</code> subdirectory. We can treat 
+the module as an <span class="caps">API</span> (Application Programming Interface) or a graphics library. </p>
+<h2>Load Inkex</h2>
+<p>As we discussed in Chapter 2, the Inkscape invokes Python complier at this 
+location (see below) to run extension programs. The <code>inkex</code> module depends on the <code>lxml</code> 
+module, which is already installed for this compiler. </p>
+<div class="highlight"><pre><span></span><code>/usr/bin/python3
+</code></pre></div>
+
+<p>We also need to let the compiler know how to find the <code>system extension</code> directory and 
+<code>user extension</code> directory. This is handled by modifying the system environment 
+variable <code>PYTHONPATH</code>. In Bash terminal, type <code>export</code> command to set the variable. </p>
+<div class="highlight"><pre><span></span><code>$export PYTHONPATH=${PYTHONPATH}:/usr/share/inkscape/extensions:\
+&gt; /home/george/.config/inkscape/extensions  
+
+$echo $PYTHONPATH
+:/usr/share/inkscape/extensions:/home/george/......
+
+$/usr/bin/python3
+Python 3.9.7 (default, Sep 10 2021, 14:59:43) 
+[GCC 11.2.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import inkex
+&gt;&gt;&gt; import hello
+&gt;&gt;&gt; exit()
+
+$/usr/bin/python3 hello_app.py  # see below for hello_app.py
+</code></pre></div>
+
+<p>We can also add the export statement to the <code>.bashrc</code> file under 
+Ubuntu user directory. Or create a short Bash script to setup the <code>PYTHONPATH</code>
+environment variable and run the Python script. </p>
+<h2>Python Script</h2>
+<p>Let&#8217;s create a Python script <code>hello_app.py</code> to run the code in the <code>Hello</code> extension 
+discussed in Chapter 5. The <code>Hello</code> extension program uses the <code>ArgParse</code> module 
+to parse the arguments.  We create a <code>Param</code> class to simulate <code>ArgParse</code> 
+arguments, and override the <code>parse_arguments</code> method to assign a <code>Param</code> object 
+to <code>self.options</code> variable. </p>
+<p>The <code>run</code> method derived from <code>EffectExtension</code> class accepts two optional 
+arguments, <code>args</code> and <code>output</code> (see Chapter 3).  The <code>args</code> argument must have 
+two instance variables <code>input_file</code> and <code>output</code>.  The <code>input_file</code> can be either 
+a stream or a file name.  In the example below, the <code>blank_svg</code> is a string 
+representing a blank <span class="caps">SVG</span> file in Inkscape. </p>
+<p>The script below will create a <code>test.svg</code> in the same 
+directory of <code>hello_app.py</code> file. The <code>run</code> method will invoke the <code>effect</code> 
+method in <code>Hello</code> class defined in <code>hello.py</code>. Notice We are running the program 
+outside of Inkscape. You do not need Inkscape installed to run 
+this Python program.  </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># hello_app.py</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">hello</span> <span class="kn">import</span> <span class="n">Hello</span>
+
+
+<span class="k">class</span> <span class="nc">HelloApp</span><span class="p">(</span><span class="n">Hello</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">parse_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">selected_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">class</span> <span class="nc">Param</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Inkex App&#39;</span>
+          <span class="c1">## add other GUI variables here</span>
+
+
+<span class="n">blank_svg</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;</span>
+<span class="s1">&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;</span>
+
+<span class="s1">&lt;svg</span>
+<span class="s1">   width=&quot;210mm&quot;</span>
+<span class="s1">   height=&quot;297mm&quot;</span>
+<span class="s1">   viewBox=&quot;0 0 210 297&quot;</span>
+<span class="s1">   version=&quot;1.1&quot;</span>
+<span class="s1">   id=&quot;svg5&quot;</span>
+<span class="s1">   inkscape:version=&quot;1.1.1 (1:1.1+202109281954+c3084ef5ed)&quot;</span>
+<span class="s1">   sodipodi:docname=&quot;drawing.svg&quot;</span>
+<span class="s1">   xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot;</span>
+<span class="s1">   xmlns:sodipodi=&quot;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&quot;</span>
+<span class="s1">   xmlns=&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="s1">   xmlns:svg=&quot;http://www.w3.org/2000/svg&quot;&gt;</span>
+<span class="s1">  &lt;sodipodi:namedview</span>
+<span class="s1">     id=&quot;namedview7&quot;</span>
+<span class="s1">     pagecolor=&quot;#ffffff&quot;</span>
+<span class="s1">     bordercolor=&quot;#666666&quot;</span>
+<span class="s1">     borderopacity=&quot;1.0&quot;</span>
+<span class="s1">     inkscape:pageshadow=&quot;2&quot;</span>
+<span class="s1">     inkscape:pageopacity=&quot;0.0&quot;</span>
+<span class="s1">     inkscape:pagecheckerboard=&quot;0&quot;</span>
+<span class="s1">     inkscape:document-units=&quot;mm&quot;</span>
+<span class="s1">     showgrid=&quot;false&quot;</span>
+<span class="s1">     inkscape:zoom=&quot;0.64052329&quot;</span>
+<span class="s1">     inkscape:cx=&quot;397.33138&quot;</span>
+<span class="s1">     inkscape:cy=&quot;561.25984&quot;</span>
+<span class="s1">     inkscape:window-width=&quot;2560&quot;</span>
+<span class="s1">     inkscape:window-height=&quot;1480&quot;</span>
+<span class="s1">     inkscape:window-x=&quot;0&quot;</span>
+<span class="s1">     inkscape:window-y=&quot;0&quot;</span>
+<span class="s1">     inkscape:window-maximized=&quot;1&quot;</span>
+<span class="s1">     inkscape:current-layer=&quot;layer1&quot; /&gt;</span>
+<span class="s1">  &lt;defs</span>
+<span class="s1">     id=&quot;defs2&quot; /&gt;</span>
+<span class="s1">  &lt;g</span>
+<span class="s1">     inkscape:label=&quot;Layer 1&quot;</span>
+<span class="s1">     inkscape:groupmode=&quot;layer&quot;</span>
+<span class="s1">     id=&quot;layer1&quot; /&gt;</span>
+<span class="s1">&lt;/svg&gt;&#39;&#39;&#39;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">HelloApp</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Param</span><span class="p">()</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">input_file</span> <span class="o">=</span> <span class="n">blank_svg</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># or file name</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;test.svg&#39;</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Others</h2>
+<p>We can also create a virtual environment with system Python compiler, 
+and install <code>lxml</code> and other modules in the virtual environment.  This is 
+the preferred way to work on this type of project.   </p>
+<div class="highlight"><pre><span></span><code>$python -m venv venv
+$source venv/bin/activate
+$pip install lxml    ## and other modules
+</code></pre></div>
+
+    </div>
+
+
+    <div class="d-md-none d-lg-block col-lg-3 bg-light">
+
+
+<h2 class="mt-5">Chapters</h2>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/extension-get-started.html">1. Get Started</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/triangle-extension-code.html">2. Triangle Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/how-extensions-work.html">3. How Extensions Work</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/extension-workflow.html">4. Extension Workflow</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/hello-extension.html">5. Hello Extension</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/svg-file-format.html">6. SVG File Format</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/shape-classes.html">7. Shape Elements</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/lxml-basics.html">8. LXML Basics</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/inkex-element-classes.html">9. Element Classes</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/units-and-coordinate-systems.html">10. Units</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/transforms.html">11. Transforms</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/colors-and-styles.html">12. Colors and Styles</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/drawings-for-practice.html">13. Drawings For Practice</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/paths.html">14. Paths</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/selection.html">15. Selection</a></p>
+
+
+    <p class="pl-2"><a href="https://www.inkscapetutorial.org/arrowhead-extension.html">16. Arrowhead Extension</a></p>
+
+
+    <p class="font-italic pl-2">17. Inkex Module</p>
+
+   
+    </div>
+
+  </div>
+
+</div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
