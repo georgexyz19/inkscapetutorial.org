@@ -73,7 +73,8 @@ to `self.options` variable.
 The `run` method derived from `EffectExtension` class accepts two optional 
 arguments, `args` and `output` (see Chapter 3).  The `args` argument must have 
 two instance variables `input_file` and `output`.  The `input_file` can be either 
-a stream or a file name.  In the example below, the `blank_svg` is a string 
+a stream or a file name. The `output` instance variable override the `output` 
+argument of `run` method. In the example below, the `blank_svg` is a string 
 representing a blank SVG file in Inkscape. 
 
 The script below will create a `test.svg` in the same 
@@ -148,9 +149,8 @@ if __name__ == '__main__':
     h = HelloApp()
     args = Param()
     args.input_file = blank_svg.encode('utf-8') # or file name
-    args.output = None
-    output_file = 'test.svg'
-    h.run(args, output_file)
+    args.output = 'test.svg'
+    h.run(args)
 ```
 
 ## Others 
