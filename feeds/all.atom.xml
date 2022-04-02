@@ -5,9 +5,7 @@ on the drawing, and transmit the modified &lt;span class="caps"&gt;SVG&lt;/span&
 the &lt;code&gt;Hello&lt;/code&gt; extension …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Inkex Module&lt;/h2&gt;
 &lt;p&gt;Many Inkscape extensions load an &lt;span class="caps"&gt;SVG&lt;/span&gt; file from Inkscape, add some elements 
 on the drawing, and transmit the modified &lt;span class="caps"&gt;SVG&lt;/span&gt; back to Inkscape. For example, 
-the &lt;code&gt;Hello&lt;/code&gt; extension discussed in Chapter 5 adds a message on a drawing. 
-Certainly we can load elements from other &lt;span class="caps"&gt;SVG&lt;/span&gt; files or load images from 
-other files, and add them to the drawing. &lt;/p&gt;
+the &lt;code&gt;Hello&lt;/code&gt; extension discussed in Chapter 5 adds a message on a drawing.&lt;/p&gt;
 &lt;p&gt;At some point, someone may ask you the question &amp;#8220;Can we run the program without 
 Inkscape? I want to run it as a Python program&amp;#8221;. The answer is &amp;#8220;Yes, 
 definitely&amp;#8221;.  This article discusses how to do that. &lt;/p&gt;
