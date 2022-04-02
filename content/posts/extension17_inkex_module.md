@@ -9,9 +9,7 @@ note: Inkex Module
 
 Many Inkscape extensions load an SVG file from Inkscape, add some elements 
 on the drawing, and transmit the modified SVG back to Inkscape. For example, 
-the `Hello` extension discussed in Chapter 5 adds a message on a drawing. 
-Certainly we can load elements from other SVG files or load images from 
-other files, and add them to the drawing. 
+the `Hello` extension discussed in Chapter 5 adds a message on a drawing.
 
 At some point, someone may ask you the question "Can we run the program without 
 Inkscape? I want to run it as a Python program". The answer is "Yes, 
