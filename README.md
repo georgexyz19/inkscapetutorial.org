@@ -10,7 +10,7 @@ To run a development server in local environment, enter those commands
 on terminal, 
 
 ```
-$python -m venv ven
+$python -m venv venv
 $source venv/bin/activate
 $pip install -r requirements.txt
 $invoke livereload
